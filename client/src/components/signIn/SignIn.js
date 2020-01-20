@@ -1,43 +1,60 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
+import { useState } from "react";
 
-const SignIn = () => {
+const SignIn = props => {
   const context = useContext(AuthContext);
-  
+  const isLoggedIn = context.isLoggedIn;
+  const [stateChecked, setStateChecked] = useState(false);
 
   useEffect(() => {
-    const form = document.getElementById("signin-form");
-    form.addEventListener("submit", e => {
-      e.preventDefault();
-
-      // get user info
-      const email = form["signin-email"].value;
-      const password = form["signin-password"].value;
-      context.signin(email, password);
+    context.checkIfLoggedIn().then(val => {
+      if (val) {
+        props.history.push("/user/dashboard");
+      } else {
+        setStateChecked(true);
+      }
     });
-  }, []);
+
+    if (stateChecked) {
+      const form = document.getElementById("signin-form");
+      form.addEventListener("submit", e => {
+        e.preventDefault();
+
+        // get user info
+        const email = form["signin-email"].value;
+        const password = form["signin-password"].value;
+        context.signin(email, password);
+      });
+    }
+  }, [stateChecked]);
 
   return (
     <React.Fragment>
-      <form id="signin-form">
-        <input
-          type="email"
-          name="email"
-          id="signin-email"
-          autoComplete="off"
-          placeHolder="Adresse e-mail"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          id="signin-password"
-          autoComplete="off"
-          placeHolder="Mot de passe"
-          required
-        />
-        <button id="signin-btn">Connexion</button>
-      </form>
+      {isLoggedIn ? props.history.push("/user/dashboard") : <React.Fragment />}
+      {stateChecked ? (
+        <form id="signin-form">
+          <input
+            type="email"
+            name="email"
+            id="signin-email"
+            autoComplete="off"
+            placeholder="Adresse e-mail"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            id="signin-password"
+            autoComplete="off"
+            placeholder="Mot de passe"
+            required
+          />
+          <button id="signin-btn">Connexion</button>
+        </form>
+      ) : (
+        <React.Fragment />
+      )}
     </React.Fragment>
   );
 };

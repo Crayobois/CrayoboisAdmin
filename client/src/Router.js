@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import User from "./components/signIn/User";
 import SignIn from "./components/signIn/SignIn";
 
 const RouterComponent = () => {
@@ -7,7 +8,16 @@ const RouterComponent = () => {
     <React.Fragment>
       <Router>
         <Switch>
-          <Route path="/connexion" exact render={props => <SignIn {...props} />} />
+          <Route
+            path="/user/connexion"
+            exact
+            render={props => <SignIn {...props} />}
+          />
+          <Route
+            path="/user/dashboard"
+            exact
+            render={props => <User {...props} />}
+          />
           <Route
             path="/"
             render={() => (

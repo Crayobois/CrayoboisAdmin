@@ -8,7 +8,8 @@ const AuthStates = props => {
   const [caughtErr, setCaughtErr] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   //const [loading, setLoading] = useState(false);
-
+  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // firebase config
   const firebaseConfig = {
@@ -32,8 +33,8 @@ const AuthStates = props => {
   const db = firebase.firestore();
   const [isAuth, setIsAuth] = useState(auth.currentUser);
 
-  // check firebase's initialization
-  const isInitialized = () => {
+  // check login status
+  const checkIfLoggedIn = () => {
     return new Promise(resolve => {
       auth.onAuthStateChanged(resolve);
     });
@@ -42,8 +43,8 @@ const AuthStates = props => {
   // signout user
   const signout = () => {
     auth.signOut();
-    setInitializedFirebase(null);
-    setIsAuth(null);
+    setIsLoggedIn(false);
+    setUser(null);
   };
 
   // signin user
@@ -51,31 +52,55 @@ const AuthStates = props => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(cred => {
-      //  setLoading(true);
+        //  setLoading(true);
         setCaughtErr(false);
 
-        // get user from db to initialize session
-        setIsAuth(auth.currentUser);
+        // initialize session
+        getUser();
 
         //ui update here
         const signinForm = document.querySelector("#signin-form");
         signinForm.reset();
-        setInitializedFirebase(cred.user);
+        setIsLoggedIn(true);
       })
       .catch(err => {
         setCaughtErr(true);
         alert("L'accès vous a été refusé");
+        alert(err);
       });
+  };
+
+  const getUser = () => {
+    if (auth.currentUser !== null) {
+      db.collection("users")
+        .doc(auth.currentUser.uid)
+        .get()
+        .then(doc => {
+          const userData = doc.data();
+          const userObj = {
+            email: userData.email,
+            fullName: userData.fullName
+          };
+          setUser(userObj);
+        });
+    } else {
+      return null;
+    }
   };
 
   return (
     <AuthContext.Provider
       value={{
-          signin: signin,
-          initializedFirebase: [initializedFirebase, setInitializedFirebase],
-          isAuth: [isAuth, setIsAuth],
-          caughtErr: [caughtErr, setCaughtErr],
-          errorMsg: [errorMsg, setErrorMsg]
+        signin: signin,
+        signout: signout,
+        initializedFirebase: [initializedFirebase, setInitializedFirebase],
+        isAuth: [isAuth, setIsAuth],
+        caughtErr: [caughtErr, setCaughtErr],
+        errorMsg: [errorMsg, setErrorMsg],
+        getUser: getUser,
+        user: [user, setUser],
+        isLoggedIn: isLoggedIn,
+        checkIfLoggedIn: checkIfLoggedIn
       }}
     >
       {props.children}
