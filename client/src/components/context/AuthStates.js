@@ -7,7 +7,7 @@ const AuthStates = props => {
   const [initializedFirebase, setInitializedFirebase] = useState(null);
   const [caughtErr, setCaughtErr] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  //const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -49,6 +49,7 @@ const AuthStates = props => {
 
   // signin user
   const signin = (email, password) => {
+    setLoading(true);
     auth
       .signInWithEmailAndPassword(email, password)
       .then(cred => {
@@ -59,7 +60,6 @@ const AuthStates = props => {
             .then(doc => {
               const userData = doc.data();
               if (userData.admin === true) {
-                //  setLoading(true);
                 setCaughtErr(false);
 
                 // initialize session
@@ -72,12 +72,14 @@ const AuthStates = props => {
               } else {
                 signout();
                 alert("L'accès vous a été refusé");
+                setLoading(false);
                 setCaughtErr(true);
               }
             });
         }
       })
       .catch(err => {
+        setLoading(false);
         setCaughtErr(true);
         alert("L'accès vous a été refusé");
         alert(err);
@@ -85,17 +87,24 @@ const AuthStates = props => {
   };
 
   const getUser = () => {
+    setLoading(true);
     if (auth.currentUser !== null) {
       db.collection("users")
         .doc(auth.currentUser.uid)
         .get()
         .then(doc => {
           const userData = doc.data();
-          const userObj = {
-            email: userData.email,
-            fullName: userData.fullName
-          };
-          setUser(userObj);
+          if (userData.admin === true) {
+            const userObj = {
+              email: userData.email,
+              fullName: userData.fullName
+            };
+            setUser(userObj);
+            setLoading(false);
+          } else {
+            setLoading(false);
+            return null;
+          }
         });
     } else {
       return null;
@@ -114,6 +123,7 @@ const AuthStates = props => {
         getUser: getUser,
         user: [user, setUser],
         isLoggedIn: isLoggedIn,
+        loading: [loading, setLoading],
         checkIfLoggedIn: checkIfLoggedIn
       }}
     >

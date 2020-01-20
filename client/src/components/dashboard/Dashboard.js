@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
+import Spinner from "../spinner/Spinner";
 
 const Dashboard = props => {
   const context = useContext(AuthContext);
-  const [user, setUser] = context.user;
+  const user = context.user[0];
+  const loading = context.loading[0];
 
   const signingOut = () => {
     context.signout();
@@ -16,8 +18,9 @@ const Dashboard = props => {
 
   return (
     <React.Fragment>
+      {loading ? <Spinner /> : <React.Fragment />}
       {user ? (
-        <React.Fragment>
+        <section className="dashboard-section">
           <span>Dashboard</span>
           <span>Bonjour: {user.fullName}</span>
           <button
@@ -28,9 +31,9 @@ const Dashboard = props => {
           >
             Sign out
           </button>
-        </React.Fragment>
+        </section>
       ) : (
-        <React.Fragment></React.Fragment>
+        <React.Fragment />
       )}
     </React.Fragment>
   );

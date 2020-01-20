@@ -1,11 +1,13 @@
 import React, { useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 import { useState } from "react";
+import Spinner from "../spinner/Spinner";
 
 const SignIn = props => {
   const context = useContext(AuthContext);
   const isLoggedIn = context.isLoggedIn;
   const [stateChecked, setStateChecked] = useState(false);
+  const loading = context.loading[0];
 
   useEffect(() => {
     context.checkIfLoggedIn().then(val => {
@@ -32,6 +34,7 @@ const SignIn = props => {
   return (
     <React.Fragment>
       {isLoggedIn ? props.history.push("/user/dashboard") : <React.Fragment />}
+      {loading ? <Spinner /> : <React.Fragment />}
       {stateChecked ? (
         <form id="signin-form">
           <input
