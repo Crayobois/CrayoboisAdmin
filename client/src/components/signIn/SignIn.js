@@ -9,6 +9,8 @@ const SignIn = props => {
   const isLoggedIn = context.isLoggedIn;
   const [stateChecked, setStateChecked] = useState(false);
   const loading = context.loading[0];
+  const caughtErr = context.caughtErr[0];
+  const errorMsg = context.errorMsg[0];
 
   useEffect(() => {
     context.checkIfLoggedIn().then(val => {
@@ -45,7 +47,17 @@ const SignIn = props => {
               src="https://firebasestorage.googleapis.com/v0/b/crayobois-fe722.appspot.com/o/logos%2Flogo%20black.png?alt=media&token=8fd71150-e1e3-4e64-92fb-3bb4c43a3935"
             />
             <form id="signin-form" className="signin-form">
-              <label htmlFor="email" className="signin-label"><i className="fas fa-envelope label-icon"></i>Adresse e-mail</label>
+              {caughtErr ? (
+                <span className="signin-alert">
+                  <i className="fas fa-info-circle"></i>
+                  {errorMsg}
+                </span>
+              ) : (
+                <React.Fragment />
+              )}
+              <label htmlFor="email" className="signin-label">
+                <i className="fas fa-envelope label-icon"></i>Adresse e-mail
+              </label>
               <input
                 type="email"
                 name="email"
@@ -55,7 +67,9 @@ const SignIn = props => {
                 placeholder="Adresse e-mail"
                 required
               />
-              <label htmlFor="password" className="signin-label"><i className="fas fa-lock label-icon"></i>Mot de passe</label>
+              <label htmlFor="password" className="signin-label">
+                <i className="fas fa-lock label-icon"></i>Mot de passe
+              </label>
               <input
                 type="password"
                 name="password"
@@ -66,7 +80,7 @@ const SignIn = props => {
                 required
               />
               <button id="signin-btn" className="signin-btn">
-                Connexion
+                Connexion<i className="fas fa-sign-in-alt btn-icon"></i>
               </button>
             </form>
           </div>

@@ -6,7 +6,7 @@ import * as firebase from "firebase";
 const AuthStates = props => {
   const [initializedFirebase, setInitializedFirebase] = useState(null);
   const [caughtErr, setCaughtErr] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState(null);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -61,7 +61,7 @@ const AuthStates = props => {
               const userData = doc.data();
               if (userData.admin === true) {
                 setCaughtErr(false);
-
+                setErrorMsg(null);
                 // initialize session
                 getUser();
 
@@ -71,9 +71,9 @@ const AuthStates = props => {
                 setIsLoggedIn(true);
               } else {
                 signout();
-                alert("L'accès vous a été refusé");
                 setLoading(false);
                 setCaughtErr(true);
+                setErrorMsg("L'accès vous a été refusé.");
               }
             });
         }
@@ -81,8 +81,7 @@ const AuthStates = props => {
       .catch(err => {
         setLoading(false);
         setCaughtErr(true);
-        alert("L'accès vous a été refusé");
-        alert(err);
+        setErrorMsg("L'accès vous a été refusé.");
       });
   };
 
