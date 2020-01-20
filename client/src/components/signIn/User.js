@@ -19,7 +19,15 @@ const User = props => {
   }, []);
 
   return (
-    <React.Fragment>{user ? <Dashboard history={props.history} /> : <React.Fragment />}</React.Fragment>
+    <React.Fragment>
+      {props.redirect ? (
+        props.history.push(props.redirect)
+      ) : user ? (
+        <Dashboard history={props.history} />
+      ) : (
+        <React.Fragment />
+      )}
+    </React.Fragment>
   );
 };
 

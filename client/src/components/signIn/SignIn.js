@@ -3,6 +3,7 @@ import AuthContext from "../context/AuthContext";
 import { useState } from "react";
 import Spinner from "../spinner/Spinner";
 import "./SignIn.css";
+import logo from "./images/logo_black.png";
 
 const SignIn = props => {
   const context = useContext(AuthContext);
@@ -42,10 +43,7 @@ const SignIn = props => {
       {stateChecked ? (
         <section className="signin-section">
           <div className="signin-container">
-            <img
-              className="signin-logo"
-              src="https://firebasestorage.googleapis.com/v0/b/crayobois-fe722.appspot.com/o/logos%2Flogo%20black.png?alt=media&token=8fd71150-e1e3-4e64-92fb-3bb4c43a3935"
-            />
+            <img className="signin-logo" src={logo} />
             <form id="signin-form" className="signin-form">
               {caughtErr ? (
                 <span className="signin-alert">

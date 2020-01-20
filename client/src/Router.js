@@ -11,17 +11,17 @@ const RouterComponent = () => {
         <Route
             path="/"
             exact
-            render={props => <SignIn {...props} />}
+            render={props => <User {...props} redirect="/user/connexion"/>}
           />
           <Route
             path="/user/connexion"
             exact
-            render={props => <SignIn {...props} />}
+            render={props => <SignIn {...props} redirect={null}/>}
           />
           <Route
             path="/user/dashboard"
             exact
-            render={props => <User {...props} />}
+            render={props => <User {...props} redirect={null}/>}
           />
           <Route
             path="/"
