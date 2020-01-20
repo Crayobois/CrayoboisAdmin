@@ -32,6 +32,7 @@ const AuthStates = props => {
   const db = firebase.firestore();
   const [isAuth, setIsAuth] = useState(auth.currentUser);
 
+  // check firebase's initialization
   const isInitialized = () => {
     return new Promise(resolve => {
       auth.onAuthStateChanged(resolve);
@@ -57,20 +58,24 @@ const AuthStates = props => {
         setIsAuth(auth.currentUser);
 
         //ui update here
-       /* const signinForm = document.querySelector("#signin-form");
-        signinForm.reset();*/
+        const signinForm = document.querySelector("#signin-form");
+        signinForm.reset();
         setInitializedFirebase(cred.user);
       })
       .catch(err => {
         setCaughtErr(true);
-        setErrorMsg("L'accès vous a été refusé");
+        alert("L'accès vous a été refusé");
       });
   };
 
   return (
     <AuthContext.Provider
       value={{
-          test: "accompli"
+          signin: signin,
+          initializedFirebase: [initializedFirebase, setInitializedFirebase],
+          isAuth: [isAuth, setIsAuth],
+          caughtErr: [caughtErr, setCaughtErr],
+          errorMsg: [errorMsg, setErrorMsg]
       }}
     >
       {props.children}
