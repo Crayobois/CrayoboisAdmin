@@ -8,6 +8,11 @@ const RouterComponent = () => {
     <React.Fragment>
       <Router>
         <Switch>
+        <Route
+            path="/"
+            exact
+            render={props => <SignIn {...props} />}
+          />
           <Route
             path="/user/connexion"
             exact

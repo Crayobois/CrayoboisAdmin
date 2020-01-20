@@ -52,16 +52,30 @@ const AuthStates = props => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(cred => {
-        //  setLoading(true);
-        setCaughtErr(false);
+        if (auth.currentUser !== null) {
+          db.collection("users")
+            .doc(auth.currentUser.uid)
+            .get()
+            .then(doc => {
+              const userData = doc.data();
+              if (userData.admin === true) {
+                //  setLoading(true);
+                setCaughtErr(false);
 
-        // initialize session
-        getUser();
+                // initialize session
+                getUser();
 
-        //ui update here
-        const signinForm = document.querySelector("#signin-form");
-        signinForm.reset();
-        setIsLoggedIn(true);
+                //ui update here
+                const signinForm = document.querySelector("#signin-form");
+                signinForm.reset();
+                setIsLoggedIn(true);
+              } else {
+                signout();
+                alert("L'accès vous a été refusé");
+                setCaughtErr(true);
+              }
+            });
+        }
       })
       .catch(err => {
         setCaughtErr(true);
