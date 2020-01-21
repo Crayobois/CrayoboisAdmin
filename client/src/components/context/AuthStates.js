@@ -10,6 +10,7 @@ const AuthStates = props => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [orders, setOrders] = useState(null);
 
   // firebase config
   const firebaseConfig = {
@@ -110,6 +111,16 @@ const AuthStates = props => {
     }
   };
 
+  const getOrders = () => {
+    db.collection("orders")
+      .doc("ordersList")
+      .get()
+      .then(doc => {
+        const data = doc.data();
+        setOrders(data["list"]);
+      });
+ }
+
   return (
     <AuthContext.Provider
       value={{
@@ -123,7 +134,9 @@ const AuthStates = props => {
         user: [user, setUser],
         isLoggedIn: isLoggedIn,
         loading: [loading, setLoading],
-        checkIfLoggedIn: checkIfLoggedIn
+        checkIfLoggedIn: checkIfLoggedIn,
+        getOrders: getOrders,
+        orders: [orders, setOrders]
       }}
     >
       {props.children}

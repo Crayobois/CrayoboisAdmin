@@ -3,6 +3,7 @@ import AuthContext from "../context/AuthContext";
 import Spinner from "../spinner/Spinner";
 import logo from "../images/logo_black.png";
 import "./Dashboard.css";
+import Orders from "./Orders";
 
 const Dashboard = props => {
   const context = useContext(AuthContext);
@@ -111,7 +112,9 @@ const Dashboard = props => {
               </button>
             </div>
           </div>
-          <div className="dashboard-right"></div>
+          <div className="dashboard-right">
+            {activeLink === "orders" ? <Orders /> : <React.Fragment />}
+          </div>
         </section>
       ) : (
         <React.Fragment />
