@@ -36,6 +36,7 @@ const Dashboard = props => {
                       ? "dashboard-link active-link"
                       : "dashboard-link"
                   }
+                  onClick={() => {setActiveLink("dashboard")}}
                 >
                   <i
                     className={
@@ -52,6 +53,7 @@ const Dashboard = props => {
                       ? "dashboard-link active-link"
                       : "dashboard-link"
                   }
+                  onClick={() => {setActiveLink("orders")}}
                 >
                   <i
                     className={
@@ -68,6 +70,7 @@ const Dashboard = props => {
                       ? "dashboard-link active-link"
                       : "dashboard-link"
                   }
+                  onClick={() => {setActiveLink("materials")}}
                 >
                   <i
                     className={
@@ -84,6 +87,7 @@ const Dashboard = props => {
                       ? "dashboard-link active-link"
                       : "dashboard-link"
                   }
+                  onClick={() => {setActiveLink("hardwares")}}
                 >
                   <i
                     className={

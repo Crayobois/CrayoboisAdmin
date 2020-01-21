@@ -11,7 +11,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: calc(25% - 100px);
+  width: calc(30% - 100px);
   height: calc(100% - 100px);
   padding: 50px;
   box-shadow: var(--mid_shadow);
@@ -57,13 +57,14 @@
   align-items: center;
   font-size: 15px;
   color: hsl(204, 20%, 42%);
+  transition: all 0.15s ease-in-out;
 }
 
 .dashboard-link {
   color: hsl(204, 20%, 25%);
   padding: 12.5px 0 12.5px;
   width: auto;
-  left: 20px;
+  left: 40px;
   font-weight: 500;
   display: flex;
   justify-content: flex-start;
@@ -72,6 +73,15 @@
   font-size: 1.1rem;
   cursor: pointer;
   position: relative;
+  transition: all 0.15s ease-in-out;
+}
+
+.dashboard-link:hover {
+  color: var(--orange);
+}
+
+.dashboard-link:hover > i {
+  color: hsl(29, 64%, 50%) !important;
 }
 
 .active-link {
@@ -87,7 +97,7 @@
   position: absolute;
   top: 50%;
   left: 0;
-  transform: translate(-20px, -50%);
+  transform: translate(-40px, -50%);
 }
 
 .active-link-icon {
@@ -98,4 +108,5 @@
 .dashboard-right {
   width: 100%;
   height: 100%;
+  padding: 50px;
 }
