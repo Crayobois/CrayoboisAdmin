@@ -49,7 +49,7 @@
   filter: none;
 }
 
-.signin-btn {
+.btn {
   background-color: var(--orange);
   font-size: 18px;
   border-radius: 5px;
@@ -98,7 +98,7 @@
   margin-right: 8px;
 }
 
-.signin-btn:hover {
+.btn:hover {
   opacity: 0.85;
 }
 

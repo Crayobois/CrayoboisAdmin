@@ -3,7 +3,7 @@ import AuthContext from "../context/AuthContext";
 import { useState } from "react";
 import Spinner from "../spinner/Spinner";
 import "./SignIn.css";
-import logo from "./images/logo_black.png";
+import logo from "../images/logo_black.png";
 
 const SignIn = props => {
   const context = useContext(AuthContext);
@@ -77,7 +77,7 @@ const SignIn = props => {
                 placeholder="Mot de passe"
                 required
               />
-              <button id="signin-btn" className="signin-btn">
+              <button id="signin-btn" className="btn">
                 Connexion<i className="fas fa-sign-in-alt btn-icon"></i>
               </button>
             </form>

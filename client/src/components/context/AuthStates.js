@@ -81,7 +81,7 @@ const AuthStates = props => {
       .catch(err => {
         setLoading(false);
         setCaughtErr(true);
-        setErrorMsg("L'accès vous a été refusé.");
+        setErrorMsg("L'accès vous a été refusée.");
       });
   };
 
