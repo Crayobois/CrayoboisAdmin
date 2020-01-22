@@ -6,6 +6,7 @@ const Orders = props => {
   const context = useContext(Context);
   const displayedList = context.displayedList[0];
   const generateNewList = context.generateNewList;
+  const [focusedOrder, setFocusedOrder] = useState(null);
 
   const newList = () => {
     const stateSelect = document.querySelector("#orders-state");

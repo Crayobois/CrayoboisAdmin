@@ -93,7 +93,7 @@ const AuthStates = props => {
 
   const getUser = () => {
     setLoading(true);
-    if (auth.currentUser !== null) {
+    if (auth.currentUser) {
       db.collection("users")
         .doc(auth.currentUser.uid)
         .get()
@@ -117,14 +117,15 @@ const AuthStates = props => {
   };
 
   const getOrders = () => {
-    db.collection("orders")
-      .doc("ordersList")
-      .get()
-      .then(doc => {
-        const data = doc.data();
-        setOrders(data["list"]);
-        initializeDisplayedList(data["list"]);
-      });
+    if (auth.currentUser)
+      db.collection("orders")
+        .doc("ordersList")
+        .get()
+        .then(doc => {
+          const data = doc.data();
+          setOrders(data["list"]);
+          initializeDisplayedList(data["list"]);
+        });
   };
 
   /* Orders management */
@@ -148,13 +149,7 @@ const AuthStates = props => {
     setOrdersWaiting(waiting);
   };
 
-  const sortOrdersByCreateTime = (collection, state, order) => {
-    if (state === "*" && order === "recent") {
-      setDisplayedList(collection);
-      console.log(collection);
-      return null;
-    }
-
+  const sortOrdersByCreateTime = (collection, order) => {
     if (order === "recent") {
       /* sort collection */
       for (var i = 0; i < collection.length; i++) {
@@ -183,26 +178,26 @@ const AuthStates = props => {
       }
     }
 
-    console.log(collection);
-    setDisplayedList(collection);
+    setDisplayedList([...collection]);
+    return collection;
   };
 
   const initializeDisplayedList = orders => {
     sortOrdersByType(orders);
-    setDisplayedList(orders);
+    setDisplayedList(sortOrdersByCreateTime(orders, "recent"));
   };
 
   const generateNewList = (state, order) => {
     let collection;
     if (state === "*") {
-      collection = orders;
+      collection = [...orders];
     } else if (state === "waiting") {
       collection = ordersWaiting;
     } else {
       collection = ordersShipped;
     }
 
-    sortOrdersByCreateTime(collection, state, order);
+    sortOrdersByCreateTime(collection, order);
   };
 
   return (
