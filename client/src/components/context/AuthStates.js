@@ -10,7 +10,12 @@ const AuthStates = props => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  /* orders management */
   const [orders, setOrders] = useState(null);
+  const [ordersWaiting, setOrdersWaiting] = useState(null);
+  const [ordersShipped, setOrdersShipped] = useState(null);
+  const [displayedList, setDisplayedList] = useState(null);
 
   // firebase config
   const firebaseConfig = {
@@ -111,15 +116,101 @@ const AuthStates = props => {
     }
   };
 
-  const getOrders = () => {
+  const getOrders = () => {
     db.collection("orders")
       .doc("ordersList")
       .get()
       .then(doc => {
         const data = doc.data();
         setOrders(data["list"]);
+        initializeDisplayedList(data["list"]);
       });
- }
+  };
+
+  /* Orders management */
+  const isOrder1Recent = (order1, order2) => {
+    /* date type: timestamp */
+    const date1 = new Date(order1.create_time).valueOf;
+    const date2 = new Date(order2.create_time).valueOf;
+
+    if (date1 >= date2) {
+      /* order1 is recent */
+      return true;
+    } else {
+      /* order2 is recent */
+      return false;
+    }
+  };
+
+  const sortOrdersByType = () => {
+    if (orders) {
+      let shipped,
+        waiting = [];
+      /* Itirate through orders and sorting them */
+      for (var i = 0; i < orders.length; i++) {
+        if (orders[i].order_status !== "Livré") {
+          waiting.push(orders[i]);
+        } else {
+          shipped.push(orders[i]);
+        }
+      }
+      console.log(shipped, waiting);
+      setOrdersShipped(shipped);
+      setOrdersWaiting(waiting);
+    }
+  };
+
+  const sortOrdersByCreateTime = (collection, state, order) => {
+    if (state === "*" && order === "recent") {
+      setDisplayedList(collection);
+    }
+
+    if (order === "recent") {
+      for (var i = 0; i < collection.length; i++) {
+        for (var e = 0; e < collection.length - 1; i++) {
+          const comparaison = isOrder1Recent(collection[e], collection[e + 1]);
+          if (comparaison === false) {
+            const recent = collection[e + 1];
+            const old = collection[e];
+            collection[e] = recent;
+            collection[e + 1] = old;
+          }
+        }
+      }
+    } else {
+      for (var i = 0; i < collection.length; i++) {
+        for (var e = 0; e < collection.length - 1; i++) {
+          const comparaison = isOrder1Recent(collection[e], collection[e + 1]);
+          if (comparaison === true) {
+            const old = collection[e + 1];
+            const recent = collection[e];
+            collection[e] = old;
+            collection[e + 1] = recent;
+          }
+        }
+      }
+    }
+
+    setDisplayedList(collection);
+  };
+
+  const initializeDisplayedList = orders => {
+    sortOrdersByType();
+    setDisplayedList(orders);
+  };
+
+  const generateNewList = (state, order) => {
+    let collection;
+    if (state === "*") {
+      collection = orders;
+    } else if (state === "waiting") {
+      collection = ordersWaiting;
+    } else {
+      collection = ordersShipped;
+    }
+
+    sortOrdersByCreateTime(collection, state, order);
+  };
 
   return (
     <AuthContext.Provider
@@ -136,7 +227,9 @@ const AuthStates = props => {
         loading: [loading, setLoading],
         checkIfLoggedIn: checkIfLoggedIn,
         getOrders: getOrders,
-        orders: [orders, setOrders]
+        orders: [orders, setOrders],
+        ordersWaiting: [ordersWaiting, setOrdersWaiting],
+        ordersShipped: [ordersShipped, setOrdersShipped]
       }}
     >
       {props.children}
