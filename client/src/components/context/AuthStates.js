@@ -129,45 +129,36 @@ const AuthStates = props => {
 
   /* Orders management */
   const isOrder1Recent = (order1, order2) => {
-    /* date type: timestamp */
-    const date1 = new Date(order1.create_time).valueOf;
-    const date2 = new Date(order2.create_time).valueOf;
-
-    if (date1 >= date2) {
-      /* order1 is recent */
-      return true;
-    } else {
-      /* order2 is recent */
-      return false;
-    }
+    return order1.customId > order2.customId;
   };
 
-  const sortOrdersByType = () => {
-    if (orders) {
-      let shipped,
-        waiting = [];
-      /* Itirate through orders and sorting them */
-      for (var i = 0; i < orders.length; i++) {
-        if (orders[i].order_status !== "Livré") {
-          waiting.push(orders[i]);
-        } else {
-          shipped.push(orders[i]);
-        }
+  const sortOrdersByType = orders => {
+    let shipped = [];
+    let waiting = [];
+
+    /* Itirate through orders and sorting them */
+    for (var i = 0; i < orders.length; i++) {
+      if (orders[i].order_status !== "Livré") {
+        waiting.push(orders[i]);
+      } else {
+        shipped.push(orders[i]);
       }
-      console.log(shipped, waiting);
-      setOrdersShipped(shipped);
-      setOrdersWaiting(waiting);
     }
+    setOrdersShipped(shipped);
+    setOrdersWaiting(waiting);
   };
 
   const sortOrdersByCreateTime = (collection, state, order) => {
     if (state === "*" && order === "recent") {
       setDisplayedList(collection);
+      console.log(collection);
+      return null;
     }
 
     if (order === "recent") {
+      /* sort collection */
       for (var i = 0; i < collection.length; i++) {
-        for (var e = 0; e < collection.length - 1; i++) {
+        for (var e = 0; e < collection.length - 1; e++) {
           const comparaison = isOrder1Recent(collection[e], collection[e + 1]);
           if (comparaison === false) {
             const recent = collection[e + 1];
@@ -178,8 +169,9 @@ const AuthStates = props => {
         }
       }
     } else {
+      /* sort collection */
       for (var i = 0; i < collection.length; i++) {
-        for (var e = 0; e < collection.length - 1; i++) {
+        for (var e = 0; e < collection.length - 1; e++) {
           const comparaison = isOrder1Recent(collection[e], collection[e + 1]);
           if (comparaison === true) {
             const old = collection[e + 1];
@@ -191,11 +183,12 @@ const AuthStates = props => {
       }
     }
 
+    console.log(collection);
     setDisplayedList(collection);
   };
 
   const initializeDisplayedList = orders => {
-    sortOrdersByType();
+    sortOrdersByType(orders);
     setDisplayedList(orders);
   };
 
@@ -227,9 +220,8 @@ const AuthStates = props => {
         loading: [loading, setLoading],
         checkIfLoggedIn: checkIfLoggedIn,
         getOrders: getOrders,
-        orders: [orders, setOrders],
-        ordersWaiting: [ordersWaiting, setOrdersWaiting],
-        ordersShipped: [ordersShipped, setOrdersShipped]
+        generateNewList: generateNewList,
+        displayedList: [displayedList, setDisplayedList]
       }}
     >
       {props.children}

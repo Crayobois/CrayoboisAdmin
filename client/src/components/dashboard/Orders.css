@@ -1,38 +1,56 @@
 .orders-section {
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: var(--mid_shadow);
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: var(--mid_shadow);
 }
 
 .orders-filter {
-    padding: 25px;
-    width: calc(100% - 50px);
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  padding: 25px;
+  width: calc(100% - 50px);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .orders-filter-label {
-    color: var(--black);
-    font-size: 14px;
-    font-weight: 500;
-    margin-right: 10px;
+  color: var(--black);
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 10px;
 }
 
 .orders-select {
-    margin-right: 25px;
-    outline: none;
-    border: none;
-    background-color: #E7EBEF;
-    color: #526A7A;
-    font-size: 12px;
-    font-weight: 500;
-    border-radius: 5px;
-    padding: 10px 12.5px 10px 12.5px;
+  margin-right: 25px;
+  outline: none;
+  border: none;
+  background-color: #e7ebef;
+  color: #526a7a;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 10px 12.5px 10px 12.5px;
 }
 
 .last-select {
-    margin-right: 0;
+  margin-right: 0;
 }
+
+.filter-btn {
+  background-color: var(--black);
+  font-size: 12px;
+  border-radius: 5px;
+  font-weight: 500;
+  padding: 10px 12.5px 10px 12.5px;
+  border: none;
+  outline: none;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  letter-spacing: 0.35px;
+}
+
+.filter-btn:hover {
+    background-color: var(--orange);
+  }
