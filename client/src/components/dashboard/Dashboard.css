@@ -1,8 +1,8 @@
 .dashboard-section {
   display: flex;
   width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  height: max-content;
+  overflow-y: scroll;
 }
 
 /*Dashboard left*/
@@ -12,11 +12,19 @@
   justify-content: flex-start;
   align-items: center;
   width: calc(30% - 100px);
-  height: calc(100% - 100px);
   min-width: 255px;
   padding: 50px;
+  min-height: 100%;
   box-shadow: var(--mid_shadow);
   background-color: #fff;
+}
+
+.dashboard-left-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 100px);
 }
 
 .dashboard-logo-container {
@@ -108,6 +116,7 @@
 /*Dashboard right*/
 .dashboard-right {
   width: 100%;
-  height: calc(100% - 100px);
+  height: max-content;
+  min-height: calc(100% - 100px);
   padding: 50px;
 }

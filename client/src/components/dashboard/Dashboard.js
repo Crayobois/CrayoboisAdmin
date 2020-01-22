@@ -26,90 +26,100 @@ const Dashboard = props => {
       {user ? (
         <section className="dashboard-section">
           <div className="dashboard-left">
-            <div className="dashboard-logo-container">
-              <img src={logo} className="dashboard-logo" />
-            </div>
-            <div className="dashboard-nav">
-              <ul>
-                <li
-                  className={
-                    activeLink === "dashboard"
-                      ? "dashboard-link active-link"
-                      : "dashboard-link"
-                  }
-                  onClick={() => {setActiveLink("dashboard")}}
-                >
-                  <i
+            <div className="dashboard-left-container">
+              <div className="dashboard-logo-container">
+                <img src={logo} className="dashboard-logo" />
+              </div>
+              <div className="dashboard-nav">
+                <ul>
+                  <li
                     className={
                       activeLink === "dashboard"
-                        ? "fas fa-chart-line dashboard-nav-icon active-link-icon"
-                        : "fas fa-chart-line dashboard-nav-icon"
+                        ? "dashboard-link active-link"
+                        : "dashboard-link"
                     }
-                  ></i>
-                  Tableau de bord
-                </li>
-                <li
-                  className={
-                    activeLink === "orders"
-                      ? "dashboard-link active-link"
-                      : "dashboard-link"
-                  }
-                  onClick={() => {setActiveLink("orders")}}
-                >
-                  <i
+                    onClick={() => {
+                      setActiveLink("dashboard");
+                    }}
+                  >
+                    <i
+                      className={
+                        activeLink === "dashboard"
+                          ? "fas fa-chart-line dashboard-nav-icon active-link-icon"
+                          : "fas fa-chart-line dashboard-nav-icon"
+                      }
+                    ></i>
+                    Tableau de bord
+                  </li>
+                  <li
                     className={
                       activeLink === "orders"
-                        ? "fas fa-pallet dashboard-nav-icon active-link-icon"
-                        : "fas fa-pallet dashboard-nav-icon"
+                        ? "dashboard-link active-link"
+                        : "dashboard-link"
                     }
-                  ></i>
-                  Commandes
-                </li>
-                <li
-                  className={
-                    activeLink === "materials"
-                      ? "dashboard-link active-link"
-                      : "dashboard-link"
-                  }
-                  onClick={() => {setActiveLink("materials")}}
-                >
-                  <i
+                    onClick={() => {
+                      setActiveLink("orders");
+                    }}
+                  >
+                    <i
+                      className={
+                        activeLink === "orders"
+                          ? "fas fa-pallet dashboard-nav-icon active-link-icon"
+                          : "fas fa-pallet dashboard-nav-icon"
+                      }
+                    ></i>
+                    Commandes
+                  </li>
+                  <li
                     className={
                       activeLink === "materials"
-                        ? "fas fa-tree dashboard-nav-icon active-link-icon"
-                        : "fas fa-tree dashboard-nav-icon"
+                        ? "dashboard-link active-link"
+                        : "dashboard-link"
                     }
-                  ></i>
-                  Matériaux
-                </li>
-                <li
-                  className={
-                    activeLink === "hardwares"
-                      ? "dashboard-link active-link"
-                      : "dashboard-link"
-                  }
-                  onClick={() => {setActiveLink("hardwares")}}
-                >
-                  <i
+                    onClick={() => {
+                      setActiveLink("materials");
+                    }}
+                  >
+                    <i
+                      className={
+                        activeLink === "materials"
+                          ? "fas fa-tree dashboard-nav-icon active-link-icon"
+                          : "fas fa-tree dashboard-nav-icon"
+                      }
+                    ></i>
+                    Matériaux
+                  </li>
+                  <li
                     className={
                       activeLink === "hardwares"
-                        ? "fas fa-pen-alt dashboard-nav-icon active-link-icon"
-                        : "fas fa-pen-alt dashboard-nav-icon"
+                        ? "dashboard-link active-link"
+                        : "dashboard-link"
                     }
-                  ></i>
-                  Matériels
-                </li>
-              </ul>
-            </div>
-            <div className="dashboard-logout">
-              <button
-                className="btn"
-                onClick={() => {
-                  signingOut();
-                }}
-              >
-                Déconnexion<i className="fas fa-sign-out-alt btn-icon"></i>
-              </button>
+                    onClick={() => {
+                      setActiveLink("hardwares");
+                    }}
+                  >
+                    <i
+                      className={
+                        activeLink === "hardwares"
+                          ? "fas fa-pen-alt dashboard-nav-icon active-link-icon"
+                          : "fas fa-pen-alt dashboard-nav-icon"
+                      }
+                    ></i>
+                    Matériels
+                  </li>
+                </ul>
+              </div>
+              <div className="dashboard-logout">
+                <button
+                  className="btn"
+                  onClick={() => {
+                    signingOut();
+                  }}
+                >
+                  Déconnexion<i className="fas fa-sign-out-alt btn-icon"></i>
+                </button>
+              </div>
             </div>
           </div>
           <div className="dashboard-right">
