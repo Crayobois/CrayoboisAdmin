@@ -1,10 +1,10 @@
 import React from "react";
 import "./Spinner.css";
 
-const Spinner = () => {
+const Spinner = (props) => {
   return (
     <React.Fragment>
-      <div className="spinner-container">
+      <div className={props.addStyle ? "spinner-container spinner-in-parent" : "spinner-container"}>
         <div className="spinner">
           <div className="bounce1"></div>
           <div className="bounce2"></div>

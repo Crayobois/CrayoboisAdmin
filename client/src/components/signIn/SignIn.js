@@ -39,7 +39,7 @@ const SignIn = props => {
   return (
     <React.Fragment>
       {isLoggedIn ? props.history.push("/user/dashboard") : <React.Fragment />}
-      {loading ? <Spinner /> : <React.Fragment />}
+      {loading ? <Spinner addStyle={false} /> : <React.Fragment />}
       {stateChecked ? (
         <section className="signin-section">
           <div className="signin-container">
