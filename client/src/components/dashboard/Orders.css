@@ -4,6 +4,7 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: var(--mid_shadow);
+  padding-bottom: 12.5px;
 }
 
 .orders-filter {
@@ -12,12 +13,12 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-bottom: 12.5px;
+  border-bottom: 1px solid #e9ebf1;
 }
 
 .orders-filter-label {
   color: var(--black);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   margin-right: 10px;
 }
@@ -28,7 +29,7 @@
   border: none;
   background-color: #e7ebef;
   color: #526a7a;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   border-radius: 5px;
   cursor: pointer;
@@ -41,7 +42,7 @@
 
 .filter-btn {
   background-color: var(--black);
-  font-size: 12px;
+  font-size: 14px;
   border-radius: 5px;
   font-weight: 500;
   padding: 10px 12.5px 10px 12.5px;
@@ -66,23 +67,80 @@
 /* mapping */
 
 .order {
-    display: flex;
-    height: 100px;
-    width: calc(100% - 100px);
-    padding: 12.5px 50px 12.5px 50px;
+  display: flex;
+  height: 100px;
+  width: calc(100% - 100px);
+  padding: 12.5px 50px 12.5px 50px;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+  border-bottom: 1px solid #e9ebf1;
+}
+
+.order:hover {
+  background-color: hsl(210, 50%, 97%);
 }
 
 .order-id-container {
-    width: 10%;
+  width: 10%;
 }
 
 .order-client-info-container {
-    width: 75%;
+  width: 75%;
 }
 
 .order-info-container {
-    width: 15%;
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.order-text {
+  color: var(--black);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.order-icon {
+  font-size: 14px;
+  color: hsl(204, 20%, 75%);
+  margin-right: 8px;
+  width: 24px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-icon-right {
+    margin: 0;
+    justify-content: flex-end;
+}
+
+.order-user {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-info-container {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    justify-content: space-between;
+}
+
+.order-info-quantities {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+}
+
+.order-state {
+    font-weight: 600;
+    font-size: 16px;
 }
