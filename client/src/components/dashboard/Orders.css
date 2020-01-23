@@ -27,6 +27,7 @@
   justify-content: flex-end;
   align-items: center;
   border-bottom: 1px solid #e9ebf1;
+  height: 42px;
 }
 
 .orders-filter-label {
