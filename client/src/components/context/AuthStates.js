@@ -200,6 +200,10 @@ const AuthStates = props => {
     sortOrdersByCreateTime(collection, order);
   };
 
+  const resetDisplayedList = () => {
+    setDisplayedList(orders);
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -216,7 +220,8 @@ const AuthStates = props => {
         checkIfLoggedIn: checkIfLoggedIn,
         getOrders: getOrders,
         generateNewList: generateNewList,
-        displayedList: [displayedList, setDisplayedList]
+        displayedList: [displayedList, setDisplayedList],
+        resetDisplayedList: resetDisplayedList
       }}
     >
       {props.children}

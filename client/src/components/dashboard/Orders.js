@@ -44,7 +44,11 @@ const Orders = props => {
     if (!displayedList) {
       context.getOrders();
     }
-  }, [displayedList]);
+
+    return () => {
+      context.resetDisplayedList();
+    };
+  }, []);
 
   return (
     <React.Fragment>
