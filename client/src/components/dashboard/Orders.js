@@ -19,6 +19,10 @@ const Orders = props => {
     generateNewList(state, order);
   };
 
+  const removeFocus = () => {
+    setFocusedOrder(null);
+  }
+
   const parseDate = prevDate => {
     let allowedChar = "0123456789-";
     let newDate = "";
@@ -58,7 +62,7 @@ const Orders = props => {
         }
       >
         {focusedOrder ? (
-          <FocusedOrder order={focusedOrder} />
+          <FocusedOrder order={focusedOrder} removeFocus={removeFocus} />
         ) : (
           <React.Fragment>
             {displayedList ? (

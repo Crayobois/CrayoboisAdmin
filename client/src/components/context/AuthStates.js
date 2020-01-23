@@ -51,6 +51,10 @@ const AuthStates = props => {
     auth.signOut();
     setIsLoggedIn(false);
     setUser(null);
+    setOrders(null);
+    setOrdersShipped(null);
+    setOrdersWaiting(null);
+    setDisplayedList(null);
   };
 
   // signin user
