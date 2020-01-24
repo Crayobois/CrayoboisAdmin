@@ -3,6 +3,7 @@ import "./FocusedOrder.css";
 import AuthContext from "../context/AuthContext";
 
 const FocusedOrder = props => {
+  const context = useContext(AuthContext);
   let order = props.order;
 
   const parseDate = prevDate => {
@@ -38,9 +39,17 @@ const FocusedOrder = props => {
           <i className="fas fa-chevron-left focused-order-back-icon"></i>
           Précédent
         </span>
-        <span className="filter-btn">
-          Livrer<i className="fas fa-shipping-fast ship"></i>
-        </span>
+        {order.order_status !== "Livré" ? (
+          <span className="filter-btn" onClick={
+            () => {
+              context.setToShipped(order);
+            }
+          }>
+            Livrer<i className="fas fa-shipping-fast ship"></i>
+          </span>
+        ) : (
+          <span className="shipped">Livré<i className="fas fa-check"></i></span>
+        )}
       </div>
       <div className="focused-order">
         <div className="focused-order-info">
@@ -57,15 +66,14 @@ const FocusedOrder = props => {
               {order.payer.email_address}
             </span>
             <span className="order-text">
-                <i className="far fa-calendar-alt order-icon"></i>
-                Transaction: {parseDate(order.create_time)}
-              </span>
+              <i className="far fa-calendar-alt order-icon"></i>
+              Transaction: {parseDate(order.create_time)}
+            </span>
           </div>
           <div className="order-info-summary">
             <span className="focused-order-sub-header">
               Adresse de livraison
             </span>
-
             <span className="order-text">
               <i className="fas fa-home order-icon"></i>
               {order.purchase_units[0].shipping.address.address_line_1}
@@ -86,7 +94,7 @@ const FocusedOrder = props => {
             <div className="focused-order-items">
               {order.purchase_units[0].items.map(item => {
                 return (
-                  <div className="focused-order-item-info">
+                  <div key={item.name} className="focused-order-item-info">
                     <div className="focused-order-item-name">
                       <span className="order-text">{item.name}</span>
                       <span className="focused-order-item-qty order-text">

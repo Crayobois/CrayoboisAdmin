@@ -34,7 +34,7 @@
 }
 
 .focused-order-back:hover {
-  background-color: #e7ebef;
+  background-color: hsl(210, 50%, 96%);
 }
 
 .focused-order-back-icon {
@@ -50,8 +50,20 @@
 }
 
 .focused-order {
-  padding: 0 25px 0 25px;
-  width: calc(100% - 50px);
+  padding: 0 50px 0 50px;
+  width: calc(100% - 100px);
+}
+
+.shipped {
+    color: var(--black);
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.fa-check {
+    margin-left: 8px;
+    font-size: 14px;
+    color: #29a039;
 }
 
 .focused-order-info-client {

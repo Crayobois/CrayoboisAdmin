@@ -206,7 +206,58 @@ const AuthStates = props => {
 
   const resetDisplayedList = () => {
     setDisplayedList(orders);
-  }
+  };
+
+  const setToShipped = order => {
+    const orderId = order.id;
+    const userId = order.uid;
+
+    if (auth.currentUser)
+      db.collection("users")
+        .doc(uid)
+        .get()
+        .then(doc => {
+          const data = doc.data();
+          let orders = data.orders;
+
+          // find order to update
+          for (var i = 0; i < orders.length; i++) {
+            if (orders[i].id === orderId) {
+              order[i].order_status = "Livré";
+              break;
+            }
+          }
+
+          // update user data
+          db.collection("users")
+            .doc(uid)
+            .update({
+              ["orders"]: orders
+            });
+
+          // find order in orders list
+          db.collection("orders")
+            .doc("ordersList")
+            .get()
+            .then(doc => {
+              let data = doc.data();
+
+              for (var e = 0; e < data.length; e++) {
+                if (data[e].id === orderId) {
+                  data[e].order_status = "Livré";
+                  break;
+                }
+              }
+
+              // update that order
+              db.collection("orders")
+                .doc("ordersList")
+                .update({
+                  ["list"]: data
+                });
+            });
+        });
+  };
 
   return (
     <AuthContext.Provider
@@ -225,7 +276,8 @@ const AuthStates = props => {
         getOrders: getOrders,
         generateNewList: generateNewList,
         displayedList: [displayedList, setDisplayedList],
-        resetDisplayedList: resetDisplayedList
+        resetDisplayedList: resetDisplayedList,
+        setToShipped: setToShipped
       }}
     >
       {props.children}
