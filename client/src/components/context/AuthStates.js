@@ -10,12 +10,14 @@ const AuthStates = props => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [recentStatusChange, setRecentStatusChange] = useState(false);
 
   /* orders management */
   const [orders, setOrders] = useState(null);
   const [ordersWaiting, setOrdersWaiting] = useState(null);
   const [ordersShipped, setOrdersShipped] = useState(null);
   const [displayedList, setDisplayedList] = useState(null);
+  const [focusedOrder, setFocusedOrder] = useState(null);
 
   // firebase config
   const firebaseConfig = {
@@ -127,8 +129,8 @@ const AuthStates = props => {
         .get()
         .then(doc => {
           const data = doc.data();
-          setOrders(data["list"]);
-          initializeDisplayedList(data["list"]);
+          setOrders([...data["list"]]);
+          initializeDisplayedList([...data["list"]]);
         });
   };
 
@@ -181,7 +183,6 @@ const AuthStates = props => {
         }
       }
     }
-
     setDisplayedList([...collection]);
     return collection;
   };
@@ -205,14 +206,14 @@ const AuthStates = props => {
   };
 
   const resetDisplayedList = () => {
-    setDisplayedList(orders);
+    setDisplayedList(sortOrdersByCreateTime(orders, "recent"));
   };
 
   const setToShipped = order => {
     const orderId = order.id;
     const userId = order.uid;
 
-    if (auth.currentUser)
+    if (auth.currentUser) {
       db.collection("users")
         .doc(userId)
         .get()
@@ -241,15 +242,12 @@ const AuthStates = props => {
             .then(doc => {
               let data = doc.data();
               let list = data["list"];
-              console.log(list);
               for (var e = 0; e < list.length; e++) {
                 if (list[e].id === orderId) {
                   list[e].order_status = "Livré";
                   break;
                 }
               }
-              console.log(list);
-
               // update that order
               db.collection("orders")
                 .doc("ordersList")
@@ -257,7 +255,23 @@ const AuthStates = props => {
                   ["list"]: list
                 });
             });
+        })
+        .then(() => {
+          setDisplayedList(null);
+        })
+        .then(() => {
+          setFocusedOrder(null);
+          // replace the current list
+          let newOrders = [...displayedList];
+          for (var i = 0; i < displayedList.length; i++) {
+            if (newOrders[i].id === orderId) {
+              newOrders[i].order_status = "Livré";
+              setDisplayedList([...newOrders]);
+              break;
+            }
+          }
         });
+    }
   };
 
   return (
@@ -278,7 +292,9 @@ const AuthStates = props => {
         generateNewList: generateNewList,
         displayedList: [displayedList, setDisplayedList],
         resetDisplayedList: resetDisplayedList,
-        setToShipped: setToShipped
+        setToShipped: setToShipped,
+        recentStatusChange: [recentStatusChange, setRecentStatusChange],
+        focusedOrder: [focusedOrder, setFocusedOrder]
       }}
     >
       {props.children}

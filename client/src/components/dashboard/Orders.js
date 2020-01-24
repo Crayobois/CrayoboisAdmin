@@ -8,7 +8,7 @@ const Orders = props => {
   const context = useContext(Context);
   const displayedList = context.displayedList[0];
   const generateNewList = context.generateNewList;
-  const [focusedOrder, setFocusedOrder] = useState(null);
+  const [focusedOrder, setFocusedOrder] = context.focusedOrder;
 
   const newList = () => {
     const stateSelect = document.querySelector("#orders-state");
@@ -21,7 +21,7 @@ const Orders = props => {
 
   const removeFocus = () => {
     setFocusedOrder(null);
-  }
+  };
 
   const parseDate = prevDate => {
     let allowedChar = "0123456789-";
@@ -49,7 +49,7 @@ const Orders = props => {
       context.getOrders();
     }
 
-    return () => {
+    return () => {
       context.resetDisplayedList();
     };
   }, []);
