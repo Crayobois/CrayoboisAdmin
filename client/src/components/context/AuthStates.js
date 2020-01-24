@@ -214,23 +214,22 @@ const AuthStates = props => {
 
     if (auth.currentUser)
       db.collection("users")
-        .doc(uid)
+        .doc(userId)
         .get()
         .then(doc => {
           const data = doc.data();
           let orders = data.orders;
-
           // find order to update
           for (var i = 0; i < orders.length; i++) {
             if (orders[i].id === orderId) {
-              order[i].order_status = "Livré";
+              orders[i].order_status = "Livré";
               break;
             }
           }
 
           // update user data
           db.collection("users")
-            .doc(uid)
+            .doc(userId)
             .update({
               ["orders"]: orders
             });
@@ -241,19 +240,21 @@ const AuthStates = props => {
             .get()
             .then(doc => {
               let data = doc.data();
-
-              for (var e = 0; e < data.length; e++) {
-                if (data[e].id === orderId) {
-                  data[e].order_status = "Livré";
+              let list = data["list"];
+              console.log(list);
+              for (var e = 0; e < list.length; e++) {
+                if (list[e].id === orderId) {
+                  list[e].order_status = "Livré";
                   break;
                 }
               }
+              console.log(list);
 
               // update that order
               db.collection("orders")
                 .doc("ordersList")
                 .update({
-                  ["list"]: data
+                  ["list"]: list
                 });
             });
         });
