@@ -7,17 +7,17 @@
 }
 
 .focused-order-top {
-    width: calc(100% - 50px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 25px;
-    height: 42px;
+  width: calc(100% - 50px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 25px;
+  height: 42px;
 }
 
 .ship {
-    margin-left: 8px;
-    font-size: 12px;
+  margin-left: 8px;
+  font-size: 12px;
 }
 
 .focused-order-back {
@@ -30,11 +30,11 @@
   justify-content: flex-start;
   align-items: center;
   border-radius: 5px;
-  transition: all 0.15s ease-in-out;
+  transition: all 0.1s ease-in;
 }
 
 .focused-order-back:hover {
-  background-color: hsl(210, 50%, 96%);
+  background-color: #e7ebef;
 }
 
 .focused-order-back-icon {
@@ -44,6 +44,37 @@
   opacity: 0.85;
 }
 
+.focused-order-info {
+    display: flex;
+    padding-bottom: 25px;
+}
+
 .focused-order {
-    width: 100%;
+  padding: 0 25px 0 25px;
+  width: calc(100% - 50px);
+}
+
+.focused-order-info-client {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding-right: 12.5px;
+}
+
+.order-info-summary {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding-left: 12.5px;
+}
+
+.focused-order-sub-header {
+  color: var(--black);
+  font-size: 18px;
+  font-weight: 600;
+  padding-bottom: 12.5px;
+}
+
+.order-bill {
+  border-top: 1px solid #e9ebf1;
 }

@@ -43,20 +43,41 @@ const FocusedOrder = props => {
         </span>
       </div>
       <div className="focused-order">
-        <div className="order-info">
-          <div className="order-info-client">
-            <span>{`${order.payer.name.given_name} ${order.payer.name.surname}`}</span>
-            <span>{order.payer.email_address}</span>
-            <span>{parseDate(order.create_time)}</span>
-            <span>
+        <div className="focused-order-info">
+          <div className="focused-order-info-client">
+            <span className="focused-order-sub-header">
+              Informations du client
+            </span>
+            <span className="order-text">
+              <i className="fas fa-user order-icon"></i>
+              {`${order.payer.name.given_name} ${order.payer.name.surname}`}
+            </span>
+            <span className="order-text">
+              <i className="fas fa-envelope order-icon"></i>
+              {order.payer.email_address}
+            </span>
+          </div>
+          <div className="order-info-summary">
+            <span className="focused-order-sub-header">
+              Informations de la commande
+            </span>
+            <span className="order-text">
+              <i className="far fa-calendar-alt order-icon"></i>
+              {parseDate(order.create_time)}
+            </span>
+            <span className="order-text">
+              <i className="fas fa-home order-icon"></i>
               {order.purchase_units[0].shipping.address.address_line_1}
             </span>
-            <span>
+            <span className="order-text">
+              <i className="fas fa-globe-americas order-icon"></i>
               {`${order.purchase_units[0].shipping.address.admin_area_2}, ${order.purchase_units[0].shipping.address.admin_area_1}, ${order.purchase_units[0].shipping.address.country_code}`}
             </span>
-            <span>{order.purchase_units[0].shipping.address.postal_code}</span>
+            <span className="order-text">
+              <i class="fas fa-mail-bulk order-icon"></i>
+              {order.purchase_units[0].shipping.address.postal_code}
+            </span>
           </div>
-          <div className="order-info-summary"></div>
         </div>
         <div className="order-bill"></div>
       </div>
