@@ -56,15 +56,16 @@ const FocusedOrder = props => {
               <i className="fas fa-envelope order-icon"></i>
               {order.payer.email_address}
             </span>
+            <span className="order-text">
+                <i className="far fa-calendar-alt order-icon"></i>
+                Transaction: {parseDate(order.create_time)}
+              </span>
           </div>
           <div className="order-info-summary">
             <span className="focused-order-sub-header">
-              Informations de la commande
+              Adresse de livraison
             </span>
-            <span className="order-text">
-              <i className="far fa-calendar-alt order-icon"></i>
-              {parseDate(order.create_time)}
-            </span>
+
             <span className="order-text">
               <i className="fas fa-home order-icon"></i>
               {order.purchase_units[0].shipping.address.address_line_1}
@@ -80,30 +81,57 @@ const FocusedOrder = props => {
           </div>
         </div>
         <div className="order-bill">
-          <span className="focused-order-sub-header">Commande</span>
-          <div className="focused-order-items">
-            {order.purchase_units[0].items.map(item => {
-              return (
-                <div className="focused-order-item-info">
-                  <div className="focused-order-item-name">
-                    <span className="order-text">
-                      {item.name}
+          <div className="items">
+            <span className="focused-order-sub-header">Commande</span>
+            <div className="focused-order-items">
+              {order.purchase_units[0].items.map(item => {
+                return (
+                  <div className="focused-order-item-info">
+                    <div className="focused-order-item-name">
+                      <span className="order-text">{item.name}</span>
                       <span className="focused-order-item-qty order-text">
                         <i className="fas fa-pen-alt order-icon"></i>
                         {item.quantity}
                       </span>
-                    </span>
+                    </div>
+                    <div className="focused-order-item-price">
+                      <span className="order-text">
+                        {priceFormatter.format(item.unit_amount.value)}
+                      </span>
+                    </div>
                   </div>
-                  <div className="focused-order-item-price">
-                    <span className="order-text">
-                      {priceFormatter.format(item.unit_amount.value)}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-            <div className="order-bill-breakdown">
-              <span className="focused-order-sub-header">Facture</span>
+                );
+              })}
+            </div>
+          </div>
+          <div className="order-bill-breakdown">
+            <span className="focused-order-sub-header">Facture</span>
+            <div className="bill-breakdown">
+              <i className="fas fa-clipboard-list order-icon"></i>
+              <div className="bill-breakdown-amounts">
+                <span className="order-text">
+                  Sous-total:{" "}
+                  {priceFormatter.format(
+                    order.purchase_units[0].amount.breakdown.item_total.value
+                  )}
+                </span>
+                <span className="order-text">
+                  Taxes:{" "}
+                  {priceFormatter.format(
+                    order.purchase_units[0].amount.breakdown.tax_total.value
+                  )}
+                </span>
+                <span className="order-text">
+                  Livraison:{" "}
+                  {priceFormatter.format(
+                    order.purchase_units[0].amount.breakdown.shipping.value
+                  )}
+                </span>
+                <span className="order-text">
+                  Total:{" "}
+                  {priceFormatter.format(order.purchase_units[0].amount.value)}
+                </span>
+              </div>
             </div>
           </div>
         </div>
