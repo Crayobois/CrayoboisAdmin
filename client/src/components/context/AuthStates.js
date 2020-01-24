@@ -267,6 +267,7 @@ const AuthStates = props => {
             if (newOrders[i].id === orderId) {
               newOrders[i].order_status = "Livré";
               setDisplayedList([...newOrders]);
+              sortOrdersByType([...newOrders]);
               break;
             }
           }
