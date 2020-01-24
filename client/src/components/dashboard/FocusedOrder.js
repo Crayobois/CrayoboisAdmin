@@ -74,12 +74,39 @@ const FocusedOrder = props => {
               {`${order.purchase_units[0].shipping.address.admin_area_2}, ${order.purchase_units[0].shipping.address.admin_area_1}, ${order.purchase_units[0].shipping.address.country_code}`}
             </span>
             <span className="order-text">
-              <i class="fas fa-mail-bulk order-icon"></i>
+              <i className="fas fa-mail-bulk order-icon"></i>
               {order.purchase_units[0].shipping.address.postal_code}
             </span>
           </div>
         </div>
-        <div className="order-bill"></div>
+        <div className="order-bill">
+          <span className="focused-order-sub-header">Commande</span>
+          <div className="focused-order-items">
+            {order.purchase_units[0].items.map(item => {
+              return (
+                <div className="focused-order-item-info">
+                  <div className="focused-order-item-name">
+                    <span className="order-text">
+                      {item.name}
+                      <span className="focused-order-item-qty order-text">
+                        <i className="fas fa-pen-alt order-icon"></i>
+                        {item.quantity}
+                      </span>
+                    </span>
+                  </div>
+                  <div className="focused-order-item-price">
+                    <span className="order-text">
+                      {priceFormatter.format(item.unit_amount.value)}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+            <div className="order-bill-breakdown">
+              <span className="focused-order-sub-header">Facture</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

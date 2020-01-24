@@ -45,8 +45,8 @@
 }
 
 .focused-order-info {
-    display: flex;
-    padding-bottom: 25px;
+  display: flex;
+  padding-bottom: 25px;
 }
 
 .focused-order {
@@ -55,17 +55,17 @@
 }
 
 .focused-order-info-client {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    padding-right: 12.5px;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding-right: 12.5px;
 }
 
 .order-info-summary {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    padding-left: 12.5px;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding-left: 12.5px;
 }
 
 .focused-order-sub-header {
@@ -76,5 +76,35 @@
 }
 
 .order-bill {
+  display: flex;
   border-top: 1px solid #e9ebf1;
+  padding-top: 25px;
+  width: 100%;
+}
+
+.focused-order-items {
+  margin-top: 12.5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.focused-order-item-info {
+  display: flex;
+  justify-content: space-between;
+  width: calc(50% - 12.5px);
+  padding-right: 12.5px;
+}
+
+.focused-order-item-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.focused-order-item-qty {
+  margin-left: 25px;
+}
+
+.focused-order-item-name {
+  padding-right: 25px;
 }
