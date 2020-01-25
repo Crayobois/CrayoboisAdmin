@@ -19,7 +19,7 @@ const FocusedMaterial = props => {
 
   return (
     <React.Fragment>
-      <div className="shop-top">
+      <div className="shop-top multiple-elems">
         <span
           className="focused-back"
           onClick={() => {
@@ -29,67 +29,103 @@ const FocusedMaterial = props => {
           <i className="fas fa-chevron-left focused-back-icon"></i>
           Précédent
         </span>
+        <div className="shop-top-right-buttons">
+          <span
+            className="filter-btn"
+            onClick={() => {
+              setEditing(!editing);
+            }}
+          >
+            {editing ? "Sauvegarder" : "Modifier"}
+            <i
+              className={
+                editing
+                  ? "fas fa-save filter-btn-icon"
+                  : "fas fa-edit filter-btn-icon"
+              }
+            ></i>
+          </span>
+        </div>
       </div>
       <div className="focused-shop-container">
         <div className="focused-shop-infos-container">
           <div className="focused-shop-left">
             <img src={material.path} className="focused-shop-img" />
-            <span className="tag">#{material.tag}</span>
           </div>
           <div className="focused-shop-right">
             <div className="focused-shop-infos">
               <form id="change-material" className="change-material">
                 <div className="focused-shop-form-field">
                   <span className="focused-shop-info-name">Nom</span>
-                  <input
-                    type="text"
-                    name="material-name"
-                    className="focused-input"
-                    id="material-name"
-                    autoComplete="off"
-                    placeholder={material.name}
-                    readOnly
-                    required
-                  />
+                  {editing ? (
+                    <input
+                      type="text"
+                      name="material-name"
+                      className="focused-input"
+                      id="material-name"
+                      autoComplete="off"
+                      placeholder={material.name}
+                      required
+                    />
+                  ) : (
+                    <span className="focused-shop-info-text">
+                      {material.name}
+                    </span>
+                  )}
                 </div>
                 <div className="focused-shop-form-field">
                   <span className="focused-shop-info-name">Origine</span>
-                  <input
-                    type="text"
-                    name="material-origin"
-                    className="focused-input"
-                    id="material-origin"
-                    autoComplete="off"
-                    placeholder={material.origin}
-                    readOnly
-                    required
-                  />
+                  {editing ? (
+                    <input
+                      type="text"
+                      name="material-origin"
+                      className="focused-input"
+                      id="material-origin"
+                      autoComplete="off"
+                      placeholder={material.origin}
+                      required
+                    />
+                  ) : (
+                    <span className="focused-shop-info-text">
+                      {material.origin}
+                    </span>
+                  )}
                 </div>
                 <div className="focused-shop-form-field">
                   <span className="focused-shop-info-name">Type</span>
-                  <input
-                    type="text"
-                    name="material-origin"
-                    className="focused-input"
-                    id="material-origin"
-                    autoComplete="off"
-                    placeholder={material.type}
-                    readOnly
-                    required
-                  />
+                  {editing ? (
+                    <input
+                      type="text"
+                      name="material-origin"
+                      className="focused-input"
+                      id="material-origin"
+                      autoComplete="off"
+                      placeholder={material.type}
+                      required
+                    />
+                  ) : (
+                    <span className="focused-shop-info-text">
+                      {material.type}
+                    </span>
+                  )}
                 </div>
                 <div className="focused-shop-form-field">
                   <span className="focused-shop-info-name">Prix</span>
-                  <input
-                    type="text"
-                    name="material-origin"
-                    className="focused-input"
-                    id="material-origin"
-                    autoComplete="off"
-                    placeholder={priceFormatter.format(material.price)}
-                    readOnly
-                    required
-                  />
+                  {editing ? (
+                    <input
+                      type="text"
+                      name="material-origin"
+                      className="focused-input"
+                      id="material-origin"
+                      autoComplete="off"
+                      placeholder={material.price}
+                      required
+                    />
+                  ) : (
+                    <span className="focused-shop-info-text">
+                      {priceFormatter.format(material.price)}
+                    </span>
+                  )}
                 </div>
               </form>
             </div>

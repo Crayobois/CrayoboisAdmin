@@ -33,7 +33,7 @@ const Materials = props => {
                   name="search"
                   className="search-input"
                   autoComplete="off"
-                  placeholder="Rechercher par #"
+                  placeholder="Chercher un matériau"
                   required
                 />
                 <button className="filter-btn">

@@ -20,7 +20,7 @@
     color: var(--black);
     margin: 0 25px 0 0;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 12.5px;
 }
 
@@ -29,6 +29,8 @@
     font-size: 18px;
     color: var(--black);
     text-transform: none;
+    min-height: 41px;
+    opacity: 0.85;
 }
 
 .focused-input {
@@ -71,4 +73,8 @@
 
 .focused-shop-right {
     width: 60%;
+}
+
+.multiple-elems {
+    justify-content: space-between;
 }
