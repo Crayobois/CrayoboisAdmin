@@ -16,8 +16,20 @@ const Materials = props => {
   useEffect(() => {}, []);
 
   return (
-    <section className="materials-section">
-    
+    <section className="shop-section">
+      <div className="shop-top">
+        <form id="search-item">
+          <input
+            type="text"
+            name="search"
+            className="search-input"
+            autoComplete="off"
+            placeholder="Recherche par #"
+            required
+          />
+          <button className="filter-btn"><i className="fas fa-search"></i></button>
+        </form>
+      </div>
     </section>
   );
 };

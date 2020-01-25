@@ -1,7 +1,35 @@
-.materials-section {
-    width: 100%;
-    min-height: calc(100vh - 100px);
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: var(--mid_shadow);
-  }
+.shop-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: calc(100vh - 100px);
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: var(--mid_shadow);
+}
+
+.shop-top {
+  width: calc(100% - 50px);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 25px;
+  height: 42px;
+}
+
+.search-input {
+  margin-right: 25px;
+  outline: none;
+  border: none;
+  background-color: #e7ebef;
+  color: #526a7a;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 10px 12.5px 10px 12.5px;
+}
+
+.search-input:focus::placeholder {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  } 
