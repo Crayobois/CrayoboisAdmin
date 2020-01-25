@@ -80,7 +80,8 @@
 
 .tag {
     font-weight: 400;
-    color: hsl(204, 20%, 65%);
+    color: hsl(204, 20%, 50%);
+    font-size: 14px;
 }
 
 .thumbnail-icon {

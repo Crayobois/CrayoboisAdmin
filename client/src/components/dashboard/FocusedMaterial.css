@@ -5,21 +5,23 @@
 }
 
 .focused-shop-img {
-    width: 25%;
+    width: 60%;
     height: auto;
     object-fit: contain;
 }
 
 .focused-shop-infos-container {
     display: flex;
+    width: 100%;
 }
 
 .focused-shop-info-name {
     text-transform: uppercase;
     color: var(--black);
-    margin: 12.5px 25px 12.5px 25px;
+    margin: 0 25px 0 0;
     font-weight: 600;
     font-size: 14px;
+    margin-bottom: 12.5px;
 }
 
 .focused-shop-info-text {
@@ -38,13 +40,35 @@
     font-weight: 500;
     border-radius: 5px;
     padding: 10px 12.5px 10px 12.5px;
+    min-width: max-content;
+    max-width: 100%;
 }
 
 .change-material {
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin: 0 0 12.5px 0;
+    align-items: baseline;
 }
 
 .focused-shop-form-field {
     display: flex;
+    flex-direction: column;
+    width: calc(100% - 25px);
+    margin: 12.5px;
+}
+
+.focused-shop-left {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; 
+    width: auto;
+    margin-left: -25px;
+}
+
+.focused-shop-right {
+    width: 60%;
 }
