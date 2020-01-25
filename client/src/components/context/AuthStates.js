@@ -21,6 +21,11 @@ const AuthStates = props => {
   const [displayedList, setDisplayedList] = useState(null);
   const [focusedOrder, setFocusedOrder] = useState(null);
 
+
+  /* shop */
+  const [materials, setMaterials] = useState(null);
+
+
   // firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyBccRjBkjdgTdVxFQwKvrbpUCGCMeVryAA",
@@ -67,7 +72,7 @@ const AuthStates = props => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(cred => {
-        if (auth.currentUser !== null) {
+        if (auth.currentUser.uid) {
           db.collection("users")
             .doc(auth.currentUser.uid)
             .get()
@@ -101,7 +106,7 @@ const AuthStates = props => {
 
   const getUser = () => {
     setLoading(true);
-    if (auth.currentUser) {
+    if (auth.currentUser.uid) {
       db.collection("users")
         .doc(auth.currentUser.uid)
         .get()
@@ -125,7 +130,7 @@ const AuthStates = props => {
   };
 
   const getOrders = () => {
-    if (auth.currentUser)
+    if (auth.currentUser.uid)
       db.collection("orders")
         .doc("ordersList")
         .get()
@@ -208,7 +213,7 @@ const AuthStates = props => {
     const orderId = order.id;
     const userId = order.uid;
 
-    if (auth.currentUser) {
+    if (auth.currentUser.uid) {
       db.collection("users")
         .doc(userId)
         .get()
@@ -294,6 +299,15 @@ const AuthStates = props => {
     }
   };
 
+  const getMaterials = () => {
+    if (auth.currentUser.uid) {
+      db.collection("shop").doc("materialsList").get().then(doc => {
+        const data = doc.data();
+        setMaterials(data);
+      })
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -315,6 +329,8 @@ const AuthStates = props => {
         setToShipped: setToShipped,
         recentStatusChange: [recentStatusChange, setRecentStatusChange],
         focusedOrder: [focusedOrder, setFocusedOrder],
+        materials: [materials, setMaterials],
+        getMaterials: getMaterials
       }}
     >
       {props.children}

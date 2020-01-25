@@ -30,6 +30,10 @@
 }
 
 .search-input:focus::placeholder {
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-  } 
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.shop-content {
+  border-top: 1px solid #e9ebf1;
+}

@@ -6,6 +6,7 @@ const uuidv4 = require("uuid/v4");
 
 const Materials = props => {
   const context = useContext(AuthContext);
+  const materials = context.materials[0];
 
   const priceFormatter = new Intl.NumberFormat("fr-CA", {
     style: "currency",
@@ -13,7 +14,9 @@ const Materials = props => {
     minimumFractionDigits: 2
   });
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    context.getMaterials();
+  }, []);
 
   return (
     <section className="shop-section">
@@ -24,11 +27,22 @@ const Materials = props => {
             name="search"
             className="search-input"
             autoComplete="off"
-            placeholder="Recherche par #"
+            placeholder="Rechercher par #"
             required
           />
-          <button className="filter-btn"><i className="fas fa-search"></i></button>
+          <button className="filter-btn">
+            <i className="fas fa-search"></i>
+          </button>
         </form>
+      </div>
+      <div className="shop-content">
+        {!materials ? (
+          <React.Fragment />
+        ) : (
+          <React.Fragment>
+            <span>materials</span>
+          </React.Fragment>
+        )}
       </div>
     </section>
   );
