@@ -48,10 +48,6 @@ const Orders = props => {
     if (!displayedList) {
       context.getOrders();
     }
-
-    return () => {
-      context.resetDisplayedList();
-    };
   }, []);
 
   return (

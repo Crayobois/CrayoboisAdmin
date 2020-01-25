@@ -129,30 +129,26 @@ const AuthStates = props => {
         .get()
         .then(doc => {
           const data = doc.data();
-          setOrders([...data["list"]]);
-          initializeDisplayedList([...data["list"]]);
+          const waiting = data.waiting;
+          const shipped = data.shipped;
+          let all = [];
+          for (var i = 0; i < waiting.length; i++) {
+            all.push(waiting[i]);
+          }
+          for (var j = 0; j < shipped.length; j++) {
+            all.push(shipped[j]);
+          }
+          console.log(all, shipped, waiting);
+          setOrders([...all]);
+          setOrdersShipped(shipped);
+          setOrdersWaiting(waiting);
+          initializeDisplayedList([...all]);
         });
   };
 
   /* Orders management */
   const isOrder1Recent = (order1, order2) => {
     return order1.customId > order2.customId;
-  };
-
-  const sortOrdersByType = orders => {
-    let shipped = [];
-    let waiting = [];
-
-    /* Itirate through orders and sorting them */
-    for (var i = 0; i < orders.length; i++) {
-      if (orders[i].order_status !== "Livré") {
-        waiting.push(orders[i]);
-      } else {
-        shipped.push(orders[i]);
-      }
-    }
-    setOrdersShipped(shipped);
-    setOrdersWaiting(waiting);
   };
 
   const sortOrdersByCreateTime = (collection, order) => {
@@ -188,7 +184,6 @@ const AuthStates = props => {
   };
 
   const initializeDisplayedList = orders => {
-    sortOrdersByType(orders);
     setDisplayedList(sortOrdersByCreateTime(orders, "recent"));
   };
 
@@ -201,12 +196,12 @@ const AuthStates = props => {
     } else {
       collection = ordersShipped;
     }
-
+    console.log(collection);
     sortOrdersByCreateTime(collection, order);
   };
 
   const resetDisplayedList = () => {
-    setDisplayedList(sortOrdersByCreateTime(orders, "recent"));
+    setDisplayedList(null);
   };
 
   const setToShipped = order => {
@@ -235,24 +230,30 @@ const AuthStates = props => {
               ["orders"]: orders
             });
 
-          // find order in orders list
+          // find order in waiting list
           db.collection("orders")
             .doc("ordersList")
             .get()
             .then(doc => {
               let data = doc.data();
-              let list = data["list"];
-              for (var e = 0; e < list.length; e++) {
-                if (list[e].id === orderId) {
-                  list[e].order_status = "Livré";
+              let waiting = data["waiting"];
+              let shipped = data["shipped"];
+              let order;
+              for (var e = 0; e < waiting.length; e++) {
+                if (waiting[e].id === orderId) {
+                  waiting[e].order_status = "Livré";
+                  order = waiting[e];
+                  waiting.splice(e, 1);
+                  shipped.push(order);
                   break;
                 }
               }
-              // update that order
+              // update the documents
               db.collection("orders")
                 .doc("ordersList")
                 .update({
-                  ["list"]: list
+                  ["waiting"]: waiting,
+                  ["shipped"]: shipped
                 });
             });
         })
@@ -267,10 +268,12 @@ const AuthStates = props => {
             if (newOrders[i].id === orderId) {
               newOrders[i].order_status = "Livré";
               setDisplayedList([...newOrders]);
-              sortOrdersByType([...newOrders]);
               break;
             }
           }
+        })
+        .catch(err => {
+          alert("Une erreur s'est produite.", err);
         });
     }
   };
