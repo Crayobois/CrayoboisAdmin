@@ -20,9 +20,9 @@ const FocusedMaterial = props => {
       let name = document.getElementById("material-name").value;
       let origin = document.getElementById("material-origin").value;
       let type = document.getElementById("material-type").value;
-      let price = parseFloat(
-        document.getElementById("material-price").value.replace(",", ".")
-      );
+      let price = document
+        .getElementById("material-price")
+        .value.replace(",", ".");
 
       if (name === "") {
         name = material.name;
