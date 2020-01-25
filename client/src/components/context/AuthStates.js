@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import AuthContext from "./AuthContext";
 import * as firebase from "firebase";
+import Materials from "./TEMPjson/mats.json";
+import Hardwares from "./TEMPjson/haws.json";
 //const uuidv4 = require("uuid/v4");
 
 const AuthStates = props => {
@@ -312,7 +314,7 @@ const AuthStates = props => {
         resetDisplayedList: resetDisplayedList,
         setToShipped: setToShipped,
         recentStatusChange: [recentStatusChange, setRecentStatusChange],
-        focusedOrder: [focusedOrder, setFocusedOrder]
+        focusedOrder: [focusedOrder, setFocusedOrder],
       }}
     >
       {props.children}

@@ -1,0 +1,7 @@
+.materials-section {
+    width: 100%;
+    min-height: calc(100vh - 100px);
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: var(--mid_shadow);
+  }

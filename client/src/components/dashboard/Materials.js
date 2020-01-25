@@ -16,9 +16,9 @@ const Materials = props => {
   useEffect(() => {}, []);
 
   return (
-    <div className="focused-order-container">
-
-    </div>
+    <section className="materials-section">
+    
+    </section>
   );
 };
 
