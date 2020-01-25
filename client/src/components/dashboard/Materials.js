@@ -40,7 +40,17 @@ const Materials = props => {
           <React.Fragment />
         ) : (
           <React.Fragment>
-            <span>materials</span>
+            {materials.map(material => {
+              return (
+                <div key={uuidv4()} className="thumbnail">
+                  <img src={material.path} className="thumbnail-image" />
+                  <div className="thumbnail-info-container">
+                    <span className="thumbnail-text">{material.name}<i className="fas fa-tree thumbnail-icon"></i></span>
+                    <span className="thumbnail-text tag">#{material.tag}</span>
+                  </div>
+                </div>
+              );
+            })}
           </React.Fragment>
         )}
       </div>

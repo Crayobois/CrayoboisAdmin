@@ -14,7 +14,7 @@ const RouterComponent = () => {
             render={props => <User {...props} redirect="/user/connexion"/>}
           />
           <Route
-            path="/user/connexion"
+            path="/user/login"
             exact
             render={props => <SignIn {...props} redirect={null}/>}
           />

@@ -13,7 +13,7 @@ const User = props => {
       if (val) {
         setUser(val);
       } else {
-        props.history.push("/user/connexion");
+        props.history.push("/user/login");
       }
     });
   }, []);

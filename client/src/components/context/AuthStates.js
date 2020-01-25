@@ -303,7 +303,7 @@ const AuthStates = props => {
     if (auth.currentUser.uid) {
       db.collection("shop").doc("materialsList").get().then(doc => {
         const data = doc.data();
-        setMaterials(data);
+        setMaterials(data.materials);
       })
     }
   }
