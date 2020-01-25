@@ -20,7 +20,7 @@
   font-size: 12px;
 }
 
-.focused-order-back {
+.focused-back {
   cursor: pointer;
   color: var(--black);
   font-size: 16px;
@@ -33,11 +33,11 @@
   transition: all 0.1s ease-in;
 }
 
-.focused-order-back:hover {
+.focused-back:hover {
   background-color: hsl(210, 50%, 96%);
 }
 
-.focused-order-back-icon {
+.focused-back-icon {
   color: var(--black);
   font-size: 14px;
   margin-right: 8px;

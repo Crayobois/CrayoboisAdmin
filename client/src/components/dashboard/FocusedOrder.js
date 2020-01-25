@@ -36,12 +36,12 @@ const FocusedOrder = props => {
       <React.Fragment>
         <div className="focused-order-top">
           <span
-            className="focused-order-back"
+            className="focused-back"
             onClick={() => {
               props.removeFocus();
             }}
           >
-            <i className="fas fa-chevron-left focused-order-back-icon"></i>
+            <i className="fas fa-chevron-left focused-back-icon"></i>
             Précédent
           </span>
           {order.order_status !== "Livré" ? (

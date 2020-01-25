@@ -1,0 +1,50 @@
+.focused-shop-container {
+    border-top: 1px solid #e9ebf1;
+    width: calc(100% - 50px);
+    padding: 25px;
+}
+
+.focused-shop-img {
+    width: 25%;
+    height: auto;
+    object-fit: contain;
+}
+
+.focused-shop-infos-container {
+    display: flex;
+}
+
+.focused-shop-info-name {
+    text-transform: uppercase;
+    color: var(--black);
+    margin: 12.5px 25px 12.5px 25px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.focused-shop-info-text {
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--black);
+    text-transform: none;
+}
+
+.focused-input {
+    outline: none;
+    border: none;
+    background-color: #e7ebef;
+    color: #526a7a;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 5px;
+    padding: 10px 12.5px 10px 12.5px;
+}
+
+.change-material {
+    display: flex;
+    flex-direction: column;
+}
+
+.focused-shop-form-field {
+    display: flex;
+}
