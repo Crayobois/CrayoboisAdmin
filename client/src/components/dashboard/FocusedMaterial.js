@@ -17,10 +17,26 @@ const FocusedMaterial = props => {
 
   const editHandler = () => {
     if (editing === true) {
-      const name = document.getElementById("material-name");
-      const origin = document.getElementById("material-origin");
-      const type = document.getElementById("material-type");
-      const price = document.getElementById("material-price");
+      let name = document.getElementById("material-name").value;
+      let origin = document.getElementById("material-origin").value;
+      let type = document.getElementById("material-type").value;
+      let price = parseFloat(
+        document.getElementById("material-price").value.replace(",", ".")
+      );
+
+      if (name === "") {
+        name = material.name;
+      }
+      if (origin === "") {
+        origin = material.origin;
+      }
+      if (type === "") {
+        type = material.type;
+      }
+      if (price === "") {
+        price = material.price;
+      }
+
       if (
         name === material.name &&
         origin === material.origin &&
@@ -29,7 +45,18 @@ const FocusedMaterial = props => {
       ) {
         setEditing(false);
       } else if (!isNaN(price)) {
-        context.editMaterial(name, origin, type, price);
+        context.editMaterial(
+          name,
+          origin,
+          type,
+          parseFloat(price),
+          material._id
+        );
+        material.name = name;
+        material.origin = origin;
+        material.type = type;
+        material.price = price;
+        setEditing(false);
       } else {
         alert("Entrez un prix valide (par exemple: '16.75').");
       }

@@ -21,10 +21,8 @@ const AuthStates = props => {
   const [displayedList, setDisplayedList] = useState(null);
   const [focusedOrder, setFocusedOrder] = useState(null);
 
-
   /* shop */
   const [materials, setMaterials] = useState(null);
-
 
   // firebase config
   const firebaseConfig = {
@@ -301,16 +299,43 @@ const AuthStates = props => {
 
   const getMaterials = () => {
     if (auth.currentUser.uid) {
-      db.collection("shop").doc("materialsList").get().then(doc => {
-        const data = doc.data();
-        setMaterials(data.materials);
-      })
+      db.collection("shop")
+        .doc("materialsList")
+        .get()
+        .then(doc => {
+          const data = doc.data();
+          setMaterials(data.materials);
+        });
     }
-  }
+  };
 
-  const editMaterial = (name, origin, type, price) => {
-
-  }
+  const editMaterial = (name, origin, type, price, id) => {
+    let newMaterials;
+    db.collection("shop")
+      .doc("materialsList")
+      .get()
+      .then(doc => {
+        let data = doc.data().materials;
+        for (var i = 0; i < data.length; i++) {
+          if (data[i]._id === id) {
+            data[i].name = name;
+            data[i].origin = origin;
+            data[i].type = type;
+            data[i].price = price;
+            break;
+          }
+        }
+        newMaterials = data;
+        db.collection("shop")
+          .doc("materialsList")
+          .update({
+            materials: data
+          });
+      })
+      .then(() => {
+        setMaterials(newMaterials);
+      });
+  };
 
   return (
     <AuthContext.Provider
