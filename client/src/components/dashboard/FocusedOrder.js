@@ -29,8 +29,7 @@ const FocusedOrder = props => {
     minimumFractionDigits: 2
   });
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="focused-order-container">
@@ -99,7 +98,9 @@ const FocusedOrder = props => {
           </div>
           <div className="order-bill">
             <div className="items">
-              <span className="focused-order-sub-header">Commande</span>
+              <span className="focused-order-sub-header order-header">
+                Commande
+              </span>
               <div className="focused-order-items">
                 {order.purchase_units[0].items.map(item => {
                   return (
@@ -107,7 +108,11 @@ const FocusedOrder = props => {
                       <div className="focused-order-img-container">
                         {item.path.map(path => {
                           return (
-                            <img key={uuidv4()} src={path} className="focused-order-img" />
+                            <img
+                              key={uuidv4()}
+                              src={path}
+                              className="focused-order-img"
+                            />
                           );
                         })}
                       </div>
@@ -128,6 +133,32 @@ const FocusedOrder = props => {
                     </div>
                   );
                 })}
+                <div className="focused-order-total">
+                  <span>
+                    Sous-total:{" "}
+                    {priceFormatter.format(
+                      order.purchase_units[0].amount.breakdown.item_total.value
+                    )}
+                  </span>
+                  <span>
+                    Taxes:{" "}
+                    {priceFormatter.format(
+                      order.purchase_units[0].amount.breakdown.tax_total.value
+                    )}
+                  </span>
+                  <span>
+                    Livraison:{" "}
+                    {priceFormatter.format(
+                      order.purchase_units[0].amount.breakdown.shipping.value
+                    )}
+                  </span>
+                  <span>
+                    Total:{" "}
+                    {priceFormatter.format(
+                      order.purchase_units[0].amount.value
+                    )}
+                  </span>
+                </div>
               </div>
             </div>
           </div>

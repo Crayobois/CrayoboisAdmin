@@ -109,6 +109,11 @@
   width: 100%;
 }
 
+.order-header {
+  padding: 0;
+  margin-bottom: 12.5px;
+}
+
 .focused-order-img-container {
   display: flex;
 }
