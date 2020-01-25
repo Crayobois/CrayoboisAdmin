@@ -268,6 +268,22 @@ const AuthStates = props => {
             if (newOrders[i].id === orderId) {
               newOrders[i].order_status = "Livré";
               setDisplayedList([...newOrders]);
+              /* update shipped orders list */
+              let shipped = [...ordersShipped];
+              shipped.push(newOrders[i]);
+              setOrdersShipped(shipped);
+              /* update waiting orders list */
+              let waiting = [...ordersWaiting];
+              if (waiting.length === 0) {
+                waiting.push(newOrders[i]);
+              } else {
+                for (var e = 0; e < waiting.length; e++) {
+                  if (waiting[e].id === orderId) {
+                    waiting.splice(e, 1);
+                    setOrdersWaiting(waiting);
+                  }
+                }
+              }
               break;
             }
           }
