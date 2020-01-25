@@ -15,6 +15,29 @@ const FocusedMaterial = props => {
     minimumFractionDigits: 2
   });
 
+  const editHandler = () => {
+    if (editing === true) {
+      const name = document.getElementById("material-name");
+      const origin = document.getElementById("material-origin");
+      const type = document.getElementById("material-type");
+      const price = document.getElementById("material-price");
+      if (
+        name === material.name &&
+        origin === material.origin &&
+        price === material.price &&
+        type === material.type
+      ) {
+        setEditing(false);
+      } else if (!isNaN(price)) {
+        context.editMaterial(name, origin, type, price);
+      } else {
+        alert("Entrez un prix valide (par exemple: '16.75').");
+      }
+    } else {
+      setEditing(true);
+    }
+  };
+
   useEffect(() => {}, []);
 
   return (
@@ -33,7 +56,7 @@ const FocusedMaterial = props => {
           <span
             className="filter-btn"
             onClick={() => {
-              setEditing(!editing);
+              editHandler();
             }}
           >
             {editing ? "Sauvegarder" : "Modifier"}
@@ -96,9 +119,9 @@ const FocusedMaterial = props => {
                   {editing ? (
                     <input
                       type="text"
-                      name="material-origin"
+                      name="material-type"
                       className="focused-input"
-                      id="material-origin"
+                      id="material-type"
                       autoComplete="off"
                       placeholder={material.type}
                       required
@@ -114,9 +137,9 @@ const FocusedMaterial = props => {
                   {editing ? (
                     <input
                       type="text"
-                      name="material-origin"
+                      name="material-price"
                       className="focused-input"
-                      id="material-origin"
+                      id="material-price"
                       autoComplete="off"
                       placeholder={material.price}
                       required

@@ -308,6 +308,10 @@ const AuthStates = props => {
     }
   }
 
+  const editMaterial = (name, origin, type, price) => {
+
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -330,7 +334,8 @@ const AuthStates = props => {
         recentStatusChange: [recentStatusChange, setRecentStatusChange],
         focusedOrder: [focusedOrder, setFocusedOrder],
         materials: [materials, setMaterials],
-        getMaterials: getMaterials
+        getMaterials: getMaterials,
+        editMaterial: editMaterial
       }}
     >
       {props.children}
