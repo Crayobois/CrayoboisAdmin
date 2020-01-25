@@ -138,7 +138,6 @@ const AuthStates = props => {
           for (var j = 0; j < shipped.length; j++) {
             all.push(shipped[j]);
           }
-          console.log(all, shipped, waiting);
           setOrders([...all]);
           setOrdersShipped(shipped);
           setOrdersWaiting(waiting);
@@ -196,7 +195,6 @@ const AuthStates = props => {
     } else {
       collection = ordersShipped;
     }
-    console.log(collection);
     sortOrdersByCreateTime(collection, order);
   };
 
