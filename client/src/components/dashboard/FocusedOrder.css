@@ -55,15 +55,15 @@
 }
 
 .shipped {
-    color: var(--black);
-    font-weight: 500;
-    font-size: 16px;
+  color: var(--black);
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .fa-check {
-    margin-left: 8px;
-    font-size: 14px;
-    color: #29a039;
+  margin-left: 8px;
+  font-size: 14px;
+  color: #29a039;
 }
 
 .focused-order-info-client {
@@ -101,27 +101,45 @@
 
 .focused-order-item-info {
   display: grid;
-  grid-template-columns: 20% 45% 25% 10%;
+  grid-template-columns: 15% 50% 25% 10%;
+  margin: 12.5px 0 12.5px 0;
 }
 
 .items {
   width: 100%;
 }
 
+.focused-order-img-container {
+  display: flex;
+}
+
+.focused-order-img {
+  width: 50%;
+  height: auto;
+  flex-grow: 1;
+  object-fit: cover;
+}
+
 .focused-order-item-price {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-end;
 }
 
 .focused-order-item-qty {
   display: flex;
+  align-items: center;
   margin-left: 25px;
 }
 
-.focused-order-item-name {
-  padding-right: 25px;
+.focused-order-qty {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 }
 
+.focused-order-item-name {
+  padding-left: 25px;
+  display: flex;
+  align-items: center;
+}

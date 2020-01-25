@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./FocusedOrder.css";
 import AuthContext from "../context/AuthContext";
 import Spinner from "../spinner/Spinner";
+const uuidv4 = require("uuid/v4");
 
 const FocusedOrder = props => {
   const context = useContext(AuthContext);
@@ -29,7 +30,6 @@ const FocusedOrder = props => {
   });
 
   useEffect(() => {
-    console.log(order);
   }, []);
 
   return (
@@ -107,7 +107,7 @@ const FocusedOrder = props => {
                       <div className="focused-order-img-container">
                         {item.path.map(path => {
                           return (
-                            <img src={path} className="focused-order-img" />
+                            <img key={uuidv4()} src={path} className="focused-order-img" />
                           );
                         })}
                       </div>
