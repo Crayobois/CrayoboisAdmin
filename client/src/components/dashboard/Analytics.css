@@ -1,0 +1,44 @@
+.analytics-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.customers-insights {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: var(--mid_shadow);
+    width: max-content;
+    display: flex;
+    padding: 25px;
+}
+
+.insights {
+    display: flex;
+    flex-direction: column;
+}
+
+.insights-clients {
+    padding-right: 12.5px;
+    border-right: 1px solid #e9ebf1;
+}
+
+.insights-orders {
+    padding-left: 12.5px;
+}
+
+.insights-name {
+    color: var(--black);
+    font-size: 16px;
+    font-weight: 600;
+    opacity: 0.5;
+    margin-bottom: 12.5px;
+    min-width: 125px;
+}
+
+.insights-value {
+    color: var(--black);
+    font-size: 28px;
+    line-height: 24px;
+    font-weight: 500;
+
+}

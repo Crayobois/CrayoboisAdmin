@@ -6,6 +6,7 @@ import "./Dashboard.css";
 import Orders from "./Orders";
 import Materials from "./Materials";
 import Hardwares from "./Hardwares";
+import Analytics from "./Analytics";
 
 const Dashboard = props => {
   const context = useContext(AuthContext);
@@ -128,6 +129,7 @@ const Dashboard = props => {
             {activeLink === "orders" ? <Orders /> : <React.Fragment />}
             {activeLink === "materials" ? <Materials /> : <React.Fragment />}
             {activeLink === "hardwares" ? <Hardwares /> : <React.Fragment />}
+            {activeLink === "dashboard" ? <Analytics /> : <React.Fragment />}
           </div>
         </section>
       ) : (

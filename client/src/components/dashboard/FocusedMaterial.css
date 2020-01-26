@@ -47,6 +47,12 @@
   max-width: 100%;
 }
 
+.focused-input:focus::placeholder {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  
+
 .change-material {
   width: 100%;
   display: grid;
@@ -95,7 +101,7 @@
 }
 
 .delete-btn:hover {
-  background-color: hsl(210, 50%, 96%);
+  background-color: #e7ebef;
 }
 
 .shop-top-right-buttons {
