@@ -337,6 +337,27 @@ const AuthStates = props => {
       });
   };
 
+  const addNewItem = obj => {
+    if (auth.currentUser.uid) {
+      let oldMats = [...materials];
+      oldMats.push(obj);
+      setMaterials(oldMats);
+
+      db.collection("shop")
+        .doc("materialsList")
+        .get()
+        .then(doc => {
+          let data = doc.data().materials;
+          data.push(obj);
+          db.collection("shop")
+            .doc("materialsList")
+            .update({
+              materials: data
+            });
+        });
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -360,7 +381,8 @@ const AuthStates = props => {
         focusedOrder: [focusedOrder, setFocusedOrder],
         materials: [materials, setMaterials],
         getMaterials: getMaterials,
-        editMaterial: editMaterial
+        editMaterial: editMaterial,
+        addNewItem: addNewItem
       }}
     >
       {props.children}

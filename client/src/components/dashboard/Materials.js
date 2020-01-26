@@ -18,6 +18,35 @@ const Materials = props => {
     minimumFractionDigits: 2
   });
 
+  const addNewItem = () => {
+      let path = document.getElementById("new-item-path").value;
+      let name = document.getElementById("new-item-name").value;
+      let origin = document.getElementById("new-item-origin").value;
+      let type = document.getElementById("new-item-type").value;
+      let price = document.getElementById("new-item-price").value.replace(",", ".");
+
+      if (
+        path === "" || name === "" || origin === "" || type === "" || price === "" 
+      ) {
+          alert("Veuillez remplir tous les champs.");
+      } else if (!isNaN(price)) {
+        let obj = {
+            _id: uuidv4(),
+            path: path,
+            name: name,
+            origin: origin,
+            type: type,
+            price: parseFloat(price),
+            nature: "bois"
+        }
+        context.addNewItem(obj);
+        setNewMat(false);
+        setItemImg(null);
+      } else {
+        alert("Entrez un prix valide (par exemple: '16.75').");
+      }
+  }
+
   useEffect(() => {
     if (!materials) {context.getMaterials();}
 
@@ -115,7 +144,7 @@ const Materials = props => {
                 required
               />
             </div>
-            <span className="filter-btn add-item-btn">
+            <span className="filter-btn add-item-btn" onClick={() => addNewItem()}>
               Ajouter<i className="fas fa-plus filter-btn-icon"></i>
             </span>
           </div>
