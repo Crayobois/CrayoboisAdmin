@@ -448,7 +448,7 @@ const AuthStates = props => {
       setHardwares(oldHaws);
 
       db.collection("shop")
-        .doc("hardwaressList")
+        .doc("hardwaresList")
         .get()
         .then(doc => {
           let data = doc.data().hardwares;
@@ -469,8 +469,25 @@ const AuthStates = props => {
     }
   };
 
-  const addNewHaw = haw => {
-    
+  const addNewHaw = obj => {
+    if (auth.currentUser.uid && user.admin) {
+      let oldHaws = [...hardwares];
+      oldHaws.unshift(obj);
+      setHardwares(oldHaws);
+
+      db.collection("shop")
+        .doc("hardwaresList")
+        .get()
+        .then(doc => {
+          let data = doc.data().hardwares;
+          data.unshift(obj);
+          db.collection("shop")
+            .doc("hardwaresList")
+            .update({
+              hardwares: data
+            });
+        });
+    }
   };
 
   return (
