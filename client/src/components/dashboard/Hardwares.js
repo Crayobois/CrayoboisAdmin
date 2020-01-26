@@ -19,19 +19,16 @@ const Hardwares = props => {
   });
 
   const addNewItem = () => {
-    // to change
     let path = document.getElementById("new-item-path").value;
-    let name = document.getElementById("new-item-name").value;
-    let origin = document.getElementById("new-item-origin").value;
     let type = document.getElementById("new-item-type").value;
+    let color = document.getElementById("new-item-color").value;
     let price = document
       .getElementById("new-item-price")
       .value.replace(",", ".");
 
     if (
       path === "" ||
-      name === "" ||
-      origin === "" ||
+      color === "" ||
       type === "" ||
       price === ""
     ) {
@@ -40,13 +37,11 @@ const Hardwares = props => {
       let obj = {
         _id: uuidv4(),
         path: path,
-        name: name,
-        origin: origin,
+        color: color,
         type: type,
         price: parseFloat(price),
-        nature: "bois"
       };
-      context.addNewItem(obj);
+      context.addNewHaw(obj);
       setNewHaw(false);
       setItemImg(null);
     } else {

@@ -33,6 +33,38 @@ const FocusedMaterial = props => {
   const editHandler = () => {
     if (editing === true) {
       if (props.token) {
+        let type = document.getElementById("material-type").value;
+        let color = document.getElementById("material-color").value;
+        let price = document
+          .getElementById("material-price")
+          .value.replace(",", ".");
+
+        if (color === "") {
+          color = material.color;
+        }
+        if (type === "") {
+          type = material.type;
+        }
+        if (price === "") {
+          price = material.price;
+        }
+
+        if (
+          color === material.color &&
+          price === material.price &&
+          type === material.type
+        ) {
+          setEditing(false);
+        } else if (!isNaN(price) && parseFloat(price) > 0) {
+          // to add
+          context.editHardware(type, color, parseFloat(price), material._id);
+          material.color = color;
+          material.type = type;
+          material.price = price;
+          setEditing(false);
+        } else {
+          alert("Entrez un prix valide (par exemple: '16.75').");
+        }
       } else {
         let name = document.getElementById("material-name").value;
         let origin = document.getElementById("material-origin").value;

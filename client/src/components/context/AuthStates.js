@@ -312,31 +312,33 @@ const AuthStates = props => {
   };
 
   const editMaterial = (name, origin, type, price, id) => {
-    let newMaterials;
-    db.collection("shop")
-      .doc("materialsList")
-      .get()
-      .then(doc => {
-        let data = doc.data().materials;
-        for (var i = 0; i < data.length; i++) {
-          if (data[i]._id === id) {
-            data[i].name = name;
-            data[i].origin = origin;
-            data[i].type = type;
-            data[i].price = price;
-            break;
+    if (auth.currentUser.uid && user.admin) {
+      let newMaterials;
+      db.collection("shop")
+        .doc("materialsList")
+        .get()
+        .then(doc => {
+          let data = doc.data().materials;
+          for (var i = 0; i < data.length; i++) {
+            if (data[i]._id === id) {
+              data[i].name = name;
+              data[i].origin = origin;
+              data[i].type = type;
+              data[i].price = price;
+              break;
+            }
           }
-        }
-        newMaterials = data;
-        db.collection("shop")
-          .doc("materialsList")
-          .update({
-            materials: data
-          });
-      })
-      .then(() => {
-        setMaterials(newMaterials);
-      });
+          newMaterials = data;
+          db.collection("shop")
+            .doc("materialsList")
+            .update({
+              materials: data
+            });
+        })
+        .then(() => {
+          setMaterials(newMaterials);
+        });
+    }
   };
 
   const addNewItem = obj => {
@@ -376,7 +378,7 @@ const AuthStates = props => {
         .get()
         .then(doc => {
           let data = doc.data().materials;
-          
+
           for (var i = 0; i < data.length; i++) {
             if (data[i]._id === mat._id) {
               data.splice(i, 1);
@@ -392,7 +394,7 @@ const AuthStates = props => {
         });
     }
   };
-  
+
   const getHardwares = () => {
     if (auth.currentUser.uid && user.admin) {
       db.collection("shop")
@@ -403,6 +405,72 @@ const AuthStates = props => {
           setHardwares(data.hardwares);
         });
     }
+  };
+
+  const editHardware = (type, color, price, id) => {
+    if (auth.currentUser.uid && user.admin) {
+      let newHardwares;
+      db.collection("shop")
+        .doc("hardwaresList")
+        .get()
+        .then(doc => {
+          let data = doc.data().hardwares;
+          for (var i = 0; i < data.length; i++) {
+            if (data[i]._id === id) {
+              data[i].type = type;
+              data[i].color = color;
+              data[i].price = price;
+              break;
+            }
+          }
+          newHardwares = data;
+          db.collection("shop")
+            .doc("hardwaresList")
+            .update({
+              hardwares: data
+            });
+        })
+        .then(() => {
+          setHardwares(newHardwares);
+        });
+    }
+  };
+
+  const deleteHaw = haw => {
+    if (auth.currentUser.uid && user.admin) {
+      let oldHaws = [...hardwares];
+      for (var i = 0; i < oldHaws.length; i++) {
+        if (oldHaws[i]._id === haw._id) {
+          oldHaws.splice(i, 1);
+          break;
+        }
+      }
+      setHardwares(oldHaws);
+
+      db.collection("shop")
+        .doc("hardwaressList")
+        .get()
+        .then(doc => {
+          let data = doc.data().hardwares;
+
+          for (var i = 0; i < data.length; i++) {
+            if (data[i]._id === haw._id) {
+              data.splice(i, 1);
+              break;
+            }
+          }
+
+          db.collection("shop")
+            .doc("hardwaresList")
+            .update({
+              hardwares: data
+            });
+        });
+    }
+  };
+
+  const addNewHaw = haw => {
+    
   };
 
   return (
@@ -432,7 +500,10 @@ const AuthStates = props => {
         getHardwares: getHardwares,
         editMaterial: editMaterial,
         addNewItem: addNewItem,
-        deleteItem: deleteItem
+        deleteItem: deleteItem,
+        editHardware: editHardware,
+        deleteHaw: deleteHaw,
+        addNewHaw: addNewHaw
       }}
     >
       {props.children}
