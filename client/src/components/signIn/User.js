@@ -6,12 +6,12 @@ import Dashboard from "../dashboard/Dashboard";
 
 const User = props => {
   const context = useContext(AuthContext);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = context.user;
 
   useEffect(() => {
     context.checkIfLoggedIn().then(val => {
       if (val) {
-        setUser(val);
+        context.getUser();
       } else {
         props.history.push("/user/login");
       }

@@ -15,6 +15,16 @@ const FocusedMaterial = props => {
     minimumFractionDigits: 2
   });
 
+ const deleteHandler = mat => {
+     const r = window.confirm("Voulez-vous vraiment supprimer cet item?");
+     if (r === true) {
+        context.deleteItem(mat);
+        props.resetFocus();
+     } else {
+        return null;
+     }
+ }
+
   const editHandler = () => {
     if (editing === true) {
       let name = document.getElementById("material-name").value;
@@ -44,7 +54,7 @@ const FocusedMaterial = props => {
         type === material.type
       ) {
         setEditing(false);
-      } else if (!isNaN(price)) {
+      } else if (!isNaN(price) && parseFloat(price) > 0) {
         context.editMaterial(
           name,
           origin,
@@ -94,6 +104,9 @@ const FocusedMaterial = props => {
                   : "fas fa-edit filter-btn-icon"
               }
             ></i>
+          </span>
+          <span className="delete-btn" onClick={() => deleteHandler(material)}>
+            <i class="fas fa-trash-alt"></i>
           </span>
         </div>
       </div>

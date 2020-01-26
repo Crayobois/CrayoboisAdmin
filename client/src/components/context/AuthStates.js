@@ -23,6 +23,7 @@ const AuthStates = props => {
 
   /* shop */
   const [materials, setMaterials] = useState(null);
+  const [hardwares, setHardwares] = useState(null);
 
   // firebase config
   const firebaseConfig = {
@@ -113,7 +114,8 @@ const AuthStates = props => {
           if (userData.admin === true) {
             const userObj = {
               email: userData.email,
-              fullName: userData.fullName
+              fullName: userData.fullName,
+              admin: true
             };
             setUser(userObj);
             setLoading(false);
@@ -128,7 +130,7 @@ const AuthStates = props => {
   };
 
   const getOrders = () => {
-    if (auth.currentUser.uid)
+    if (auth.currentUser.uid && user.admin)
       db.collection("orders")
         .doc("ordersList")
         .get()
@@ -211,7 +213,7 @@ const AuthStates = props => {
     const orderId = order.id;
     const userId = order.uid;
 
-    if (auth.currentUser.uid) {
+    if (auth.currentUser.uid && user.admin) {
       db.collection("users")
         .doc(userId)
         .get()
@@ -298,7 +300,7 @@ const AuthStates = props => {
   };
 
   const getMaterials = () => {
-    if (auth.currentUser.uid) {
+    if (auth.currentUser.uid && user.admin) {
       db.collection("shop")
         .doc("materialsList")
         .get()
@@ -338,9 +340,9 @@ const AuthStates = props => {
   };
 
   const addNewItem = obj => {
-    if (auth.currentUser.uid) {
+    if (auth.currentUser.uid && user.admin) {
       let oldMats = [...materials];
-      oldMats.push(obj);
+      oldMats.unshift(obj);
       setMaterials(oldMats);
 
       db.collection("shop")
@@ -348,12 +350,57 @@ const AuthStates = props => {
         .get()
         .then(doc => {
           let data = doc.data().materials;
-          data.push(obj);
+          data.unshift(obj);
           db.collection("shop")
             .doc("materialsList")
             .update({
               materials: data
             });
+        });
+    }
+  };
+
+  const deleteItem = mat => {
+    if (auth.currentUser.uid && user.admin) {
+      let oldMats = [...materials];
+      for (var i = 0; i < oldMats.length; i++) {
+        if (oldMats[i]._id === mat._id) {
+          oldMats.splice(i, 1);
+          break;
+        }
+      }
+      setMaterials(oldMats);
+
+      db.collection("shop")
+        .doc("materialsList")
+        .get()
+        .then(doc => {
+          let data = doc.data().materials;
+          
+          for (var i = 0; i < data.length; i++) {
+            if (data[i]._id === mat._id) {
+              data.splice(i, 1);
+              break;
+            }
+          }
+
+          db.collection("shop")
+            .doc("materialsList")
+            .update({
+              materials: data
+            });
+        });
+    }
+  };
+  
+  const getHardwares = () => {
+    if (auth.currentUser.uid && user.admin) {
+      db.collection("shop")
+        .doc("hardwaresList")
+        .get()
+        .then(doc => {
+          const data = doc.data();
+          setHardwares(data.hardwares);
         });
     }
   };
@@ -380,9 +427,12 @@ const AuthStates = props => {
         recentStatusChange: [recentStatusChange, setRecentStatusChange],
         focusedOrder: [focusedOrder, setFocusedOrder],
         materials: [materials, setMaterials],
+        hardwares: [hardwares, setHardwares],
         getMaterials: getMaterials,
+        getHardwares: getHardwares,
         editMaterial: editMaterial,
-        addNewItem: addNewItem
+        addNewItem: addNewItem,
+        deleteItem: deleteItem
       }}
     >
       {props.children}

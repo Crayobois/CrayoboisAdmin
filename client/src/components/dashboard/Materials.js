@@ -29,7 +29,7 @@ const Materials = props => {
         path === "" || name === "" || origin === "" || type === "" || price === "" 
       ) {
           alert("Veuillez remplir tous les champs.");
-      } else if (!isNaN(price)) {
+      } else if (!isNaN(price) && parseFloat(price) > 0) {
         let obj = {
             _id: uuidv4(),
             path: path,
