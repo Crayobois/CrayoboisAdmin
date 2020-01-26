@@ -7,7 +7,7 @@ const uuidv4 = require("uuid/v4");
 
 const Hardwares = props => {
   const context = useContext(AuthContext);
-  const Hardwares = context.hardwares[0];
+  const hardwares = context.hardwares[0];
   const [focusedHardware, setFocusedHardware] = useState(null);
   const [newHaw, setNewHaw] = useState(false);
   const [itemImg, setItemImg] = useState(null);
@@ -19,7 +19,7 @@ const Hardwares = props => {
   });
 
   const addNewItem = () => {
-      // to change
+    // to change
     let path = document.getElementById("new-item-path").value;
     let name = document.getElementById("new-item-name").value;
     let origin = document.getElementById("new-item-origin").value;
@@ -55,8 +55,8 @@ const Hardwares = props => {
   };
 
   useEffect(() => {
-    if (!materials) {
-      context.getMaterials();
+    if (!hardwares) {
+      context.getHardwares();
     }
 
     if (newHaw) {
@@ -105,39 +105,27 @@ const Hardwares = props => {
                 />
               </div>
               <label htmlFor="name" className="new-item-label">
-                Nom
-              </label>
-              <input
-                type="text"
-                name="name"
-                className="new-item-input"
-                id="new-item-name"
-                autoComplete="off"
-                placeholder="Nom du matériau"
-                required
-              />
-              <label htmlFor="name" className="new-item-label">
-                Origine
+                Type
               </label>
               <input
                 type="text"
                 name="origin"
                 className="new-item-input"
-                id="new-item-origin"
+                id="new-item-type"
                 autoComplete="off"
-                placeholder="Origine du matériau"
+                placeholder="Type du matériel"
                 required
               />
               <label htmlFor="name" className="new-item-label">
-                Type
+                Couleur
               </label>
               <input
                 type="text"
                 name="type"
                 className="new-item-input"
-                id="new-item-type"
+                id="new-item-color"
                 autoComplete="off"
-                placeholder="Type du matériau"
+                placeholder="Couleur du matériel"
                 required
               />
               <label htmlFor="name" className="new-item-label">
@@ -149,7 +137,7 @@ const Hardwares = props => {
                 className="new-item-input"
                 id="new-item-price"
                 autoComplete="off"
-                placeholder="Prix du matériau"
+                placeholder="Prix du matériel"
                 required
               />
             </div>
@@ -171,6 +159,7 @@ const Hardwares = props => {
             resetFocus={() => {
               setFocusedHardware(null);
             }}
+            token="hardware"
             material={focusedHardware}
           />
         ) : (
@@ -182,7 +171,7 @@ const Hardwares = props => {
                   name="search"
                   className="search-input"
                   autoComplete="off"
-                  placeholder="Chercher un matériau"
+                  placeholder="Chercher un matériel"
                   required
                 />
                 <button className="filter-btn search-btn">
@@ -195,31 +184,31 @@ const Hardwares = props => {
                   setNewHaw(true);
                 }}
               >
-                Ajouter un matériau
+                Ajouter un matériel
                 <i className="fas fa-plus filter-btn-icon"></i>
               </span>
             </div>
             <div className="shop-content">
-              {!materials ? (
+              {!hardwares ? (
                 <React.Fragment />
               ) : (
                 <React.Fragment>
-                  {materials.map(material => {
+                  {hardwares.map(hardware => {
                     return (
                       <div
                         key={uuidv4()}
                         className="thumbnail"
                         onClick={() => {
-                          setFocusedHardware(material);
+                          setFocusedHardware(hardware);
                         }}
                       >
-                        <img src={material.path} className="thumbnail-image" />
+                        <img src={hardware.path} className="thumbnail-image" />
                         <div className="thumbnail-info-container">
                           <span className="thumbnail-text">
-                            {material.name}
+                            {hardware.type}
                           </span>
                           <span className="thumbnail-text tag">
-                            #{material.tag}
+                            {hardware.color}
                           </span>
                         </div>
                       </div>
