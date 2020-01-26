@@ -23,7 +23,7 @@
 }
 
 .insights-orders {
-    padding-left: 12.5px;
+    padding-left: 25px;
 }
 
 .insights-name {
@@ -40,5 +40,19 @@
     font-size: 28px;
     line-height: 24px;
     font-weight: 500;
+}
 
+.revenue-insights {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: var(--mid_shadow);
+    width: max-content;
+    display: flex;
+    padding: 25px;
+    margin: 50px 0 50px 0;
+}
+
+.revenu-right {
+    padding-right: 12.5px;
+    border-right: 1px solid #e9ebf1;
 }
