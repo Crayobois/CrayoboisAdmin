@@ -9,6 +9,7 @@ const Analytics = props => {
     ordersForAnalytics,
     setOrdersForAnalytics
   ] = context.ordersForAnalytics;
+  const [analytics, setAnalytics] = context.analytics;
 
   const priceFormatter = new Intl.NumberFormat("fr-CA", {
     style: "currency",
@@ -17,17 +18,20 @@ const Analytics = props => {
   });
 
   useEffect(() => {
+    context.getAnalytics();
+
     if (!ordersForAnalytics) {
       context.getOrders();
     }
-    // create chart
 
+    // create chart
     const months = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
     let labels = [];
     let activeOrders = [];
 
+    // initializes x and y axis
     for (var i = 0; i < months[currentMonth]; i++) {
       labels.push(`${i + 1}`);
       activeOrders.push(0);
@@ -35,13 +39,13 @@ const Analytics = props => {
 
     let canvas = document.getElementById("net-revenue-canvas").getContext("2d");
 
+    // parse incoming date to [yyyy,mm,dd]
     const parseDayMonthYear = date => {
       let allowedChar = "0123456789-";
       let newDate = "";
       let year = "";
       let month = "";
       let day = "";
-
       // convert to yyyy-mm-dd
       for (let e = 0; e < date.length; e++) {
         if (allowedChar.includes(date[e])) {
@@ -50,8 +54,7 @@ const Analytics = props => {
           break;
         }
       }
-
-      // get year
+      // get year, month and day of order
       let encounteredDash = 0;
       for (let g = 0; g < newDate.length; g++) {
         if (newDate[g] === "-") {
@@ -65,10 +68,10 @@ const Analytics = props => {
           day += newDate[g];
         }
       }
-
       return [year, month, day];
     };
 
+    // add orders of the months to active orders
     if (ordersForAnalytics) {
       for (var i = 0; i < ordersForAnalytics.length; i++) {
         const dateOfOrder = parseDayMonthYear(
@@ -120,37 +123,47 @@ const Analytics = props => {
             <i className="fas fa-briefcase insights-icon"></i>Revenu brut
           </span>
           <span className="insights-value">
-            {priceFormatter.format(10050.25)}
+            {analytics ? priceFormatter.format(analytics.grossRevenu) : ""}
           </span>
         </div>
         <div className="insights">
           <span className="insights-name">
             <i className="fab fa-canadian-maple-leaf insights-icon"></i>TPS
           </span>
-          <span className="insights-value">{priceFormatter.format(17.2)}</span>
+          <span className="insights-value">
+            {analytics ? priceFormatter.format(analytics.tps) : ""}
+          </span>
         </div>
         <div className="insights">
           <span className="insights-name">
             <i className="fas fa-igloo insights-icon"></i>TVQ
           </span>
-          <span className="insights-value">{priceFormatter.format(25.35)}</span>
+          <span className="insights-value">
+            {analytics ? priceFormatter.format(analytics.tvq) : ""}
+          </span>
         </div>
         <div className="insights">
           <span className="insights-name">
             <i className="fas fa-paper-plane insights-icon"></i>Livraison
           </span>
-          <span className="insights-value">{priceFormatter.format(15.25)}</span>
+          <span className="insights-value">
+            {analytics ? priceFormatter.format(analytics.totalShipping) : ""}
+          </span>
         </div>
         <div className="stats-pills">
           <span className="pill">
             <i className="fas fa-user insights-icon"></i>
             <span className="customers-insights-name">Clients</span>{" "}
-            <span className="customers-insights-value">256</span>
+            <span className="customers-insights-value">
+              {analytics ? analytics.totalCustomers : ""}
+            </span>
           </span>
           <span className="pill">
             <i className="fas fa-pallet insights-icon"></i>
             <span className="customers-insights-name">Commandes</span>{" "}
-            <span className="customers-insights-value">140</span>
+            <span className="customers-insights-value">
+              {analytics ? analytics.totalOrders - 100000000 : ""}
+            </span>
           </span>
         </div>
       </div>

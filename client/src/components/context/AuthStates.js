@@ -21,6 +21,7 @@ const AuthStates = props => {
   const [ordersShipped, setOrdersShipped] = useState(null);
   const [displayedList, setDisplayedList] = useState(null);
   const [focusedOrder, setFocusedOrder] = useState(null);
+  const [analytics, setAnalytics] = useState(null);
 
   /* shop */
   const [materials, setMaterials] = useState(null);
@@ -492,9 +493,17 @@ const AuthStates = props => {
     }
   };
 
-  const getOrdersForAnalytics = () => {
-
-  }
+  const getAnalytics = () => {
+    if (auth.currentUser.uid && user.admin) {
+      db.collection("orders")
+        .doc("analytics")
+        .get()
+        .then(doc => {
+          let data = doc.data();
+          setAnalytics(data);
+        });
+    }
+  };
 
   return (
     <AuthContext.Provider
@@ -527,7 +536,9 @@ const AuthStates = props => {
         editHardware: editHardware,
         deleteHaw: deleteHaw,
         addNewHaw: addNewHaw,
-        ordersForAnalytics: [ordersForAnalytics, setOrdersForAnalytics]
+        ordersForAnalytics: [ordersForAnalytics, setOrdersForAnalytics],
+        analytics: [analytics, setAnalytics],
+        getAnalytics: getAnalytics
       }}
     >
       {props.children}
