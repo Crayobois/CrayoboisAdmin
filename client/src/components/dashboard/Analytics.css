@@ -1,6 +1,6 @@
 .analytics-section {
-  display: grid;
-  grid-template-rows: 25% 75%;
+  flex-flow: column;
+  display: flex;
   height: calc(100vh - 100px);
 }
 
@@ -16,22 +16,16 @@
 .insights {
   display: flex;
   flex-direction: column;
-}
-
-.insights-clients {
-  padding-right: 25px;
+  flex-grow: 1;
   border-right: 1px solid #e9ebf1;
-}
-
-.insights-orders {
-  padding-left: 25px;
+  margin-right: 25px;
 }
 
 .insights-name {
   color: var(--black);
   font-size: 16px;
   font-weight: 600;
-  opacity: 0.5;
+  opacity: 0.6;
   margin-bottom: 12.5px;
   min-width: 125px;
 }
@@ -49,6 +43,7 @@
   box-shadow: var(--mid_shadow);
   width: max-content;
   display: flex;
+  flex-flow: row;
   padding: 37.5px;
   margin: 0 0 25px 0;
   width: calc(100% - 75px);
@@ -61,20 +56,49 @@
   display: flex;
   padding: 37.5px;
   width: calc(100% - 75px);
-  height: max-content;
+  flex-grow: 1;
   position: relative;
 }
 
 .div {
-    width: 100%;
-}
-
-.revenu-right {
-  padding-right: 25px;
-  border-right: 1px solid #e9ebf1;
+  width: 100%;
 }
 
 .insights-icon {
   font-size: 12px;
   margin-right: 8px;
+  color: var(--black);
+  opacity: 0.5;
+  width: 15px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stats-pills {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+}
+
+.customers-insights-name {
+  color: var(--black);
+  font-weight: 600;
+  opacity: 0.6;
+  font-size: 16px;
+}
+
+.customers-insights-value {
+  color: var(--black) !important;
+  opacity: 1 !important;
+  margin-left: auto;
+  font-weight: 600;
+  padding-left: 25px;
 }
