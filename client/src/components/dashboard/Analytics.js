@@ -10,25 +10,30 @@ const Analytics = props => {
     setOrdersForAnalytics
   ] = context.ordersForAnalytics;
   const [analytics, setAnalytics] = context.analytics;
+  const months = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  const monthsName = [
+    "janvier",
+    "février",
+    "mars",
+    "avril",
+    "mai",
+    "juin",
+    "juillet",
+    "août",
+    "septembre",
+    "octobre",
+    "novembre",
+    "décembre"
+  ];
 
-  const priceFormatter = new Intl.NumberFormat("fr-CA", {
-    style: "currency",
-    currency: "CAD",
-    minimumFractionDigits: 2
-  });
-
-  useEffect(() => {
-    if (!analytics) {
-      context.getAnalytics();
-    }
-
-    if (!ordersForAnalytics) {
+  const refresh = (month, year) => {
+    if (month) {
       context.getOrders();
     }
+  };
 
-
+  const monthlyRevenuChart = () => {
     // create chart
-    const months = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
     let labels = [];
@@ -114,19 +119,36 @@ const Analytics = props => {
           display: false
         },
         scales: {
-            yAxes: [{
-                ticks: {
-                    callback: function(value, index, values) {
-                        return priceFormatter.format(value);
-                    }
+          yAxes: [
+            {
+              ticks: {
+                callback: function(value, index, values) {
+                  return priceFormatter.format(value);
                 }
-            }]
+              }
+            }
+          ]
         }
       }
     });
+  };
 
-    
+  const priceFormatter = new Intl.NumberFormat("fr-CA", {
+    style: "currency",
+    currency: "CAD",
+    minimumFractionDigits: 2
+  });
 
+  useEffect(() => {
+    if (!analytics) {
+      context.getAnalytics();
+    }
+
+    if (!ordersForAnalytics) {
+      context.getOrders();
+    }
+
+    monthlyRevenuChart();
   }, [ordersForAnalytics]);
 
   return (
@@ -182,6 +204,21 @@ const Analytics = props => {
         </div>
       </div>
       <div className="revenue-canvas">
+        <div className="graph-top">
+          <span
+            className="filter-btn sync-btn"
+            onClick={() => {
+              refresh(true, null);
+            }}
+          >
+            Actualiser
+            <i className="fas fa-sync-alt btn-icon sync-btn-icon"></i>
+          </span>
+          <span className="graph-title">
+            Revenu net en {monthsName[new Date().getMonth()]}
+          </span>
+        </div>
+
         <div className="div">
           <canvas id="net-revenue-canvas"></canvas>
         </div>

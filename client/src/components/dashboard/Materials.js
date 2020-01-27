@@ -19,36 +19,44 @@ const Materials = props => {
   });
 
   const addNewItem = () => {
-      let path = document.getElementById("new-item-path").value;
-      let name = document.getElementById("new-item-name").value;
-      let origin = document.getElementById("new-item-origin").value;
-      let type = document.getElementById("new-item-type").value;
-      let price = document.getElementById("new-item-price").value.replace(",", ".");
+    let path = document.getElementById("new-item-path").value;
+    let name = document.getElementById("new-item-name").value;
+    let origin = document.getElementById("new-item-origin").value;
+    let type = document.getElementById("new-item-type").value;
+    let price = document
+      .getElementById("new-item-price")
+      .value.replace(",", ".");
 
-      if (
-        path === "" || name === "" || origin === "" || type === "" || price === "" 
-      ) {
-          alert("Veuillez remplir tous les champs.");
-      } else if (!isNaN(price) && parseFloat(price) > 0) {
-        let obj = {
-            _id: uuidv4(),
-            path: path,
-            name: name,
-            origin: origin,
-            type: type,
-            price: parseFloat(price),
-            nature: "bois"
-        }
-        context.addNewItem(obj);
-        setNewMat(false);
-        setItemImg(null);
-      } else {
-        alert("Entrez un prix valide (par exemple: '16.75').");
-      }
-  }
+    if (
+      path === "" ||
+      name === "" ||
+      origin === "" ||
+      type === "" ||
+      price === ""
+    ) {
+      alert("Veuillez remplir tous les champs.");
+    } else if (!isNaN(price) && parseFloat(price) > 0) {
+      let obj = {
+        _id: uuidv4(),
+        path: path,
+        name: name,
+        origin: origin,
+        type: type,
+        price: parseFloat(price),
+        nature: "bois"
+      };
+      context.addNewItem(obj);
+      setNewMat(false);
+      setItemImg(null);
+    } else {
+      alert("Entrez un prix valide (par exemple: '16.75').");
+    }
+  };
 
   useEffect(() => {
-    if (!materials) {context.getMaterials();}
+    if (!materials) {
+      context.getMaterials();
+    }
 
     if (newMat) {
       const pathInput = document.getElementById("new-item-path");
@@ -144,7 +152,10 @@ const Materials = props => {
                 required
               />
             </div>
-            <span className="filter-btn add-item-btn" onClick={() => addNewItem()}>
+            <span
+              className="filter-btn add-item-btn"
+              onClick={() => addNewItem()}
+            >
               Ajouter<i className="fas fa-plus filter-btn-icon"></i>
             </span>
           </div>
@@ -153,70 +164,79 @@ const Materials = props => {
       ) : (
         <React.Fragment />
       )}
-      <section className="shop-section">
-        {focusedMaterial ? (
-          <FocusedMaterial
-            resetFocus={() => {
-              setFocusedMaterial(null);
-            }}
-            material={focusedMaterial}
-          />
-        ) : (
+      <section className={materials ? "shop-section" : "shop-section section-loading"}>
+        {materials ? (
           <React.Fragment>
-            <div className="shop-top multiple-elems">
-              <form id="search-item">
-                <input
-                  type="text"
-                  name="search"
-                  className="search-input"
-                  autoComplete="off"
-                  placeholder="Chercher un matériau"
-                  required
-                />
-                <button className="filter-btn search-btn">
-                  <i className="fas fa-search"></i>
-                </button>
-              </form>
-              <span
-                className="filter-btn"
-                onClick={() => {
-                  setNewMat(true);
+            {focusedMaterial ? (
+              <FocusedMaterial
+                resetFocus={() => {
+                  setFocusedMaterial(null);
                 }}
-              >
-                Ajouter un matériau
-                <i className="fas fa-plus filter-btn-icon"></i>
-              </span>
-            </div>
-            <div className="shop-content">
-              {!materials ? (
-                <React.Fragment />
-              ) : (
-                <React.Fragment>
-                  {materials.map(material => {
-                    return (
-                      <div
-                        key={uuidv4()}
-                        className="thumbnail"
-                        onClick={() => {
-                          setFocusedMaterial(material);
-                        }}
-                      >
-                        <img src={material.path} className="thumbnail-image" />
-                        <div className="thumbnail-info-container">
-                          <span className="thumbnail-text">
-                            {material.name}
-                          </span>
-                          <span className="thumbnail-text tag">
-                            #{material.tag}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </React.Fragment>
-              )}
-            </div>
+                material={focusedMaterial}
+              />
+            ) : (
+              <React.Fragment>
+                <div className="shop-top multiple-elems">
+                  <form id="search-item">
+                    <input
+                      type="text"
+                      name="search"
+                      className="search-input"
+                      autoComplete="off"
+                      placeholder="Chercher un matériau"
+                      required
+                    />
+                    <button className="filter-btn search-btn">
+                      <i className="fas fa-search"></i>
+                    </button>
+                  </form>
+                  <span
+                    className="filter-btn"
+                    onClick={() => {
+                      setNewMat(true);
+                    }}
+                  >
+                    Ajouter un matériau
+                    <i className="fas fa-plus filter-btn-icon"></i>
+                  </span>
+                </div>
+                <div className="shop-content">
+                  {!materials ? (
+                    <React.Fragment />
+                  ) : (
+                    <React.Fragment>
+                      {materials.map(material => {
+                        return (
+                          <div
+                            key={uuidv4()}
+                            className="thumbnail"
+                            onClick={() => {
+                              setFocusedMaterial(material);
+                            }}
+                          >
+                            <img
+                              src={material.path}
+                              className="thumbnail-image"
+                            />
+                            <div className="thumbnail-info-container">
+                              <span className="thumbnail-text">
+                                {material.name}
+                              </span>
+                              <span className="thumbnail-text tag">
+                                #{material.tag}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </React.Fragment>
+                  )}
+                </div>
+              </React.Fragment>
+            )}
           </React.Fragment>
+        ) : (
+          <Spinner addStyle={true} />
         )}
       </section>
     </React.Fragment>

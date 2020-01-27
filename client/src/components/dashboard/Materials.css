@@ -6,6 +6,7 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: var(--mid_shadow);
+  position: relative
 }
 
 .shop-top {
@@ -241,4 +242,8 @@
   height: 110px;
   object-fit: contain;
   margin-bottom: 12.5px;
+}
+
+.section-loading {
+  height: 100%;
 }

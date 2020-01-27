@@ -18,6 +18,13 @@
   background-color: transparent;
 }
 
+.in-parent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .spinner {
     width: 90px;
     text-align: center;

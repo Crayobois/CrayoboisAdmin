@@ -26,12 +26,7 @@ const Hardwares = props => {
       .getElementById("new-item-price")
       .value.replace(",", ".");
 
-    if (
-      path === "" ||
-      color === "" ||
-      type === "" ||
-      price === ""
-    ) {
+    if (path === "" || color === "" || type === "" || price === "") {
       alert("Veuillez remplir tous les champs.");
     } else if (!isNaN(price) && parseFloat(price) > 0) {
       let obj = {
@@ -39,7 +34,7 @@ const Hardwares = props => {
         path: path,
         color: color,
         type: type,
-        price: parseFloat(price),
+        price: parseFloat(price)
       };
       context.addNewHaw(obj);
       setNewHaw(false);
@@ -148,71 +143,82 @@ const Hardwares = props => {
       ) : (
         <React.Fragment />
       )}
-      <section className="shop-section">
-        {focusedHardware ? (
-          <FocusedMaterial
-            resetFocus={() => {
-              setFocusedHardware(null);
-            }}
-            token="hardware"
-            material={focusedHardware}
-          />
-        ) : (
+      <section
+        className={hardwares ? "shop-section" : "shop-section section-loading"}
+      >
+        {hardwares ? (
           <React.Fragment>
-            <div className="shop-top multiple-elems">
-              <form id="search-item">
-                <input
-                  type="text"
-                  name="search"
-                  className="search-input"
-                  autoComplete="off"
-                  placeholder="Chercher un matériel"
-                  required
-                />
-                <button className="filter-btn search-btn">
-                  <i className="fas fa-search"></i>
-                </button>
-              </form>
-              <span
-                className="filter-btn"
-                onClick={() => {
-                  setNewHaw(true);
+            {focusedHardware ? (
+              <FocusedMaterial
+                resetFocus={() => {
+                  setFocusedHardware(null);
                 }}
-              >
-                Ajouter un matériel
-                <i className="fas fa-plus filter-btn-icon"></i>
-              </span>
-            </div>
-            <div className="shop-content">
-              {!hardwares ? (
-                <React.Fragment />
-              ) : (
-                <React.Fragment>
-                  {hardwares.map(hardware => {
-                    return (
-                      <div
-                        key={uuidv4()}
-                        className="thumbnail"
-                        onClick={() => {
-                          setFocusedHardware(hardware);
-                        }}
-                      >
-                        <img src={hardware.path} className="thumbnail-image" />
-                        <div className="thumbnail-info-container">
-                          <span className="thumbnail-text">
-                            {hardware.type}
-                          </span>
-                          <span className="thumbnail-text tag">
-                            {hardware.color}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </React.Fragment>
-              )}
-            </div>
+                token="hardware"
+                material={focusedHardware}
+              />
+            ) : (
+              <React.Fragment>
+                <div className="shop-top multiple-elems">
+                  <form id="search-item">
+                    <input
+                      type="text"
+                      name="search"
+                      className="search-input"
+                      autoComplete="off"
+                      placeholder="Chercher un matériel"
+                      required
+                    />
+                    <button className="filter-btn search-btn">
+                      <i className="fas fa-search"></i>
+                    </button>
+                  </form>
+                  <span
+                    className="filter-btn"
+                    onClick={() => {
+                      setNewHaw(true);
+                    }}
+                  >
+                    Ajouter un matériel
+                    <i className="fas fa-plus filter-btn-icon"></i>
+                  </span>
+                </div>
+                <div className="shop-content">
+                  {!hardwares ? (
+                    <React.Fragment />
+                  ) : (
+                    <React.Fragment>
+                      {hardwares.map(hardware => {
+                        return (
+                          <div
+                            key={uuidv4()}
+                            className="thumbnail"
+                            onClick={() => {
+                              setFocusedHardware(hardware);
+                            }}
+                          >
+                            <img
+                              src={hardware.path}
+                              className="thumbnail-image"
+                            />
+                            <div className="thumbnail-info-container">
+                              <span className="thumbnail-text">
+                                {hardware.type}
+                              </span>
+                              <span className="thumbnail-text tag">
+                                {hardware.color}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </React.Fragment>
+                  )}
+                </div>
+              </React.Fragment>
+            )}
           </React.Fragment>
+        ) : (
+          <Spinner addStyle={true} />
         )}
       </section>
     </React.Fragment>

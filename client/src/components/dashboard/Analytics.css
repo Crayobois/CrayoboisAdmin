@@ -55,6 +55,8 @@
   border-radius: 8px;
   box-shadow: var(--mid_shadow);
   display: flex;
+  flex-flow: column;
+  justify-content: space-between;
   padding: 25px;
   width: calc(100% - 50px);
   flex-grow: 1;
@@ -63,10 +65,11 @@
 }
 
 .net-revenue-canvas {
-    display: block;
+  display: block;
 }
 
 .div {
+  height: calc(100% - 50px);
   width: 100%;
 }
 
@@ -109,6 +112,37 @@
   padding-left: 25px;
 }
 
+.graph-title {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+    color: var(--black);
+    text-align: center;
+    line-height: 18px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.graph-top {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sync-btn {
+    padding: 5px 8px 5px 8px;
+    font-size: 12px;
+    margin: 0;
+}
+
+.sync-btn-icon {
+    font-size: 10px;
+    margin-left: 5px;
+}
+
 @media only screen and (max-width: 1400px) {
   .insights-value {
     font-size: 18px;
@@ -127,16 +161,14 @@
   }
 }
 
-
 @media only screen and (max-width: 1280px) {
-    .analytics-section {
-        height: 100% !important;
-    }
+  .analytics-section {
+    height: 100% !important;
+  }
 
-    .insights {
-        margin-right: 12.5px;
-        width: max-content;
-        border: none;
-    }
+  .insights {
+    margin-right: 12.5px;
+    width: max-content;
+    border: none;
+  }
 }
-  
