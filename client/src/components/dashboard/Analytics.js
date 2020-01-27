@@ -66,11 +66,24 @@ const Analytics = props => {
         }
       }
 
-      console.log(year, month, day);
+      return [year, month, day];
     };
 
     if (ordersForAnalytics) {
-      parseDayMonthYear(ordersForAnalytics[0].create_time);
+      for (var i = 0; i < ordersForAnalytics.length; i++) {
+        const dateOfOrder = parseDayMonthYear(
+          ordersForAnalytics[i].create_time
+        );
+        if (
+          currentMonth === parseInt(dateOfOrder[1] - 1) &&
+          currentYear === parseInt(dateOfOrder[0])
+        ) {
+          activeOrders[dateOfOrder[2] - 1] += parseFloat(
+            ordersForAnalytics[i].purchase_units[0].amount.breakdown.item_total
+              .value
+          );
+        }
+      }
     }
 
     Chart.defaults.global.defaultFontFamily = "Poppins";
