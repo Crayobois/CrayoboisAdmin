@@ -62,20 +62,18 @@ const Analytics = props => {
               20.0,
               18.4,
               19.1,
-              17.4
+              17.4,
+              0,
+              56
             ]
           }
         ]
       },
       options: {
+        maintainAspectRatio: false,
         responsive: true,
         legend: {
-            labels: {
-                // This more specific font property overrides the global property
-                fontColor: '#29353D',
-                fontSize: 18,
-                fontStyle: 500
-            }
+          display: false
         }
       }
     });
@@ -129,7 +127,9 @@ const Analytics = props => {
         </div>
       </div>
       <div className="revenue-canvas">
-        <canvas id="net-revenue-canvas"></canvas>
+        <div className="div">
+          <canvas id="net-revenue-canvas"></canvas>
+        </div>
       </div>
     </section>
   );
