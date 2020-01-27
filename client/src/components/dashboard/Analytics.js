@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import "./Analytics.css";
 import Chart from "chart.js";
+import Switch from "../switch/Switch";
 
 const Analytics = props => {
   const context = useContext(AuthContext);
@@ -217,8 +218,11 @@ const Analytics = props => {
           <span className="graph-title">
             Revenu net en {monthsName[new Date().getMonth()]}
           </span>
+          <div className="switch-container">
+            <span className="year-long">Année complète</span>
+            <Switch />
+          </div>
         </div>
-
         <div className="div">
           <canvas id="net-revenue-canvas"></canvas>
         </div>
