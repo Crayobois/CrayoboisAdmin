@@ -30,6 +30,9 @@ const Analytics = props => {
   const refresh = (month, year) => {
     if (month) {
       context.getOrders();
+      const spinIcon = document.getElementById("refresh-icon");
+      spinIcon.classList.add("spin");
+      setTimeout(() => {spinIcon.classList.remove("spin")}, 1000);
     }
   };
 
@@ -213,13 +216,13 @@ const Analytics = props => {
             }}
           >
             Actualiser
-            <i className="fas fa-sync-alt btn-icon sync-btn-icon"></i>
+            <i id="refresh-icon" className="fas fa-sync-alt btn-icon sync-btn-icon"></i>
           </span>
           <span className="graph-title">
             Revenu net en {monthsName[new Date().getMonth()]}
           </span>
           <div className="switch-container">
-            <span className="year-long">Année complète</span>
+        <span className="year-long">Année</span>
             <Switch />
           </div>
         </div>
