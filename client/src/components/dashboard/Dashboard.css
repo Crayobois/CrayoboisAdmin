@@ -1,8 +1,10 @@
 .dashboard-section {
   display: flex;
   width: 100vw;
-  height: max-content;
+  height: 100vh;
   overflow-y: scroll;
+  flex-flow: row;
+  overflow-x: hidden;
 }
 
 /*Dashboard left*/
@@ -12,9 +14,8 @@
   justify-content: flex-start;
   align-items: center;
   width: calc(30% - 100px);
-  min-width: 255px;
   padding: 50px;
-  min-height: 100%;
+  min-height: calc(100vh - 100px);
   box-shadow: var(--mid_shadow);
   background-color: #fff;
 }
@@ -73,7 +74,6 @@
   color: hsl(204, 20%, 25%);
   padding: 12.5px 0 12.5px;
   width: auto;
-  left: 40px;
   font-weight: 500;
   display: flex;
   justify-content: flex-start;
@@ -97,18 +97,6 @@
   color: var(--orange);
 }
 
-.active-link::before {
-  content: "";
-  height: 21px;
-  width: 3px;
-  background-color: hsl(29, 64%, 50%);
-  border-radius: 0 2px 2px 0;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translate(-40px, -50%);
-}
-
 .active-link-icon {
   color: hsl(29, 64%, 50%) !important;
 }
@@ -116,7 +104,7 @@
 /*Dashboard right*/
 .dashboard-right {
   width: 100%;
-  height: max-content;
   min-height: calc(100% - 100px);
   padding: 50px;
+  flex-grow: 1;
 }

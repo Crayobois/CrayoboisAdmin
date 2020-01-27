@@ -18,11 +18,14 @@ const Analytics = props => {
   });
 
   useEffect(() => {
-    context.getAnalytics();
+    if (!analytics) {
+      context.getAnalytics();
+    }
 
     if (!ordersForAnalytics) {
       context.getOrders();
     }
+
 
     // create chart
     const months = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -97,7 +100,6 @@ const Analytics = props => {
         labels: labels,
         datasets: [
           {
-            label: "Revenu net",
             fill: false,
             backgroundColor: "rgba(199,92,15,1)",
             borderColor: "rgba(199,92,15,0.5)",
@@ -110,9 +112,21 @@ const Analytics = props => {
         responsive: true,
         legend: {
           display: false
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    callback: function(value, index, values) {
+                        return priceFormatter.format(value);
+                    }
+                }
+            }]
         }
       }
     });
+
+    
+
   }, [ordersForAnalytics]);
 
   return (

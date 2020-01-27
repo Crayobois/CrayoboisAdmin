@@ -2,6 +2,7 @@
   flex-flow: column;
   display: flex;
   height: calc(100vh - 100px);
+  flex-grow: 1;
 }
 
 .customers-insights {
@@ -41,12 +42,12 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: var(--mid_shadow);
-  width: max-content;
-  display: flex;
-  flex-flow: row;
-  padding: 37.5px;
+  grid-auto-flow: column;
+  display: grid;
+  padding: 25px;
+  width: calc(100% - 50px);
   margin: 0 0 25px 0;
-  width: calc(100% - 75px);
+
 }
 
 .revenue-canvas {
@@ -54,10 +55,15 @@
   border-radius: 8px;
   box-shadow: var(--mid_shadow);
   display: flex;
-  padding: 37.5px;
-  width: calc(100% - 75px);
+  padding: 25px;
+  width: calc(100% - 50px);
   flex-grow: 1;
+  height: 150px;
   position: relative;
+}
+
+.net-revenue-canvas {
+    display: block;
 }
 
 .div {
@@ -101,4 +107,22 @@
   margin-left: auto;
   font-weight: 600;
   padding-left: 25px;
+}
+
+@media only screen and (max-width: 1400px) {
+  .insights-value {
+    font-size: 18px;
+  }
+
+  .insights-name {
+    font-size: 14px;
+  }
+
+  .customers-insights-name {
+    font-size: 14px;
+  }
+
+  .insights {
+    margin-right: 12.5px;
+  }
 }
