@@ -16,6 +16,7 @@ const AuthStates = props => {
 
   /* orders management */
   const [orders, setOrders] = useState(null);
+  const [ordersForAnalytics, setOrdersForAnalytics] = useState(null);
   const [ordersWaiting, setOrdersWaiting] = useState(null);
   const [ordersShipped, setOrdersShipped] = useState(null);
   const [displayedList, setDisplayedList] = useState(null);
@@ -148,6 +149,7 @@ const AuthStates = props => {
           setOrders([...all]);
           setOrdersShipped(shipped);
           setOrdersWaiting(waiting);
+          setOrdersForAnalytics([...all]);
           initializeDisplayedList([...all]);
         });
   };
@@ -490,6 +492,10 @@ const AuthStates = props => {
     }
   };
 
+  const getOrdersForAnalytics = () => {
+
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -520,7 +526,8 @@ const AuthStates = props => {
         deleteItem: deleteItem,
         editHardware: editHardware,
         deleteHaw: deleteHaw,
-        addNewHaw: addNewHaw
+        addNewHaw: addNewHaw,
+        ordersForAnalytics: [ordersForAnalytics, setOrdersForAnalytics]
       }}
     >
       {props.children}
