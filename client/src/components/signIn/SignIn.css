@@ -139,3 +139,57 @@ select:-webkit-autofill:focus {
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
+
+@media only screen and (max-width: 1280px) {
+  .signin-container {
+    width: 350px;
+    padding: 25px;
+    display: flex;
+    border-radius: 8px;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+    box-shadow: var(--long_shadow);
+  }
+  
+  .signin-logo {
+    object-fit: cover;
+    height: 90px;
+    width: auto;
+    margin-bottom: 25px;
+    pointer-events: none;
+  }
+  
+  .signin-input {
+    width: 250px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 5px 25px 5px 25px;
+    margin-bottom: 25px;
+    background-color: hsl(210, 20%, 92%);
+    -webkit-text-fill-color: hsl(204, 20%, 40%);
+    color: hsl(204, 20%, 40%);
+    font-size: 16px !important;
+    filter: none;
+  }
+
+  .signin-label {
+    color: var(--black);
+    font-size: 14px;
+    font-weight: 500;
+    width: 300px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 12.5px;
+  }
+  
+  
+.label-icon {
+  color: hsl(204, 20%, 70%);
+  margin-right: 12px;
+  font-size: 10px;
+}
+}

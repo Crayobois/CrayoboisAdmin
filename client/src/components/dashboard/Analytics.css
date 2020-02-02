@@ -88,13 +88,16 @@
   display: flex;
   flex-direction: column;
   width: max-content;
-  height: 100%;
   justify-content: space-between;
 }
 
 .pill {
   display: flex;
   align-items: center;
+}
+
+.none {
+    display: none;
 }
 
 .customers-insights-name {
@@ -145,8 +148,8 @@
 
 .spin {
     transform: rotate(360deg);
-    transition: transform .85s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transition-delay: .15s;
+    transition: transform .75s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-delay: .25s;
 }
 
 .switch-container {

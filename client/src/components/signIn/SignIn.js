@@ -16,14 +16,13 @@ const SignIn = props => {
   useEffect(() => {
     context.checkIfLoggedIn().then(val => {
       if (val) {
-        props.history.push("/user/dashboard");
+        props.history.push("/admin/dashboard");
       } else {
         setStateChecked(true);
       }
     });
 
     if (stateChecked) {
-      const btn = document.getElementById("signin-btn");
       const form = document.getElementById("signin-form");
       form.addEventListener("submit", e => {
         e.preventDefault();
@@ -38,7 +37,7 @@ const SignIn = props => {
 
   return (
     <React.Fragment>
-      {isLoggedIn ? props.history.push("/user/dashboard") : <React.Fragment />}
+      {isLoggedIn ? props.history.push("/admin/dashboard") : <React.Fragment />}
       {loading ? <Spinner addStyle={false} /> : <React.Fragment />}
       {stateChecked ? (
         <section className="signin-section">

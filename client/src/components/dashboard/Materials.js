@@ -11,12 +11,20 @@ const Materials = props => {
   const [focusedMaterial, setFocusedMaterial] = useState(null);
   const [newMat, setNewMat] = useState(false);
   const [itemImg, setItemImg] = useState(null);
+  const [searchRes, setSearchRes] = context.searchRes;
 
   const priceFormatter = new Intl.NumberFormat("fr-CA", {
     style: "currency",
     currency: "CAD",
     minimumFractionDigits: 2
   });
+
+  const search = id => {
+      const input = document.getElementById(id).value;
+      if (input != "") {
+        context.search(input);
+      }
+  };
 
   const addNewItem = () => {
     let path = document.getElementById("new-item-path").value;
@@ -68,7 +76,11 @@ const Materials = props => {
         }
       });
     }
-  }, [newMat]);
+
+    if (searchRes) {
+      setFocusedMaterial(searchRes);
+    }
+  }, [newMat, searchRes]);
 
   return (
     <React.Fragment>
@@ -164,7 +176,9 @@ const Materials = props => {
       ) : (
         <React.Fragment />
       )}
-      <section className={materials ? "shop-section" : "shop-section section-loading"}>
+      <section
+        className={materials ? "shop-section" : "shop-section section-loading"}
+      >
         {materials ? (
           <React.Fragment>
             {focusedMaterial ? (
@@ -177,19 +191,23 @@ const Materials = props => {
             ) : (
               <React.Fragment>
                 <div className="shop-top multiple-elems">
-                  <form id="search-item">
+                  <div id="search-item">
                     <input
                       type="text"
                       name="search"
+                      id="mat-search-input"
                       className="search-input"
                       autoComplete="off"
                       placeholder="Chercher un matériau"
                       required
                     />
-                    <button className="filter-btn search-btn">
+                    <button
+                      className="filter-btn search-btn"
+                      onClick={() => {search("mat-search-input")}}
+                    >
                       <i className="fas fa-search"></i>
                     </button>
-                  </form>
+                  </div>
                   <span
                     className="filter-btn"
                     onClick={() => {

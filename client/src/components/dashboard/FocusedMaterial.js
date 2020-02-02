@@ -8,6 +8,7 @@ const FocusedMaterial = props => {
   const context = useContext(AuthContext);
   const material = props.material;
   const [editing, setEditing] = useState(false);
+  const [searchRes, setSearchRes] = context.searchRes;
 
   const priceFormatter = new Intl.NumberFormat("fr-CA", {
     style: "currency",
@@ -124,6 +125,9 @@ const FocusedMaterial = props => {
           className="focused-back"
           onClick={() => {
             props.resetFocus();
+            if (searchRes) {
+              setSearchRes(null);
+            }
           }}
         >
           <i className="fas fa-chevron-left focused-back-icon"></i>

@@ -26,6 +26,9 @@ const AuthStates = props => {
   /* shop */
   const [materials, setMaterials] = useState(null);
   const [hardwares, setHardwares] = useState(null);
+  const [searchRes, setSearchRes] = useState(null);
+
+  const [yearly, setYearly] = useState(false);
 
   // firebase config
   const firebaseConfig = {
@@ -505,6 +508,22 @@ const AuthStates = props => {
     }
   };
 
+  const search = value => {
+    const parsedVal = value.toLowerCase();
+    db.collection("shop")
+      .doc("materialsList")
+      .get()
+      .then(doc => {
+        let data = doc.data().materials;
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].name.toLowerCase() === parsedVal || data[i].tag === parsedVal) {
+            setSearchRes(data[i]);
+            break;
+          }
+        }
+      });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -538,7 +557,10 @@ const AuthStates = props => {
         addNewHaw: addNewHaw,
         ordersForAnalytics: [ordersForAnalytics, setOrdersForAnalytics],
         analytics: [analytics, setAnalytics],
-        getAnalytics: getAnalytics
+        getAnalytics: getAnalytics,
+        search: search,
+        searchRes: [searchRes, setSearchRes],
+        yearly: [yearly, setYearly],
       }}
     >
       {props.children}

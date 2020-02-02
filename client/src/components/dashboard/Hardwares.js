@@ -158,20 +158,7 @@ const Hardwares = props => {
               />
             ) : (
               <React.Fragment>
-                <div className="shop-top multiple-elems">
-                  <form id="search-item">
-                    <input
-                      type="text"
-                      name="search"
-                      className="search-input"
-                      autoComplete="off"
-                      placeholder="Chercher un matériel"
-                      required
-                    />
-                    <button className="filter-btn search-btn">
-                      <i className="fas fa-search"></i>
-                    </button>
-                  </form>
+                <div className="shop-top">
                   <span
                     className="filter-btn"
                     onClick={() => {

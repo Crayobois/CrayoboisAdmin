@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import "./Analytics.css";
-import Chart from "chart.js";
+import DataVisualization from "./DataVisualization";
 import Switch from "../switch/Switch";
 
 const Analytics = props => {
@@ -26,30 +26,45 @@ const Analytics = props => {
     "novembre",
     "décembre"
   ];
+  const [yearly, setYearly] = context.yearly;
+  const [monthlyData, setMonthlyData] = useState(null);
+  const [yearlyData, setYearlyData] = useState(null);
+  const [activeSet, setActiveSet] = useState(null);
 
   const refresh = (month, year) => {
     if (month) {
       context.getOrders();
       const spinIcon = document.getElementById("refresh-icon");
       spinIcon.classList.add("spin");
-      setTimeout(() => {spinIcon.classList.remove("spin")}, 1000);
+      setTimeout(() => {
+        spinIcon.classList.remove("spin");
+      }, 1000);
     }
   };
 
-  const monthlyRevenuChart = () => {
+  const priceFormatter = new Intl.NumberFormat("fr-CA", {
+    style: "currency",
+    currency: "CAD",
+    minimumFractionDigits: 2
+  });
+
+  const revenuChart = () => {
     // create chart
     const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
-    let labels = [];
-    let activeOrders = [];
+    let monthlyLabels = [];
+    let yearlyLabels = [...monthsName];
+    let monthlyOrders = [];
+    let yearlyOrders = [];
 
     // initializes x and y axis
-    for (var i = 0; i < months[currentMonth]; i++) {
-      labels.push(`${i + 1}`);
-      activeOrders.push(0);
+    for (var i = 0; i < months.length; i++) {
+      yearlyOrders.push(0);
     }
-
-    let canvas = document.getElementById("net-revenue-canvas").getContext("2d");
+    for (var i = 0; i < months[currentMonth]; i++) {
+      monthlyLabels.push(`${i + 1}`);
+      monthlyOrders.push(0);
+    }
 
     // parse incoming date to [yyyy,mm,dd]
     const parseDayMonthYear = date => {
@@ -83,76 +98,54 @@ const Analytics = props => {
       return [year, month, day];
     };
 
-    // add orders of the months to active orders
+    // add orders of the month to active orders
     if (ordersForAnalytics) {
-      for (var i = 0; i < ordersForAnalytics.length; i++) {
-        const dateOfOrder = parseDayMonthYear(
-          ordersForAnalytics[i].create_time
-        );
-        if (
-          currentMonth === parseInt(dateOfOrder[1] - 1) &&
-          currentYear === parseInt(dateOfOrder[0])
-        ) {
-          activeOrders[dateOfOrder[2] - 1] += parseFloat(
-            ordersForAnalytics[i].purchase_units[0].amount.breakdown.item_total
-              .value
+        for (var i = 0; i < ordersForAnalytics.length; i++) {
+          const dateOfOrder = parseDayMonthYear(
+            ordersForAnalytics[i].create_time
           );
+          if (currentYear === parseInt(dateOfOrder[0])) {
+            yearlyOrders[dateOfOrder[1] - 1] += parseFloat(
+              ordersForAnalytics[i].purchase_units[0].amount.breakdown
+                .item_total.value
+            );
+          }
         }
-      }
+        for (var i = 0; i < ordersForAnalytics.length; i++) {
+          const dateOfOrder = parseDayMonthYear(
+            ordersForAnalytics[i].create_time
+          );
+          if (
+            currentMonth === parseInt(dateOfOrder[1] - 1) &&
+            currentYear === parseInt(dateOfOrder[0])
+          ) {
+            monthlyOrders[dateOfOrder[2] - 1] += parseFloat(
+              ordersForAnalytics[i].purchase_units[0].amount.breakdown
+                .item_total.value
+            );
+          }
+        }
     }
 
-    Chart.defaults.global.defaultFontFamily = "Poppins";
-
-    let chart = new Chart(canvas, {
-      type: "line",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            fill: false,
-            backgroundColor: "rgba(199,92,15,1)",
-            borderColor: "rgba(199,92,15,0.5)",
-            data: activeOrders
-          }
-        ]
-      },
-      options: {
-        maintainAspectRatio: false,
-        responsive: true,
-        legend: {
-          display: false
-        },
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                callback: function(value, index, values) {
-                  return priceFormatter.format(value);
-                }
-              }
-            }
-          ]
-        }
-      }
+    setMonthlyData({
+        labels: monthlyLabels,
+        orders: monthlyOrders
+    });
+    setYearlyData({
+        labels: yearlyLabels,
+        orders: yearlyOrders
     });
   };
-
-  const priceFormatter = new Intl.NumberFormat("fr-CA", {
-    style: "currency",
-    currency: "CAD",
-    minimumFractionDigits: 2
-  });
 
   useEffect(() => {
     if (!analytics) {
       context.getAnalytics();
     }
-
     if (!ordersForAnalytics) {
       context.getOrders();
+    } else {
+      revenuChart();
     }
-
-    monthlyRevenuChart();
   }, [ordersForAnalytics]);
 
   return (
@@ -216,18 +209,27 @@ const Analytics = props => {
             }}
           >
             Actualiser
-            <i id="refresh-icon" className="fas fa-sync-alt btn-icon sync-btn-icon"></i>
+            <i
+              id="refresh-icon"
+              className="fas fa-sync-alt btn-icon sync-btn-icon"
+            ></i>
           </span>
           <span className="graph-title">
             Revenu net en {monthsName[new Date().getMonth()]}
           </span>
           <div className="switch-container">
-        <span className="year-long">Année</span>
-            <Switch />
+            <span className="year-long">Année</span>
+            <div
+              onClick={() => {
+                setYearly(!yearly);
+              }}
+            >
+              <Switch />
+            </div>
           </div>
         </div>
         <div className="div">
-          <canvas id="net-revenue-canvas"></canvas>
+          <DataVisualization orders={monthlyData ? monthlyData.orders : null} labels={monthlyData ? monthlyData.labels : null}/>
         </div>
       </div>
     </section>

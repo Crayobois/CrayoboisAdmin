@@ -16,7 +16,7 @@ const Dashboard = props => {
 
   const signingOut = () => {
     context.signout();
-    props.history.push("/user/login");
+    props.history.push("/admin/login");
   };
 
   useEffect(() => {
