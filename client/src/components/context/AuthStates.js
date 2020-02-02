@@ -28,7 +28,10 @@ const AuthStates = props => {
   const [hardwares, setHardwares] = useState(null);
   const [searchRes, setSearchRes] = useState(null);
 
-  const [yearly, setYearly] = useState(false);
+  /* chart */
+  const [destroy, setDestroy] = useState(false);
+  const [activeSet, setActiveSet] = useState(null);
+
 
   // firebase config
   const firebaseConfig = {
@@ -560,7 +563,8 @@ const AuthStates = props => {
         getAnalytics: getAnalytics,
         search: search,
         searchRes: [searchRes, setSearchRes],
-        yearly: [yearly, setYearly],
+        destroy: [destroy, setDestroy],
+        activeSet: [activeSet, setActiveSet]
       }}
     >
       {props.children}

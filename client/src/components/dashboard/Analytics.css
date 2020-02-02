@@ -97,7 +97,13 @@
 }
 
 .none {
-    display: none;
+  display: none;
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .customers-insights-name {

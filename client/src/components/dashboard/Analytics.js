@@ -26,10 +26,10 @@ const Analytics = props => {
     "novembre",
     "décembre"
   ];
-  const [yearly, setYearly] = context.yearly;
   const [monthlyData, setMonthlyData] = useState(null);
   const [yearlyData, setYearlyData] = useState(null);
-  const [activeSet, setActiveSet] = useState(null);
+  const [activeSet, setActiveSet] = context.activeSet;
+  const [destroy, setDestroy] = context.destroy;
 
   const refresh = (month, year) => {
     if (month) {
@@ -100,41 +100,55 @@ const Analytics = props => {
 
     // add orders of the month to active orders
     if (ordersForAnalytics) {
-        for (var i = 0; i < ordersForAnalytics.length; i++) {
-          const dateOfOrder = parseDayMonthYear(
-            ordersForAnalytics[i].create_time
+      for (var i = 0; i < ordersForAnalytics.length; i++) {
+        const dateOfOrder = parseDayMonthYear(
+          ordersForAnalytics[i].create_time
+        );
+        if (currentYear === parseInt(dateOfOrder[0])) {
+          yearlyOrders[dateOfOrder[1] - 1] += parseFloat(
+            ordersForAnalytics[i].purchase_units[0].amount.breakdown.item_total
+              .value
           );
-          if (currentYear === parseInt(dateOfOrder[0])) {
-            yearlyOrders[dateOfOrder[1] - 1] += parseFloat(
-              ordersForAnalytics[i].purchase_units[0].amount.breakdown
-                .item_total.value
-            );
-          }
         }
-        for (var i = 0; i < ordersForAnalytics.length; i++) {
-          const dateOfOrder = parseDayMonthYear(
-            ordersForAnalytics[i].create_time
+      }
+      for (var i = 0; i < ordersForAnalytics.length; i++) {
+        const dateOfOrder = parseDayMonthYear(
+          ordersForAnalytics[i].create_time
+        );
+        if (
+          currentMonth === parseInt(dateOfOrder[1] - 1) &&
+          currentYear === parseInt(dateOfOrder[0])
+        ) {
+          monthlyOrders[dateOfOrder[2] - 1] += parseFloat(
+            ordersForAnalytics[i].purchase_units[0].amount.breakdown.item_total
+              .value
           );
-          if (
-            currentMonth === parseInt(dateOfOrder[1] - 1) &&
-            currentYear === parseInt(dateOfOrder[0])
-          ) {
-            monthlyOrders[dateOfOrder[2] - 1] += parseFloat(
-              ordersForAnalytics[i].purchase_units[0].amount.breakdown
-                .item_total.value
-            );
-          }
         }
+      }
     }
 
     setMonthlyData({
-        labels: monthlyLabels,
-        orders: monthlyOrders
+      labels: monthlyLabels,
+      orders: monthlyOrders
     });
     setYearlyData({
-        labels: yearlyLabels,
-        orders: yearlyOrders
+      labels: yearlyLabels,
+      orders: yearlyOrders
     });
+    setActiveSet({
+      labels: monthlyLabels,
+      orders: monthlyOrders
+    });
+  };
+
+  const changeCurrentSet = value => {
+    if (!value) {
+      setDestroy(!destroy);
+      setActiveSet(monthlyData);
+    } else {
+      setDestroy(!destroy);
+      setActiveSet(yearlyData);
+    }
   };
 
   useEffect(() => {
@@ -143,7 +157,7 @@ const Analytics = props => {
     }
     if (!ordersForAnalytics) {
       context.getOrders();
-    } else {
+    } else if (!monthlyData && !yearlyData) {
       revenuChart();
     }
   }, [ordersForAnalytics]);
@@ -219,17 +233,13 @@ const Analytics = props => {
           </span>
           <div className="switch-container">
             <span className="year-long">Année</span>
-            <div
-              onClick={() => {
-                setYearly(!yearly);
-              }}
-            >
-              <Switch />
+            <div className="switch-container">
+              <Switch changeCurrentSet={changeCurrentSet} />
             </div>
           </div>
         </div>
-        <div className="div">
-          <DataVisualization orders={monthlyData ? monthlyData.orders : null} labels={monthlyData ? monthlyData.labels : null}/>
+        <div id="chart-canvas" className="div">
+          {activeSet ? <DataVisualization /> : null}
         </div>
       </div>
     </section>
