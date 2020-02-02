@@ -30,16 +30,10 @@ const Analytics = props => {
   const [yearlyData, setYearlyData] = useState(null);
   const [activeSet, setActiveSet] = context.activeSet;
   const [destroy, setDestroy] = context.destroy;
+  const [yearly, setYearly] = useState(false);
 
-  const refresh = (month, year) => {
-    if (month) {
-      context.getOrders();
-      const spinIcon = document.getElementById("refresh-icon");
-      spinIcon.classList.add("spin");
-      setTimeout(() => {
-        spinIcon.classList.remove("spin");
-      }, 1000);
-    }
+  const refresh = () => {
+    revenuChart();
   };
 
   const priceFormatter = new Intl.NumberFormat("fr-CA", {
@@ -135,19 +129,28 @@ const Analytics = props => {
       labels: yearlyLabels,
       orders: yearlyOrders
     });
-    setActiveSet({
-      labels: monthlyLabels,
-      orders: monthlyOrders
-    });
+    if (yearly) {
+      setActiveSet({
+        labels: yearlyLabels,
+        orders: yearlyOrders
+      });
+    } else {
+      setActiveSet({
+        labels: monthlyLabels,
+        orders: monthlyOrders
+      });
+    }
   };
 
   const changeCurrentSet = value => {
     if (!value) {
       setDestroy(!destroy);
       setActiveSet(monthlyData);
+      setYearly(false);
     } else {
       setDestroy(!destroy);
       setActiveSet(yearlyData);
+      setYearly(true);
     }
   };
 
@@ -229,7 +232,10 @@ const Analytics = props => {
             ></i>
           </span>
           <span className="graph-title">
-            Revenu net en {monthsName[new Date().getMonth()]}
+            Revenu net en{" "}
+            {!yearly
+              ? monthsName[new Date().getMonth()]
+              : new Date().getFullYear()}
           </span>
           <div className="switch-container">
             <span className="year-long">Année</span>

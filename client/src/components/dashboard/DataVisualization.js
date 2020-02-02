@@ -69,11 +69,9 @@ const DataVisualization = props => {
   };
 
   useEffect(() => {
-    console.log("use effect")
     if (activeSet && !destroy) {
       createChart(activeSet.labels, activeSet.orders);
     } else if (destroy) {
-      console.log("entered")
       destroyChart(chart);
     }
   }, [activeSet, destroy]);
