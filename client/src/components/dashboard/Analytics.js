@@ -170,6 +170,11 @@ const Analytics = props => {
     } else if (!monthlyData && !yearlyData) {
       revenuChart();
     } 
+
+    return(() => {
+      setActiveSet(monthlyData);
+      setYearly(false);
+    });
   }, [ordersForAnalytics]);
 
   return (
