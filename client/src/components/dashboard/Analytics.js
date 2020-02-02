@@ -33,7 +33,14 @@ const Analytics = props => {
   const [yearly, setYearly] = useState(false);
 
   const refresh = () => {
-    revenuChart();
+    setMonthlyData(null);
+    setYearlyData(null);
+    context.getOrders();
+    const spinIcon = document.getElementById("refresh-icon");
+    spinIcon.classList.add("spin");
+    setTimeout(() => {
+      spinIcon.classList.remove("spin");
+    }, 1000);
   };
 
   const priceFormatter = new Intl.NumberFormat("fr-CA", {
@@ -162,7 +169,7 @@ const Analytics = props => {
       context.getOrders();
     } else if (!monthlyData && !yearlyData) {
       revenuChart();
-    }
+    } 
   }, [ordersForAnalytics]);
 
   return (
