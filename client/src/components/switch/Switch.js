@@ -3,6 +3,8 @@ import AuthContext from "../context/AuthContext";
 import "./Switch.css";
 
 const Switch = props => {
+  const context = useContext(AuthContext);
+  const yearly = context.yearly[0];
 
   const checkbox = () => {
     const value = document.querySelector('#checkbox').checked;
@@ -10,6 +12,9 @@ const Switch = props => {
   }
 
   useEffect(() => {
+    if (yearly) {
+      document.querySelector('#checkbox').checked = true;
+    }
   }, []);
 
   return (

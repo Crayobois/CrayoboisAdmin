@@ -30,17 +30,16 @@ const Analytics = props => {
   const [yearlyData, setYearlyData] = useState(null);
   const [activeSet, setActiveSet] = context.activeSet;
   const [destroy, setDestroy] = context.destroy;
-  const [yearly, setYearly] = useState(false);
+  const [yearly, setYearly] = context.yearly;
 
-  const refresh = () => {
-    setMonthlyData(null);
-    setYearlyData(null);
-    context.getOrders();
-    const spinIcon = document.getElementById("refresh-icon");
-    spinIcon.classList.add("spin");
-    setTimeout(() => {
-      spinIcon.classList.remove("spin");
-    }, 1000);
+  const refresh = async () => {
+    document.querySelector("#checkbox").checked = false;
+    context.getOrders(true).then(newOrders => {
+      revenuChart(newOrders, false);
+      const spinIcon = document.getElementById("refresh-icon");
+      spinIcon.classList.add("spin");
+      setTimeout(() => {spinIcon.classList.remove("spin")}, 750);
+    });
   };
 
   const priceFormatter = new Intl.NumberFormat("fr-CA", {
@@ -49,7 +48,7 @@ const Analytics = props => {
     minimumFractionDigits: 2
   });
 
-  const revenuChart = () => {
+  const revenuChart = (orders, yearly) => {
     // create chart
     const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
@@ -99,32 +98,30 @@ const Analytics = props => {
       return [year, month, day];
     };
 
+    let all;
+    if (orders) {
+      all = orders;
+    } else {
+      all = ordersForAnalytics;
+    }
     // add orders of the month to active orders
-    if (ordersForAnalytics) {
-      for (var i = 0; i < ordersForAnalytics.length; i++) {
-        const dateOfOrder = parseDayMonthYear(
-          ordersForAnalytics[i].create_time
+    for (var i = 0; i < all.length; i++) {
+      const dateOfOrder = parseDayMonthYear(all[i].create_time);
+      if (currentYear === parseInt(dateOfOrder[0])) {
+        yearlyOrders[dateOfOrder[1] - 1] += parseFloat(
+          all[i].purchase_units[0].amount.breakdown.item_total.value
         );
-        if (currentYear === parseInt(dateOfOrder[0])) {
-          yearlyOrders[dateOfOrder[1] - 1] += parseFloat(
-            ordersForAnalytics[i].purchase_units[0].amount.breakdown.item_total
-              .value
-          );
-        }
       }
-      for (var i = 0; i < ordersForAnalytics.length; i++) {
-        const dateOfOrder = parseDayMonthYear(
-          ordersForAnalytics[i].create_time
+    }
+    for (var i = 0; i < all.length; i++) {
+      const dateOfOrder = parseDayMonthYear(all[i].create_time);
+      if (
+        currentMonth === parseInt(dateOfOrder[1] - 1) &&
+        currentYear === parseInt(dateOfOrder[0])
+      ) {
+        monthlyOrders[dateOfOrder[2] - 1] += parseFloat(
+          all[i].purchase_units[0].amount.breakdown.item_total.value
         );
-        if (
-          currentMonth === parseInt(dateOfOrder[1] - 1) &&
-          currentYear === parseInt(dateOfOrder[0])
-        ) {
-          monthlyOrders[dateOfOrder[2] - 1] += parseFloat(
-            ordersForAnalytics[i].purchase_units[0].amount.breakdown.item_total
-              .value
-          );
-        }
       }
     }
 
@@ -136,28 +133,38 @@ const Analytics = props => {
       labels: yearlyLabels,
       orders: yearlyOrders
     });
-    if (yearly) {
-      setActiveSet({
-        labels: yearlyLabels,
-        orders: yearlyOrders
-      });
+    if (orders) {
+      changeCurrentSet(false, { labels: monthlyLabels, orders: monthlyOrders });
     } else {
-      setActiveSet({
-        labels: monthlyLabels,
-        orders: monthlyOrders
-      });
+      if (yearly) {
+        setActiveSet({
+          labels: yearlyLabels,
+          orders: yearlyOrders
+        });
+      } else {
+        setActiveSet({
+          labels: monthlyLabels,
+          orders: monthlyOrders
+        });
+      }
     }
   };
 
-  const changeCurrentSet = value => {
-    if (!value) {
+  const changeCurrentSet = (value, set) => {
+    if (set) {
       setDestroy(!destroy);
-      setActiveSet(monthlyData);
+      setActiveSet(set);
       setYearly(false);
     } else {
-      setDestroy(!destroy);
-      setActiveSet(yearlyData);
-      setYearly(true);
+      if (!value) {
+        setDestroy(!destroy);
+        setActiveSet(monthlyData);
+        setYearly(false);
+      } else {
+        setDestroy(!destroy);
+        setActiveSet(yearlyData);
+        setYearly(true);
+      }
     }
   };
 
@@ -169,12 +176,15 @@ const Analytics = props => {
       context.getOrders();
     } else if (!monthlyData && !yearlyData) {
       revenuChart();
-    } 
-
-    return(() => {
-      setActiveSet(monthlyData);
+    }
+    if (activeSet === monthlyData) {
       setYearly(false);
-    });
+    }
+
+    return () => {
+      setYearly(false);
+      setActiveSet(monthlyData);
+    };
   }, [ordersForAnalytics]);
 
   return (
@@ -234,7 +244,7 @@ const Analytics = props => {
           <span
             className="filter-btn sync-btn"
             onClick={() => {
-              refresh(true, null);
+              refresh();
             }}
           >
             Actualiser

@@ -7,7 +7,7 @@ const DataVisualization = props => {
   const context = useContext(AuthContext);
   const [destroy, setDestroy] = context.destroy;
   const [activeSet, setActiveSet] = context.activeSet;
-  let chart;
+  var chart;
 
   const priceFormatter = new Intl.NumberFormat("fr-CA", {
     style: "currency",
@@ -55,16 +55,17 @@ const DataVisualization = props => {
   const destroyChart = chart => {
     // reseting canvas
     let div = document.getElementById("chart-canvas");
+    let oldCanvas = document.getElementById("net-revenue-canvas");
     div.childNodes.forEach((node, index) => {
-      div.removeChild(div.childNodes[index]);
+      if (node === oldCanvas) {
+        div.removeChild(div.childNodes[index]);
+      }
     });
     // creating canvas
     let canvas = document.createElement("canvas");
     canvas.id = "net-revenue-canvas";
     // append new canvas
-    if (div.childNodes.length === 0) {
-      div.appendChild(canvas);
-    }
+    div.appendChild(canvas);
     setDestroy(false);
   };
 

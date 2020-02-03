@@ -31,7 +31,7 @@ const AuthStates = props => {
   /* chart */
   const [destroy, setDestroy] = useState(false);
   const [activeSet, setActiveSet] = useState(null);
-
+  const [yearly, setYearly] = useState(false);
 
   // firebase config
   const firebaseConfig = {
@@ -137,9 +137,11 @@ const AuthStates = props => {
     }
   };
 
-  const getOrders = () => {
+  const getOrders = async refreshing => {
+    let orders;
     if (auth.currentUser.uid && user.admin)
-      db.collection("orders")
+      await db
+        .collection("orders")
         .doc("ordersList")
         .get()
         .then(doc => {
@@ -153,12 +155,17 @@ const AuthStates = props => {
           for (var j = 0; j < shipped.length; j++) {
             all.push(shipped[j]);
           }
-          setOrders([...all]);
-          setOrdersShipped(shipped);
-          setOrdersWaiting(waiting);
-          setOrdersForAnalytics([...all]);
-          initializeDisplayedList([...all]);
+          if (refreshing) {
+            orders = all;
+          } else {
+            setOrders([...all]);
+            setOrdersShipped(shipped);
+            setOrdersWaiting(waiting);
+            setOrdersForAnalytics([...all]);
+            initializeDisplayedList([...all]);
+          }
         });
+    return orders;
   };
 
   /* Orders management */
@@ -519,7 +526,10 @@ const AuthStates = props => {
       .then(doc => {
         let data = doc.data().materials;
         for (let i = 0; i < data.length; i++) {
-            if (data[i].name.toLowerCase() === parsedVal || data[i].tag === parsedVal) {
+          if (
+            data[i].name.toLowerCase() === parsedVal ||
+            data[i].tag === parsedVal
+          ) {
             setSearchRes(data[i]);
             break;
           }
@@ -564,7 +574,8 @@ const AuthStates = props => {
         search: search,
         searchRes: [searchRes, setSearchRes],
         destroy: [destroy, setDestroy],
-        activeSet: [activeSet, setActiveSet]
+        activeSet: [activeSet, setActiveSet],
+        yearly: [yearly, setYearly]
       }}
     >
       {props.children}
