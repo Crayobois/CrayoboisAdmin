@@ -7,7 +7,7 @@ const DataVisualization = props => {
   const context = useContext(AuthContext);
   const [destroy, setDestroy] = context.destroy;
   const [activeSet, setActiveSet] = context.activeSet;
-  var chart;
+  let chart;
 
   const priceFormatter = new Intl.NumberFormat("fr-CA", {
     style: "currency",

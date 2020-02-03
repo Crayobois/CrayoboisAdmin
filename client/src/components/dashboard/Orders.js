@@ -63,12 +63,12 @@ const Orders = props => {
           <React.Fragment>
             {displayedList ? (
               <div className="orders-filter">
-                <label
+                {/*<label
                   className="orders-filter-label"
                   htmlFor="displayed-orders"
                 >
                   État des commandes:
-                </label>
+                </label>*/}
                 <select
                   id="orders-state"
                   className="orders-select"
@@ -78,25 +78,27 @@ const Orders = props => {
                   <option value="waiting">En attente</option>
                   <option value="shipped">Livrée</option>
                 </select>
-                <label className="orders-filter-label" htmlFor="orders-order">
+                {/*<label className="orders-filter-label" htmlFor="orders-order">
                   Ancienneté:
-                </label>
-                <select
-                  id="orders-order"
-                  className="orders-select"
-                  name="orders-order"
-                >
-                  <option value="recent">Récente</option>
-                  <option value="old">Ancienne</option>
-                </select>
-                <button
-                  className="filter-btn"
-                  onClick={() => {
-                    newList();
-                  }}
-                >
-                  Filtrer<i className="fas fa-filter filter-btn-icon"></i>
-                </button>
+              </label>*/}
+                <div>
+                  <select
+                    id="orders-order"
+                    className="orders-select"
+                    name="orders-order"
+                  >
+                    <option value="recent">Récente</option>
+                    <option value="old">Ancienne</option>
+                  </select>
+                  <button
+                    className="filter-btn"
+                    onClick={() => {
+                      newList();
+                    }}
+                  >
+                    Filtrer<i className="fas fa-filter filter-btn-icon"></i>
+                  </button>
+                </div>
               </div>
             ) : (
               <React.Fragment />

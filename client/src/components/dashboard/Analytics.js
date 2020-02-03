@@ -33,12 +33,14 @@ const Analytics = props => {
   const [yearly, setYearly] = context.yearly;
 
   const refresh = async () => {
-    document.querySelector("#checkbox").checked = false;
     context.getOrders(true).then(newOrders => {
       revenuChart(newOrders, false);
+      document.querySelector("#checkbox").checked = false;
       const spinIcon = document.getElementById("refresh-icon");
       spinIcon.classList.add("spin");
-      setTimeout(() => {spinIcon.classList.remove("spin")}, 750);
+      setTimeout(() => {
+        spinIcon.classList.remove("spin");
+      }, 750);
     });
   };
 

@@ -159,3 +159,31 @@
     font-weight: 600;
     font-size: 16px;
 }
+
+@media only screen and (max-width: 1250px) {
+  .filter-btn {
+    font-size: 12px;
+  }
+  
+  .filter-btn-icon {
+    color: #fff;
+    font-size: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+  }
+ 
+  #mat-search-input {
+    font-size: 12px;
+  }
+
+  .orders-select {
+    margin-right: 12.5px;
+  }
+
+  .orders-filter {
+    display: flex;
+    justify-content: space-between;
+  }
+}
