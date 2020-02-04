@@ -168,7 +168,7 @@ select:-webkit-autofill:focus {
     outline: none;
     padding: 5px 25px 5px 25px;
     margin-bottom: 25px;
-    background-color: hsl(210, 20%, 92%);
+    background-color: var(--gray);
     -webkit-text-fill-color: hsl(204, 20%, 40%);
     color: hsl(204, 20%, 40%);
     font-size: 16px !important;

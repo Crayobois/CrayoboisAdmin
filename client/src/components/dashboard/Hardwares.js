@@ -11,12 +11,30 @@ const Hardwares = props => {
   const [focusedHardware, setFocusedHardware] = useState(null);
   const [newHaw, setNewHaw] = useState(false);
   const [itemImg, setItemImg] = useState(null);
+  const [sortedHaws, setSortedHaws] = context.sortedHaws;
+  const [displayedHaws, setDisplayedHaws] = context.displayedHaws;
 
   const priceFormatter = new Intl.NumberFormat("fr-CA", {
     style: "currency",
     currency: "CAD",
     minimumFractionDigits: 2
   });
+
+  const changeDisplayedHaws = select => {
+    const elem = document.getElementById(select);
+    const value = elem.options[elem.selectedIndex].value;
+    if (value === "*") {
+      let temp = [];
+      for (let [key, value] of Object.entries(hardwares)) {
+        value.forEach(element => {
+          temp.push(element);
+        });
+      }
+      setDisplayedHaws(temp);
+    } else {
+      setDisplayedHaws(hardwares[value]);
+    }
+  };
 
   const addNewItem = () => {
     let path = document.getElementById("new-item-path").value;
@@ -159,6 +177,29 @@ const Hardwares = props => {
             ) : (
               <React.Fragment>
                 <div className="shop-top">
+                  <select
+                    id="haws-type"
+                    className="orders-select"
+                    name="displayed-haws"
+                    onChange={() => {
+                      changeDisplayedHaws("haws-type");
+                    }}
+                  >
+                    {sortedHaws ? (
+                      <React.Fragment>
+                        <option value="*">Tous les matériels</option>
+                        {sortedHaws.map((type, index) => {
+                          return (
+                            <option key={index} value={type[0]}>
+                              {type[0]}
+                            </option>
+                          );
+                        })}
+                      </React.Fragment>
+                    ) : (
+                      <React.Fragment />
+                    )}
+                  </select>
                   <span
                     className="filter-btn"
                     onClick={() => {
@@ -170,11 +211,11 @@ const Hardwares = props => {
                   </span>
                 </div>
                 <div className="shop-content">
-                  {!hardwares ? (
+                  {!displayedHaws ? (
                     <React.Fragment />
                   ) : (
                     <React.Fragment>
-                      {hardwares.map(hardware => {
+                      {displayedHaws.map(hardware => {
                         return (
                           <div
                             key={uuidv4()}

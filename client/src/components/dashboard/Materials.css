@@ -22,8 +22,8 @@
   margin-right: 12.5px;
   outline: none;
   border: none;
-  background-color: #e7ebef;
-  color: #526a7a;
+  background-color: var(--gray);
+  color: var(--input_text);
   font-size: 14px;
   font-weight: 500;
   border-radius: 5px;
@@ -166,7 +166,7 @@
 }
 
 .exit-btn:hover {
-  background-color: #e7ebef;
+  background-color: var(--gray);
 }
 
 .new-item {
@@ -184,7 +184,7 @@
 }
 
 .file-img {
-  background-color: #e7ebef;
+  background-color: var(--gray);
   color: #526a7a;
   width: 60px;
   height: 60px;
@@ -225,12 +225,17 @@
   margin: 12.5px 0 12.5px 25px;
   outline: none;
   border: none;
-  background-color: #e7ebef;
-  color: #526a7a;
+  background-color: var(--gray);
+  color: var(--input_text);
   font-size: 14px;
   font-weight: 500;
   border-radius: 5px;
   padding: 10px 12.5px 10px 12.5px;
+}
+
+.new-item-input:focus::placeholder {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .add-item-btn {

@@ -134,6 +134,9 @@ const FocusedMaterial = props => {
           Précédent
         </span>
         <div className="shop-top-right-buttons">
+          <span className="delete-btn" onClick={() => deleteHandler(material)}>
+            <i className="fas fa-trash-alt"></i>
+          </span>
           <span
             className="filter-btn"
             onClick={() => {
@@ -148,9 +151,6 @@ const FocusedMaterial = props => {
                   : "fas fa-edit filter-btn-icon"
               }
             ></i>
-          </span>
-          <span className="delete-btn" onClick={() => deleteHandler(material)}>
-            <i class="fas fa-trash-alt"></i>
           </span>
         </div>
       </div>

@@ -194,10 +194,10 @@ const Analytics = props => {
       <div className="revenue-insights">
         <div className="insights">
           <span className="insights-name">
-            <i className="fas fa-briefcase insights-icon"></i>Revenu brut
+            <i className="fas fa-briefcase insights-icon"></i>Revenu net
           </span>
           <span className="insights-value">
-            {analytics ? priceFormatter.format(analytics.grossRevenu) : ""}
+            {analytics ? priceFormatter.format(analytics.grossRevenu - analytics.tps - analytics.tvq - analytics.totalShipping) : ""}
           </span>
         </div>
         <div className="insights">

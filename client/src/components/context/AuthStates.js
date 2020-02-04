@@ -27,6 +27,8 @@ const AuthStates = props => {
   const [materials, setMaterials] = useState(null);
   const [hardwares, setHardwares] = useState(null);
   const [searchRes, setSearchRes] = useState(null);
+  const [sortedHaws, setSortedHaws] = useState(null);
+  const [displayedHaws, setDisplayedHaws] = useState(null);
 
   /* chart */
   const [destroy, setDestroy] = useState(false);
@@ -418,9 +420,23 @@ const AuthStates = props => {
         .get()
         .then(doc => {
           const data = doc.data();
-          setHardwares(data.hardwares);
+          setDisplayedHaws(data.hardwares);
+          sortHardwares(data.hardwares);
         });
     }
+  };
+
+  const sortHardwares = haws => {
+    let byTypes = {};
+    for (let i = 0; i < haws.length; i++) {
+      if (byTypes[haws[i].type]) {
+        byTypes[haws[i].type].push(haws[i]);
+      } else {
+        byTypes[haws[i].type] = [haws[i]];
+      }
+    }
+    setHardwares(byTypes);
+    setSortedHaws(Object.entries(byTypes));
   };
 
   const editHardware = (type, color, price, id) => {
@@ -575,7 +591,9 @@ const AuthStates = props => {
         searchRes: [searchRes, setSearchRes],
         destroy: [destroy, setDestroy],
         activeSet: [activeSet, setActiveSet],
-        yearly: [yearly, setYearly]
+        yearly: [yearly, setYearly],
+        sortedHaws: [sortedHaws, setSortedHaws],
+        displayedHaws: [displayedHaws, setDisplayedHaws]
       }}
     >
       {props.children}

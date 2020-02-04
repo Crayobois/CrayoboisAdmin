@@ -62,26 +62,31 @@ const Orders = props => {
         ) : (
           <React.Fragment>
             {displayedList ? (
-              <div className="orders-filter">
-                {/*<label
-                  className="orders-filter-label"
-                  htmlFor="displayed-orders"
-                >
-                  État des commandes:
-                </label>*/}
-                <select
-                  id="orders-state"
-                  className="orders-select"
-                  name="displayed-orders"
-                >
-                  <option value="*">Toutes les commandes</option>
-                  <option value="waiting">En attente</option>
-                  <option value="shipped">Livrée</option>
-                </select>
-                {/*<label className="orders-filter-label" htmlFor="orders-order">
-                  Ancienneté:
-              </label>*/}
+              <div className="orders-filter multiple-elems">
+                <div id="search-item">
+                  <input
+                    type="text"
+                    name="search"
+                    id="mat-search-input"
+                    className="search-input"
+                    autoComplete="off"
+                    placeholder="# de commande"
+                    required
+                  />
+                  <button className="filter-btn search-btn" onClick={() => {}}>
+                    <i className="fas fa-search"></i>
+                  </button>
+                </div>
                 <div>
+                  <select
+                    id="orders-state"
+                    className="orders-select"
+                    name="displayed-orders"
+                  >
+                    <option value="*">Toutes les commandes</option>
+                    <option value="waiting">En attente</option>
+                    <option value="shipped">Livrée</option>
+                  </select>
                   <select
                     id="orders-order"
                     className="orders-select"

@@ -10,7 +10,7 @@
   }
   
   .slider {
-    background-color: #ccc;
+    background-color: var(--gray);
     bottom: 0;
     cursor: pointer;
     left: 0;
