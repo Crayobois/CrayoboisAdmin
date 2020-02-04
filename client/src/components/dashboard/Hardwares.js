@@ -13,6 +13,7 @@ const Hardwares = props => {
   const [itemImg, setItemImg] = useState(null);
   const [sortedHaws, setSortedHaws] = context.sortedHaws;
   const [displayedHaws, setDisplayedHaws] = context.displayedHaws;
+  const [type, setType] = useState(null);
 
   const priceFormatter = new Intl.NumberFormat("fr-CA", {
     style: "currency",
@@ -30,8 +31,10 @@ const Hardwares = props => {
           temp.push(element);
         });
       }
+      setType(value);
       setDisplayedHaws(temp);
     } else {
+      setType(value);
       setDisplayedHaws(hardwares[value]);
     }
   };
@@ -67,6 +70,11 @@ const Hardwares = props => {
       context.getHardwares();
     }
 
+    if (type && !focusedHardware) {
+      const elem = document.getElementById("haws-type");
+      elem.value = type;
+    }
+
     if (newHaw) {
       const pathInput = document.getElementById("new-item-path");
       pathInput.addEventListener("input", () => {
@@ -77,7 +85,7 @@ const Hardwares = props => {
         }
       });
     }
-  }, [newHaw]);
+  }, [newHaw, focusedHardware]);
 
   return (
     <React.Fragment>

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./FocusedOrder.css";
 import AuthContext from "../context/AuthContext";
-import Spinner from "../spinner/Spinner";
 const uuidv4 = require("uuid/v4");
 
 const FocusedOrder = props => {

@@ -503,9 +503,13 @@ const AuthStates = props => {
 
   const addNewHaw = obj => {
     if (auth.currentUser.uid && user.admin) {
-      let oldHaws = [...hardwares];
-      oldHaws.unshift(obj);
-      setHardwares(oldHaws);
+      let byTypes = hardwares;
+      if (byTypes[obj.type]) {
+        byTypes[obj.type].push(obj);
+      } else {
+        byTypes[obj.type] = [obj];
+      }
+      setHardwares(byTypes);
 
       db.collection("shop")
         .doc("hardwaresList")
