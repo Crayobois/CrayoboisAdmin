@@ -23,6 +23,13 @@ const Orders = props => {
     setFocusedOrder(null);
   };
 
+  const searchOrder = id => {
+    const value = parseInt(document.getElementById(id).value);
+    if (value != "" && !isNaN(value)) {
+      context.searchOrder(value);
+    }
+  };
+
   const parseDate = prevDate => {
     let allowedChar = "0123456789-";
     let newDate = "";
@@ -73,7 +80,12 @@ const Orders = props => {
                     placeholder="# de commande"
                     required
                   />
-                  <button className="filter-btn search-btn" onClick={() => {}}>
+                  <button
+                    className="filter-btn search-btn"
+                    onClick={() => {
+                      searchOrder("mat-search-input");
+                    }}
+                  >
                     <i className="fas fa-search"></i>
                   </button>
                 </div>

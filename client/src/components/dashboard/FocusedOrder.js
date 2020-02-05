@@ -98,7 +98,7 @@ const FocusedOrder = props => {
           <div className="order-bill">
             <div className="items">
               <span className="focused-order-sub-header order-header">
-                Commande
+                Commande #{order.customId - 100000000}
               </span>
               <div className="focused-order-items">
                 {order.purchase_units[0].items.map(item => {

@@ -557,6 +557,14 @@ const AuthStates = props => {
       });
   };
 
+  const searchOrder = value => {
+    for (let i = 0; i < orders.length; i++) {
+      if (orders[i].customId - 100000000 === value) {
+        setFocusedOrder(orders[i]);
+      }
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -597,7 +605,8 @@ const AuthStates = props => {
         activeSet: [activeSet, setActiveSet],
         yearly: [yearly, setYearly],
         sortedHaws: [sortedHaws, setSortedHaws],
-        displayedHaws: [displayedHaws, setDisplayedHaws]
+        displayedHaws: [displayedHaws, setDisplayedHaws],
+        searchOrder: searchOrder
       }}
     >
       {props.children}
