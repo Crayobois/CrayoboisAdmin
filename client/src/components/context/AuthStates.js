@@ -362,8 +362,18 @@ const AuthStates = props => {
 
   const addNewItem = obj => {
     if (auth.currentUser.uid && user.admin) {
+      // get previous tag
+      db.collection("shop")
+        .doc("materialsList")
+        .get()
+        .then(doc => {
+          let data = doc.data().materials;
+          const tag = data[data.length - 1].tag + 1;
+          obj["tag"] = tag;
+        });
+
       let oldMats = [...materials];
-      oldMats.unshift(obj);
+      oldMats.push(obj);
       setMaterials(oldMats);
 
       db.collection("shop")
@@ -371,7 +381,7 @@ const AuthStates = props => {
         .get()
         .then(doc => {
           let data = doc.data().materials;
-          data.unshift(obj);
+          data.push(obj);
           db.collection("shop")
             .doc("materialsList")
             .update({
@@ -510,7 +520,7 @@ const AuthStates = props => {
   const addNewHaw = obj => {
     if (auth.currentUser.uid && user.admin) {
       let list = hawsData;
-      list.unshift(obj);
+      list.push(obj);
       sortHardwares(list);
       setHawsData(list);
 
@@ -519,7 +529,7 @@ const AuthStates = props => {
         .get()
         .then(doc => {
           let data = doc.data().hardwares;
-          data.unshift(obj);
+          data.push(obj);
           db.collection("shop")
             .doc("hardwaresList")
             .update({
@@ -542,7 +552,9 @@ const AuthStates = props => {
   };
 
   const search = value => {
-    const parsedVal = value.toLowerCase();
+    let parsedVal = value.toLowerCase();
+    let int = parseInt(value);
+    
     db.collection("shop")
       .doc("materialsList")
       .get()
@@ -551,7 +563,7 @@ const AuthStates = props => {
         for (let i = 0; i < data.length; i++) {
           if (
             data[i].name.toLowerCase() === parsedVal ||
-            data[i].tag === parsedVal
+            data[i].tag === int
           ) {
             setSearchRes(data[i]);
             break;
