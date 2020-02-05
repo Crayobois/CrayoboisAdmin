@@ -48,10 +48,9 @@
 }
 
 .focused-input:focus::placeholder {
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-  }
-  
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
 
 .change-material {
   width: 100%;
@@ -107,4 +106,53 @@
 .shop-top-right-buttons {
   display: inline-flex;
   align-items: center;
+}
+
+@media only screen and (max-width: 1250px) {
+  .focused {
+    flex-direction: row;
+    justify-content: space-between !important;
+  }
+
+  .focused-back {
+    padding: 0;
+  }
+
+  .focused-shop-container {
+    padding: 25px;
+    width: calc(100% - 50px);
+  }
+
+  .focused-shop-infos-container {
+    flex-direction: column !important;
+    display: flex !important;
+  }
+
+  .focused-shop-left {
+    margin-left: 0;
+  }
+
+  .focused-shop-right {
+    margin-top: 25px;
+    width: 100%;
+  }
+
+  .focused-shop-info-name {
+    font-size: 14px !important;
+  }
+
+  .focused-shop-info-text {
+    font-size: 18px !important;
+  }
+
+  .shop-section {
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  .focused-input {
+    font-size: 12px;
+    width: calc(100% - 25px) !important;
+    min-width: auto;
+  }
 }

@@ -70,7 +70,7 @@ const Orders = props => {
           <React.Fragment>
             {displayedList ? (
               <div className="orders-filter multiple-elems">
-                <div id="search-item">
+                <div id="search-item" className="orders-search">
                   <input
                     type="text"
                     name="search"
@@ -89,26 +89,29 @@ const Orders = props => {
                     <i className="fas fa-search"></i>
                   </button>
                 </div>
-                <div>
-                  <select
-                    id="orders-state"
-                    className="orders-select"
-                    name="displayed-orders"
-                  >
-                    <option value="*">Toutes les commandes</option>
-                    <option value="waiting">En attente</option>
-                    <option value="shipped">Livrée</option>
-                  </select>
-                  <select
-                    id="orders-order"
-                    className="orders-select"
-                    name="orders-order"
-                  >
-                    <option value="recent">Récente</option>
-                    <option value="old">Ancienne</option>
-                  </select>
+                <div className="filter">
+                  <div className="selects">
+                    <select
+                      id="orders-state"
+                      className="orders-select"
+                      name="displayed-orders"
+                    >
+                      <option value="*">Toutes les commandes</option>
+                      <option value="waiting">En attente</option>
+                      <option value="shipped">Livrée</option>
+                    </select>
+                    <select
+                      id="orders-order"
+                      className="orders-select right"
+                      name="orders-order"
+                    >
+                      <option value="recent">Récente</option>
+                      <option value="old">Ancienne</option>
+                    </select>
+                  </div>
+
                   <button
-                    className="filter-btn"
+                    className="filter-btn wide"
                     onClick={() => {
                       newList();
                     }}

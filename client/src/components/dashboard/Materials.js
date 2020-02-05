@@ -209,7 +209,7 @@ const Materials = props => {
                     </button>
                   </div>
                   <span
-                    className="filter-btn"
+                    className="filter-btn wide add-item"
                     onClick={() => {
                       setNewMat(true);
                     }}

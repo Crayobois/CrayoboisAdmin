@@ -159,6 +159,15 @@
   font-size: 16px;
 }
 
+.selects {
+  display: flex;
+  margin-bottom: 0;
+}
+
+.orders-search {
+  display: block;
+}
+
 @media only screen and (max-width: 1250px) {
   .filter-btn {
     font-size: 12px;
@@ -177,13 +186,13 @@
     font-size: 12px;
   }
 
+  .orders-search {
+    display: none;
+  }
+
   .orders-filter {
     display: flex;
     justify-content: space-between;
-  }
-
-  #search-item {
-    display: none;
   }
 
   .orders-select {
@@ -254,6 +263,30 @@
   }
 
   .second {
+    display: none !important;
+  }
+
+  .orders-select {
+    width: 50%;
+  }
+
+  .wide{
+    width: 100%;
+  }
+
+  .orders-filter {
+    height: auto;
+  }
+
+  .selects {
+    margin-bottom: 12.5px;
+  }
+
+  .right {
+    margin-right: 0;
+  }
+
+  .orders-search {
     display: none !important;
   }
 }

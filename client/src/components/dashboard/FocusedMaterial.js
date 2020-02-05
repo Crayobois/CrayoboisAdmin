@@ -120,7 +120,7 @@ const FocusedMaterial = props => {
 
   return (
     <React.Fragment>
-      <div className="shop-top multiple-elems">
+      <div className="shop-top multiple-elems focused">
         <span
           className="focused-back"
           onClick={() => {
