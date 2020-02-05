@@ -6,6 +6,24 @@
   overflow-x: hidden;
 }
 
+nav {
+  display: none;
+  position: fixed;
+  top: 0;
+  background-color: #fff;
+  box-shadow: var(--mid_shadow);
+  z-index: 999;
+  width: calc(100vw - 50px);
+  padding: 0 25px 0 25px;
+  height: 60px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mobile {
+  height: 50px !important;
+}
+
 /*Dashboard left*/
 .dashboard-left {
   display: flex;
@@ -97,6 +115,22 @@
   color: hsl(29, 64%, 50%) !important;
 }
 
+.ham {
+  width: 25px;
+  height: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.line {
+  height: 2px;
+  border-radius: 8px;
+  width: 100%;
+  background-color: var(--black);
+}
+
 .active-link {
   color: var(--orange);
 }
@@ -119,8 +153,17 @@
     height: 60px;
   }
 
+  .dashboard-section {
+    margin-top: 60px;
+    background-color: #fff;
+  }
+
   .dashboard-link {
     font-size: 14px;
+  }
+
+  nav {
+    display: flex;
   }
 
   .btn {
@@ -140,7 +183,7 @@
   .dashboard-left {
     min-height: calc(100% - 50px);
     padding: 25px;
-    transform: translateX(-200%);
+    transform: translateX(200%);
     display: none;
   }
 
@@ -155,6 +198,8 @@
     padding: 25px !important;
     box-shadow: none !important;
     border-radius: 0px !important;
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid #e9ebf1;
   }
 
   .revenue-canvas {
@@ -162,12 +207,20 @@
     border-radius: none !important;
   }
 
+  .sync-btn-icon {
+    margin-left: 0 !important;
+  }
+
   .stats-pills i {
     display: none;
   }
 
+  .sync {
+    display: none;
+  }
+
   .stats-pills {
-    width: 100% !important;
+    width: calc(100% - 12.5px) !important;
     padding-right: 12.5px;
   }
 
@@ -180,7 +233,16 @@
     padding: 0 !important;
   }
 
+  .year-long {
+    display: none;
+  }
+
   .dashboard-left-container {
     height: calc(100vh - 50px);
+  }
+
+  .chart-canvas {
+    min-width: 355px;
+    overflow-x: scroll;
   }
 }

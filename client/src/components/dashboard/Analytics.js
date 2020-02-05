@@ -249,7 +249,7 @@ const Analytics = props => {
               refresh();
             }}
           >
-            Actualiser
+            <span className="sync">Actualiser</span>
             <i
               id="refresh-icon"
               className="fas fa-sync-alt btn-icon sync-btn-icon"

@@ -28,6 +28,14 @@ const Dashboard = props => {
       {loading ? <Spinner /> : <React.Fragment />}
       {user ? (
         <section className="dashboard-section">
+          <nav>
+            <img src={logo} className="dashboard-logo mobile" />
+            <div className="ham">
+              <span className="line"></span>
+              <span className="line"></span>
+              <span className="line"></span>
+            </div>
+          </nav>
           <div className="dashboard-left">
             <div className="dashboard-left-container">
               <div className="dashboard-logo-container">
