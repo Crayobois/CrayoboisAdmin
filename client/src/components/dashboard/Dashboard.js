@@ -28,14 +28,20 @@ const Dashboard = props => {
 
   const toggle = () => {
     const elem = document.getElementById("dashboard-left");
-    if (toggled) {
-      elem.style.transform = "translateX(-150%)";
-      elem.style.opacity = "0";
-      setToggled(false);
-    } else {
-      elem.style.transform = "translateX(0)";
-      elem.style.opacity = "1";
-      setToggled(true);
+    const vw = Math.max(
+      document.documentElement.clientWidth,
+      window.innerWidth || 0
+    );
+    if (vw <= 1250) {
+      if (toggled) {
+        elem.style.transform = "translateX(-150%)";
+        elem.style.opacity = "0";
+        setToggled(false);
+      } else {
+        elem.style.transform = "translateX(0)";
+        elem.style.opacity = "1";
+        setToggled(true);
+      }
     }
   };
 

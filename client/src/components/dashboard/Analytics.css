@@ -92,6 +92,11 @@
 }
 
 .pill {
+  display: none;
+  align-items: center;
+}
+
+.pill-d {
   display: flex;
   align-items: center;
 }
@@ -192,7 +197,7 @@
   }
 }
 
-@media only screen and (max-width: 1280px) {
+@media only screen and (max-width: 1250px) {
   .analytics-section {
     height: 100% !important;
   }
@@ -201,5 +206,25 @@
     margin-right: 12.5px;
     width: max-content;
     border: none;
+  }
+
+  .customers-insights-value {
+    margin-right: 12.5px !important;
+  }
+
+  .last {
+    margin-right: 0 !important;
+  }
+
+  .pill {
+    display: flex;
+  }
+
+  .pill-d {
+    display: none;
+  }
+
+  .stats-pills {
+    display: none;
   }
 }

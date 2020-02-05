@@ -72,6 +72,10 @@
   opacity: 0.85;
 }
 
+.filter {
+  display: inline-flex;
+}
+
 .filter-btn-icon {
   color: #fff;
   font-size: 10px;
@@ -276,6 +280,7 @@
 
   .orders-filter {
     height: auto;
+    width: calc(100% - 50px);
   }
 
   .selects {
@@ -288,5 +293,14 @@
 
   .orders-search {
     display: none !important;
+  }
+
+  .filter-btn:hover {
+    opacity: 1;
+  }
+
+  .filter {
+    display: flex;
+    flex-direction: column;
   }
 }

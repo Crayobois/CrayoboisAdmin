@@ -323,11 +323,16 @@
     justify-content: flex-start;
   }
 
-.new-item-input {
-  font-size: 12px;
-}
+  .new-item-input {
+    font-size: 12px;
+  }
 
   .fa-file-image {
     font-size: 20px;
+  }
+
+  #haws-type{
+    margin: 0 0 12.5px 0;
+    width: 100%;
   }
 }

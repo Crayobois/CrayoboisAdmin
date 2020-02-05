@@ -197,7 +197,14 @@ const Analytics = props => {
             <i className="fas fa-briefcase insights-icon"></i>Revenu net
           </span>
           <span className="insights-value">
-            {analytics ? priceFormatter.format(analytics.grossRevenu - analytics.tps - analytics.tvq - analytics.totalShipping) : ""}
+            {analytics
+              ? priceFormatter.format(
+                  analytics.grossRevenu -
+                    analytics.tps -
+                    analytics.tvq -
+                    analytics.totalShipping
+                )
+              : ""}
           </span>
         </div>
         <div className="insights">
@@ -225,21 +232,43 @@ const Analytics = props => {
           </span>
         </div>
         <div className="stats-pills">
-          <span className="pill">
-            <i className="fas fa-user insights-icon"></i>
-            <span className="customers-insights-name">Clients</span>{" "}
+          <span className="pill-d">
+            <div>
+              <i className="fas fa-user insights-icon"></i>
+              <span className="customers-insights-name">Clients</span>{" "}
+            </div>
             <span className="customers-insights-value">
               {analytics ? analytics.totalCustomers : ""}
             </span>
           </span>
-          <span className="pill">
-            <i className="fas fa-pallet insights-icon"></i>
-            <span className="customers-insights-name">Commandes</span>{" "}
-            <span className="customers-insights-value">
+          <span className="pill-d">
+            <div>
+              <i className="fas fa-pallet insights-icon"></i>
+              <span className="customers-insights-name">Commandes</span>{" "}
+            </div>
+            <span className="customers-insights-value last">
               {analytics ? analytics.totalOrders - 100000000 : ""}
             </span>
           </span>
         </div>
+        <span className="pill">
+          <div>
+            <i className="fas fa-user insights-icon"></i>
+            <span className="customers-insights-name">Clients</span>{" "}
+          </div>
+          <span className="customers-insights-value">
+            {analytics ? analytics.totalCustomers : ""}
+          </span>
+        </span>
+        <span className="pill">
+          <div>
+            <i className="fas fa-pallet insights-icon"></i>
+            <span className="customers-insights-name">Commandes</span>{" "}
+          </div>
+          <span className="customers-insights-value last">
+            {analytics ? analytics.totalOrders - 100000000 : ""}
+          </span>
+        </span>
       </div>
       <div className="revenue-canvas">
         <div className="graph-top">

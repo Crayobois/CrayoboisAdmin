@@ -118,6 +118,14 @@
     padding: 0;
   }
 
+  .delete-btn {
+    background-color: transparent !important;
+  }
+
+  .delete-btn:hover {
+    background-color: transparent !important;
+  }
+
   .focused-shop-container {
     padding: 25px;
     width: calc(100% - 50px);
@@ -149,7 +157,7 @@
     box-shadow: none;
     border-radius: 0;
   }
-  
+
   .focused-input {
     font-size: 12px;
     width: calc(100% - 25px) !important;

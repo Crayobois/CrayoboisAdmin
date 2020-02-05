@@ -203,7 +203,7 @@ const Hardwares = props => {
                     )}
                   </select>
                   <span
-                    className="filter-btn"
+                    className="filter-btn wide add-item"
                     onClick={() => {
                       setNewHaw(true);
                     }}
