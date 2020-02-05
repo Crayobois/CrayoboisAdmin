@@ -29,6 +29,7 @@ const AuthStates = props => {
   const [searchRes, setSearchRes] = useState(null);
   const [sortedHaws, setSortedHaws] = useState(null);
   const [displayedHaws, setDisplayedHaws] = useState(null);
+  const [hawsData, setHawsData] = useState(null);
 
   /* chart */
   const [destroy, setDestroy] = useState(false);
@@ -422,6 +423,7 @@ const AuthStates = props => {
           const data = doc.data();
           setDisplayedHaws(data.hardwares);
           sortHardwares(data.hardwares);
+          setHawsData(data.hardwares);
         });
     }
   };
@@ -463,21 +465,25 @@ const AuthStates = props => {
             });
         })
         .then(() => {
-          setHardwares(newHardwares);
+          setDisplayedHaws(newHardwares);
+          setHawsData(newHardwares);
+          sortHardwares(newHardwares);
         });
     }
   };
 
   const deleteHaw = haw => {
     if (auth.currentUser.uid && user.admin) {
-      let oldHaws = [...hardwares];
+      let oldHaws = [...hawsData];
       for (var i = 0; i < oldHaws.length; i++) {
         if (oldHaws[i]._id === haw._id) {
           oldHaws.splice(i, 1);
           break;
         }
       }
-      setHardwares(oldHaws);
+      setDisplayedHaws(oldHaws);
+      setHawsData(oldHaws);
+      sortHardwares(oldHaws);
 
       db.collection("shop")
         .doc("hardwaresList")
@@ -503,13 +509,10 @@ const AuthStates = props => {
 
   const addNewHaw = obj => {
     if (auth.currentUser.uid && user.admin) {
-      let byTypes = hardwares;
-      if (byTypes[obj.type]) {
-        byTypes[obj.type].push(obj);
-      } else {
-        byTypes[obj.type] = [obj];
-      }
-      setHardwares(byTypes);
+      let list = hawsData;
+      list.unshift(obj);
+      sortHardwares(list);
+      setHawsData(list);
 
       db.collection("shop")
         .doc("hardwaresList")

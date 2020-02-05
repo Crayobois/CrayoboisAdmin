@@ -85,7 +85,7 @@ const Hardwares = props => {
         }
       });
     }
-  }, [newHaw, focusedHardware]);
+  }, [newHaw, focusedHardware, hardwares, sortedHaws]);
 
   return (
     <React.Fragment>
