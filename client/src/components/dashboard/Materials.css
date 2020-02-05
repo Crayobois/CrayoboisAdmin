@@ -298,11 +298,36 @@
   }
 
   .new-item {
-    grid-template-columns: 100%;
+    grid-template-columns: 30% 70%;
   }
 
   .new-item-label {
+    margin: 0;
+    justify-content: left;
+    width: 100%;
+    font-size: 12px !important;
+  }
+
+  .new-item-input {
+    margin-left: 0 !important;
+    margin-bottom: 12.5px;
+  }
+
+  .file-img {
+    padding: 0px !important;
+    border-radius: 50%;
     margin-bottom: 0;
-    text-align: left;
+  }
+
+  .new-item-image {
+    justify-content: flex-start;
+  }
+
+.new-item-input {
+  font-size: 12px;
+}
+
+  .fa-file-image {
+    font-size: 20px;
   }
 }
