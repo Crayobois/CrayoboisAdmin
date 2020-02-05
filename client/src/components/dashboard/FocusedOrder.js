@@ -105,18 +105,18 @@ const FocusedOrder = props => {
                   return (
                     <div key={item.name} className="focused-order-item-info">
                       <div className="focused-order-img-container">
-                        {item.path.map(path => {
+                        {item.path.map((path, index) => {
                           return (
                             <img
                               key={uuidv4()}
                               src={path}
-                              className="focused-order-img"
+                              className={index === 1 ? "focused-order-img second" : "focused-order-img"}
                             />
                           );
                         })}
                       </div>
                       <div className="focused-order-item-name">
-                        <span className="order-text">{item.name}</span>
+                        <span className="order-text wrap">{item.name}</span>
                       </div>
                       <div className="focused-order-qty">
                         <span className="focused-order-item-qty order-text">

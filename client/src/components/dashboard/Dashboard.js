@@ -20,16 +20,24 @@ const Dashboard = props => {
     props.history.push("/admin/login");
   };
 
+  window.addEventListener("resize", () => {
+    if (toggled) {
+      toggle();
+    }
+  });
+
   const toggle = () => {
     const elem = document.getElementById("dashboard-left");
     if (toggled) {
       elem.style.transform = "translateX(-150%)";
+      elem.style.opacity = "0";
       setToggled(false);
     } else {
       elem.style.transform = "translateX(0)";
+      elem.style.opacity = "1";
       setToggled(true);
     }
-  }
+  };
 
   useEffect(() => {
     context.getUser();
@@ -42,9 +50,13 @@ const Dashboard = props => {
         <section className="dashboard-section">
           <nav>
             <img src={logo} className="dashboard-logo mobile" />
-            <div className="ham" id="ham" onClick={() => {
-              toggle();
-            }}>
+            <div
+              className="ham"
+              id="ham"
+              onClick={() => {
+                toggle();
+              }}
+            >
               <span className="line"></span>
               <span className="line"></span>
               <span className="line"></span>
@@ -65,6 +77,7 @@ const Dashboard = props => {
                     }
                     onClick={() => {
                       setActiveLink("dashboard");
+                      toggle();
                     }}
                   >
                     <i
@@ -84,6 +97,7 @@ const Dashboard = props => {
                     }
                     onClick={() => {
                       setActiveLink("orders");
+                      toggle();
                     }}
                   >
                     <i
@@ -103,6 +117,7 @@ const Dashboard = props => {
                     }
                     onClick={() => {
                       setActiveLink("materials");
+                      toggle();
                     }}
                   >
                     <i
@@ -122,6 +137,7 @@ const Dashboard = props => {
                     }
                     onClick={() => {
                       setActiveLink("hardwares");
+                      toggle();
                     }}
                   >
                     <i

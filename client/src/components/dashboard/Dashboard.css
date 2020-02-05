@@ -36,7 +36,8 @@ nav {
   box-shadow: var(--mid_shadow);
   background-color: #fff;
   position: relative;
-  transition: transform 0.25s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  opacity: 1;
+  transition: all 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
 
 .dashboard-left-container {
@@ -193,6 +194,7 @@ nav {
     position: fixed;
     background-color: #fff;
     z-index: 998;
+    opacity: 0;
     width: calc(100vw - 50px);
   }
 

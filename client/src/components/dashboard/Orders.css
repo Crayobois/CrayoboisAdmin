@@ -18,7 +18,7 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-} 
+}
 
 .orders-filter {
   padding: 25px;
@@ -126,45 +126,44 @@
 }
 
 .order-icon-right {
-    margin-left: 8px;
-    margin-right: 0;
-    justify-content: flex-end;
+  margin-left: 8px;
+  margin-right: 0;
+  justify-content: flex-end;
 }
 
 .order-user {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .order-user-info {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .order-info-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
 }
 
 .order-info-quantities {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .order-state {
-    font-weight: 600;
-    font-size: 16px;
+  font-weight: 600;
+  font-size: 16px;
 }
 
 @media only screen and (max-width: 1250px) {
   .filter-btn {
     font-size: 12px;
   }
-  
+
   .filter-btn-icon {
     color: #fff;
     font-size: 8px;
@@ -173,7 +172,7 @@
     justify-content: center;
     margin-left: 8px;
   }
- 
+
   #mat-search-input {
     font-size: 12px;
   }
@@ -181,5 +180,80 @@
   .orders-filter {
     display: flex;
     justify-content: space-between;
+  }
+
+  #search-item {
+    display: none;
+  }
+
+  .orders-select {
+    font-size: 12px;
+  }
+
+  .filter-btn {
+    font-size: 12px;
+  }
+
+  .multiple-elems {
+    justify-content: center !important;
+  }
+
+  .order {
+    padding: 25px;
+    width: calc(100% - 50px);
+  }
+
+  .order-id-container {
+    width: 10%;
+  }
+
+  .order-text {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .order-state {
+    text-align: right;
+  }
+
+  .focused-order {
+    padding: 0 25px 0 25px !important;
+    width: calc(100% - 50px) !important;
+  }
+
+  .orders-section {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  .focused-order-info {
+    flex-direction: column;
+  }
+
+  .focused-order-info-client {
+    width: 100% !important;
+    padding: 0 !important;
+    margin-bottom: 25px !important;
+  }
+
+  .order-info-summary {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .focused-order-top {
+    margin: 12.5px !important;
+  }
+
+  .wrap {
+    white-space: pre-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .second {
+    display: none !important;
   }
 }
