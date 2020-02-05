@@ -21,12 +21,12 @@
 }
 
 .dashboard-left-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: max-content;
-    height: calc(100vh - 100px);
-    pointer-events: all;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  height: calc(100vh - 100px);
+  pointer-events: all;
 }
 
 .dashboard-logo-container {
@@ -133,13 +133,51 @@
   }
 
   .dashboard-right {
-    min-height: calc(100% - 50px);
-    padding: 25px;
+    padding: 0;
+    background-color: #fff;
   }
 
   .dashboard-left {
     min-height: calc(100% - 50px);
     padding: 25px;
+    transform: translateX(-200%);
+    display: none;
+  }
+
+  .insights {
+    width: 100%;
+    margin: 0 0 25px 0;
+  }
+
+  .revenue-insights {
+    display: grid !important;
+    grid-template-columns: 50% 50%;
+    padding: 25px !important;
+    box-shadow: none !important;
+    border-radius: 0px !important;
+  }
+
+  .revenue-canvas {
+    box-shadow: none !important;
+    border-radius: none !important;
+  }
+
+  .stats-pills i {
+    display: none;
+  }
+
+  .stats-pills {
+    width: 100% !important;
+    padding-right: 12.5px;
+  }
+
+  .pill {
+    justify-content: space-between !important;
+  }
+
+  .customers-insights-value {
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .dashboard-left-container {
