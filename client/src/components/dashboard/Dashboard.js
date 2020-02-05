@@ -84,6 +84,8 @@ const Dashboard = props => {
                     onClick={() => {
                       setActiveLink("dashboard");
                       toggle();
+                      let d = document.querySelector(".dashboard-right");
+                      d.scollTop = 0;
                     }}
                   >
                     <i
@@ -104,6 +106,8 @@ const Dashboard = props => {
                     onClick={() => {
                       setActiveLink("orders");
                       toggle();
+                      let d = document.querySelector(".dashboard-right");
+                      d.scollTop = 0;
                     }}
                   >
                     <i
@@ -124,6 +128,8 @@ const Dashboard = props => {
                     onClick={() => {
                       setActiveLink("materials");
                       toggle();
+                      let d = document.querySelector(".dashboard-right");
+                      d.scollTop = 0;
                     }}
                   >
                     <i
@@ -144,6 +150,8 @@ const Dashboard = props => {
                     onClick={() => {
                       setActiveLink("hardwares");
                       toggle();
+                      let d = document.querySelector(".dashboard-right");
+                      d.scollTop = 0;
                     }}
                   >
                     <i
