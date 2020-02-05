@@ -13,11 +13,23 @@ const Dashboard = props => {
   const user = context.user[0];
   const loading = context.loading[0];
   const [activeLink, setActiveLink] = useState("dashboard");
+  const [toggled, setToggled] = useState(false);
 
   const signingOut = () => {
     context.signout();
     props.history.push("/admin/login");
   };
+
+  const toggle = () => {
+    const elem = document.getElementById("dashboard-left");
+    if (toggled) {
+      elem.style.transform = "translateX(-150%)";
+      setToggled(false);
+    } else {
+      elem.style.transform = "translateX(0)";
+      setToggled(true);
+    }
+  }
 
   useEffect(() => {
     context.getUser();
@@ -30,13 +42,15 @@ const Dashboard = props => {
         <section className="dashboard-section">
           <nav>
             <img src={logo} className="dashboard-logo mobile" />
-            <div className="ham">
+            <div className="ham" id="ham" onClick={() => {
+              toggle();
+            }}>
               <span className="line"></span>
               <span className="line"></span>
               <span className="line"></span>
             </div>
           </nav>
-          <div className="dashboard-left">
+          <div className="dashboard-left" id="dashboard-left">
             <div className="dashboard-left-container">
               <div className="dashboard-logo-container">
                 <img src={logo} className="dashboard-logo" />
@@ -123,7 +137,7 @@ const Dashboard = props => {
               </div>
               <div className="dashboard-logout">
                 <button
-                  className="btn"
+                  className="btn signout-btn"
                   onClick={() => {
                     signingOut();
                   }}

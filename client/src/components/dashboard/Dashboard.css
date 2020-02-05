@@ -36,6 +36,7 @@ nav {
   box-shadow: var(--mid_shadow);
   background-color: #fff;
   position: relative;
+  transition: transform 0.25s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 
 .dashboard-left-container {
@@ -69,6 +70,10 @@ nav {
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+.signout-btn {
+  position: relative;
 }
 
 .dashboard-nav ul {
@@ -181,10 +186,36 @@ nav {
   }
 
   .dashboard-left {
-    min-height: calc(100% - 50px);
+    height: calc(100vh - 110px);
     padding: 25px;
-    transform: translateX(200%);
+    transform: translateX(-150%);
+    display: flex;
+    position: fixed;
+    background-color: #fff;
+    z-index: 998;
+    width: calc(100vw - 50px);
+  }
+
+  .dashboard-logo-container {
     display: none;
+  }
+
+  .dashboard-nav {
+    margin: 0;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dashboard-nav ul li {
+    font-size: 18px;
+  }
+
+  .signout-btn {
+    font-size: 18px;
+  }
+
+  .dashboard-left-container {
+    height: calc(100vh - 110px) !important;
   }
 
   .insights {
