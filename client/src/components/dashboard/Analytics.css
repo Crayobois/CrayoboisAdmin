@@ -60,7 +60,6 @@
   padding: 25px;
   width: calc(100% - 50px);
   flex-grow: 1;
-  height: 150px;
   position: relative;
 }
 
@@ -206,6 +205,10 @@
     margin-right: 12.5px;
     width: max-content;
     border: none;
+  }
+
+  .revenue-canvas {
+    max-height: 350px;
   }
 
   .customers-insights-value {

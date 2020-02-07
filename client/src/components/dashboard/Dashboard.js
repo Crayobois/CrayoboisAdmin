@@ -28,16 +28,26 @@ const Dashboard = props => {
 
   const toggle = () => {
     const elem = document.getElementById("dashboard-left");
+    const l1 = document.getElementById("l1");
+    const l2 = document.getElementById("l2");
+    const l3 = document.getElementById("l3");
     const vw = Math.max(
       document.documentElement.clientWidth,
       window.innerWidth || 0
     );
+
     if (vw <= 1250) {
       if (toggled) {
+        l1.classList.remove("l1");
+        l2.classList.remove("l2");
+        l3.classList.remove("l3");
         elem.style.transform = "translateX(-150%)";
         elem.style.opacity = "0";
         setToggled(false);
       } else {
+        l1.classList.add("l1");
+        l2.classList.add("l2");
+        l3.classList.add("l3");
         elem.style.transform = "translateX(0)";
         elem.style.opacity = "1";
         setToggled(true);
@@ -63,9 +73,9 @@ const Dashboard = props => {
                 toggle();
               }}
             >
-              <span className="line"></span>
-              <span className="line"></span>
-              <span className="line"></span>
+              <span id="l1" className="line"></span>
+              <span id="l2" className="line"></span>
+              <span id="l3" className="line"></span>
             </div>
           </nav>
           <div className="dashboard-left" id="dashboard-left">

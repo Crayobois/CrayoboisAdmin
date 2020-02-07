@@ -15,6 +15,12 @@ const Hardwares = props => {
   const [displayedHaws, setDisplayedHaws] = context.displayedHaws;
   const [type, setType] = useState(null);
 
+  const priceFormatter = new Intl.NumberFormat("fr-CA", {
+    style: "currency",
+    currency: "CAD",
+    minimumFractionDigits: 2
+  });
+
   const changeDisplayedHaws = select => {
     const elem = document.getElementById(select);
     const value = elem.options[elem.selectedIndex].value;
@@ -236,6 +242,9 @@ const Hardwares = props => {
                               </span>
                               <span className="thumbnail-text tag">
                                 {hardware.color}
+                              </span>
+                              <span className="thumbnail-price">
+                                {priceFormatter.format(hardware.price)}
                               </span>
                             </div>
                           </div>

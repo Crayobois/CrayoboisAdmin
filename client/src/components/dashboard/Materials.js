@@ -243,6 +243,9 @@ const Materials = props => {
                               <span className="thumbnail-text tag">
                                 #{material.tag}
                               </span>
+                              <span className="thumbnail-price">
+                                {priceFormatter.format(material.price)}
+                              </span>
                             </div>
                           </div>
                         );
