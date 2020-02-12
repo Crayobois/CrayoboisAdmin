@@ -14,6 +14,7 @@ const Dashboard = props => {
   const loading = context.loading[0];
   const [activeLink, setActiveLink] = useState("dashboard");
   const [toggled, setToggled] = useState(false);
+  const [scroll, setScroll] = context.scroll;
 
   const signingOut = () => {
     context.signout();
@@ -92,10 +93,11 @@ const Dashboard = props => {
                         : "dashboard-link"
                     }
                     onClick={() => {
+                      let d = document.querySelector(".dashboard-right");
+                      d.scrollTo(0, 0);
+                      setScroll(0);
                       setActiveLink("dashboard");
                       toggle();
-                      let d = document.querySelector(".dashboard-right");
-                      d.scollTop = 0;
                     }}
                   >
                     <i
@@ -114,10 +116,11 @@ const Dashboard = props => {
                         : "dashboard-link"
                     }
                     onClick={() => {
+                      let d = document.querySelector(".dashboard-right");
+                      d.scrollTo(0, 0);
+                      setScroll(0);
                       setActiveLink("orders");
                       toggle();
-                      let d = document.querySelector(".dashboard-right");
-                      d.scollTop = 0;
                     }}
                   >
                     <i
@@ -136,10 +139,11 @@ const Dashboard = props => {
                         : "dashboard-link"
                     }
                     onClick={() => {
+                      let d = document.querySelector(".dashboard-right");
+                      d.scrollTo(0, 0);
+                      setScroll(0);
                       setActiveLink("materials");
                       toggle();
-                      let d = document.querySelector(".dashboard-right");
-                      d.scollTop = 0;
                     }}
                   >
                     <i
@@ -158,10 +162,11 @@ const Dashboard = props => {
                         : "dashboard-link"
                     }
                     onClick={() => {
+                      let d = document.querySelector(".dashboard-right");
+                      d.scrollTo(0, 0);
+                      setScroll(0);
                       setActiveLink("hardwares");
                       toggle();
-                      let d = document.querySelector(".dashboard-right");
-                      d.scollTop = 0;
                     }}
                   >
                     <i

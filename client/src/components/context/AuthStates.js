@@ -30,6 +30,7 @@ const AuthStates = props => {
   const [sortedHaws, setSortedHaws] = useState(null);
   const [displayedHaws, setDisplayedHaws] = useState(null);
   const [hawsData, setHawsData] = useState(null);
+  const [scroll, setScroll] = useState(0);
 
   /* chart */
   const [destroy, setDestroy] = useState(false);
@@ -621,7 +622,8 @@ const AuthStates = props => {
         yearly: [yearly, setYearly],
         sortedHaws: [sortedHaws, setSortedHaws],
         displayedHaws: [displayedHaws, setDisplayedHaws],
-        searchOrder: searchOrder
+        searchOrder: searchOrder,
+        scroll: [scroll, setScroll]
       }}
     >
       {props.children}

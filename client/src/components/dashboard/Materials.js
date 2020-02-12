@@ -12,6 +12,7 @@ const Materials = props => {
   const [newMat, setNewMat] = useState(false);
   const [itemImg, setItemImg] = useState(null);
   const [searchRes, setSearchRes] = context.searchRes;
+  const [scroll, setScroll] = context.scroll;
 
   const priceFormatter = new Intl.NumberFormat("fr-CA", {
     style: "currency",
@@ -20,10 +21,10 @@ const Materials = props => {
   });
 
   const search = id => {
-      const input = document.getElementById(id).value;
-      if (input != "") {
-        context.search(input);
-      }
+    const input = document.getElementById(id).value;
+    if (input != "") {
+      context.search(input);
+    }
   };
 
   const addNewItem = () => {
@@ -62,6 +63,9 @@ const Materials = props => {
   };
 
   useEffect(() => {
+    const d = document.querySelector(".dashboard-right");
+    d.scrollTo(0, scroll);
+
     if (!materials) {
       context.getMaterials();
     }
@@ -80,7 +84,7 @@ const Materials = props => {
     if (searchRes) {
       setFocusedMaterial(searchRes);
     }
-  }, [newMat, searchRes]);
+  }, [newMat, searchRes, focusedMaterial]);
 
   return (
     <React.Fragment>
@@ -203,7 +207,9 @@ const Materials = props => {
                     />
                     <button
                       className="filter-btn search-btn"
-                      onClick={() => {search("mat-search-input")}}
+                      onClick={() => {
+                        search("mat-search-input");
+                      }}
                     >
                       <i className="fas fa-search"></i>
                     </button>
@@ -230,6 +236,10 @@ const Materials = props => {
                             className="thumbnail"
                             onClick={() => {
                               setFocusedMaterial(material);
+                              const d = document.querySelector(
+                                ".dashboard-right"
+                              );
+                              setScroll(d.scrollTop);
                             }}
                           >
                             <img

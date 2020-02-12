@@ -14,6 +14,7 @@ const Hardwares = props => {
   const [sortedHaws, setSortedHaws] = context.sortedHaws;
   const [displayedHaws, setDisplayedHaws] = context.displayedHaws;
   const [type, setType] = useState(null);
+  const [scroll, setScroll] = context.scroll;
 
   const priceFormatter = new Intl.NumberFormat("fr-CA", {
     style: "currency",
@@ -66,6 +67,9 @@ const Hardwares = props => {
   };
 
   useEffect(() => {
+    const d = document.querySelector(".dashboard-right");
+    d.scrollTo(0, scroll);
+
     if (!hardwares) {
       context.getHardwares();
     }
@@ -230,6 +234,10 @@ const Hardwares = props => {
                             className="thumbnail"
                             onClick={() => {
                               setFocusedHardware(hardware);
+                              const d = document.querySelector(
+                                ".dashboard-right"
+                              );
+                              setScroll(d.scrollTop);
                             }}
                           >
                             <img

@@ -9,6 +9,7 @@ const Orders = props => {
   const displayedList = context.displayedList[0];
   const generateNewList = context.generateNewList;
   const [focusedOrder, setFocusedOrder] = context.focusedOrder;
+  const [scroll, setScroll] = context.scroll;
 
   const newList = () => {
     const stateSelect = document.querySelector("#orders-state");
@@ -52,10 +53,13 @@ const Orders = props => {
   });
 
   useEffect(() => {
+    const d = document.querySelector(".dashboard-right");
+    d.scrollTo(0, scroll);
     if (!displayedList) {
       context.getOrders();
     }
-  }, []);
+
+  }, [focusedOrder]);
 
   return (
     <React.Fragment>
@@ -131,6 +135,8 @@ const Orders = props => {
                       className="order"
                       onClick={() => {
                         setFocusedOrder(order);
+                        const d = document.querySelector(".dashboard-right");
+                        setScroll(d.scrollTop);
                       }}
                       key={order.id}
                     >
