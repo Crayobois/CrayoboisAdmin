@@ -124,12 +124,13 @@
 
 .overlay {
   position: fixed;
-  z-index: 1000;
-  background-color: rgba(41, 53, 61, 0.432);
+  z-index: 500;
+  background-color: rgba(41, 53, 61, 0.274);
   width: 200vw;
   height: 200vh;
   top: 0;
   left: 0;
+  pointer-events: none;
   cursor: default;
   opacity: 1;
   transform: translate(-50%, -50%);

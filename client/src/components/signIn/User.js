@@ -13,7 +13,7 @@ const User = props => {
       if (val) {
         context.getUser();
       } else {
-        props.history.push("/admin/login");
+        props.history.push("/login");
       }
     });
   }, []);

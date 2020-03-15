@@ -7,6 +7,7 @@ import Orders from "./Orders";
 import Materials from "./Materials";
 import Hardwares from "./Hardwares";
 import Analytics from "./Analytics";
+import Gallery from "./Gallery";
 
 const Dashboard = props => {
   const context = useContext(AuthContext);
@@ -18,7 +19,7 @@ const Dashboard = props => {
 
   const signingOut = () => {
     context.signout();
-    props.history.push("/admin/login");
+    props.history.push("/login");
   };
 
   window.addEventListener("resize", () => {
@@ -28,21 +29,22 @@ const Dashboard = props => {
   });
 
   const toggle = () => {
-    const elem = document.getElementById("dashboard-left");
-    const l1 = document.getElementById("l1");
-    const l2 = document.getElementById("l2");
-    const l3 = document.getElementById("l3");
     const vw = Math.max(
       document.documentElement.clientWidth,
       window.innerWidth || 0
     );
 
     if (vw <= 1250) {
+      const elem = document.getElementById("dashboard-left");
+      const l1 = document.getElementById("l1");
+      const l2 = document.getElementById("l2");
+      const l3 = document.getElementById("l3");
+
       if (toggled) {
         l1.classList.remove("l1");
         l2.classList.remove("l2");
         l3.classList.remove("l3");
-        elem.style.transform = "translateX(-150%)";
+        elem.style.transform = "translateX(100%)";
         elem.style.opacity = "0";
         setToggled(false);
       } else {
@@ -178,6 +180,29 @@ const Dashboard = props => {
                     ></i>
                     Matériels
                   </li>
+                  <li
+                    className={
+                      activeLink === "gallery"
+                        ? "dashboard-link active-link"
+                        : "dashboard-link"
+                    }
+                    onClick={() => {
+                      let d = document.querySelector(".dashboard-right");
+                      d.scrollTo(0, 0);
+                      setScroll(0);
+                      setActiveLink("gallery");
+                      toggle();
+                    }}
+                  >
+                    <i
+                      className={
+                        activeLink === "gallery"
+                          ? "fas fa-camera-retro dashboard-nav-icon active-link-icon"
+                          : "fas fa-camera-retro dashboard-nav-icon"
+                      }
+                    ></i>
+                    Galerie
+                  </li>
                 </ul>
               </div>
               <div className="dashboard-logout">
@@ -193,10 +218,13 @@ const Dashboard = props => {
             </div>
           </div>
           <div className="dashboard-right">
+          
+            {toggled ? (<div className="overlay"></div>) : <React.Fragment />}
             {activeLink === "orders" ? <Orders /> : <React.Fragment />}
             {activeLink === "materials" ? <Materials /> : <React.Fragment />}
             {activeLink === "hardwares" ? <Hardwares /> : <React.Fragment />}
             {activeLink === "dashboard" ? <Analytics /> : <React.Fragment />}
+            {activeLink === "gallery" ? <Gallery /> : <React.Fragment />}
           </div>
         </section>
       ) : (

@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import AuthContext from "./AuthContext";
 import * as firebase from "firebase";
-import Materials from "./TEMPjson/mats.json";
-import Hardwares from "./TEMPjson/haws.json";
-//const uuidv4 = require("uuid/v4");
 
 const AuthStates = props => {
   const [initializedFirebase, setInitializedFirebase] = useState(null);
@@ -43,6 +40,7 @@ const AuthStates = props => {
     authDomain: "crayobois-fe722.firebaseapp.com",
     databaseURL: "https://crayobois-fe722.firebaseio.com",
     projectId: "crayobois-fe722",
+    storageBucket: "crayobois-fe722.appspot.com",
     appId: "1:410478848299:web:b2f130cd32dba774fcbd6e",
     measurementId: "G-XHQN6JX1WG"
   };
@@ -58,6 +56,8 @@ const AuthStates = props => {
   const auth = firebase.auth();
   const db = firebase.firestore();
   const [isAuth, setIsAuth] = useState(auth.currentUser);
+  const storage = firebase.storage();
+
 
   // check login status
   const checkIfLoggedIn = () => {
@@ -581,6 +581,29 @@ const AuthStates = props => {
     }
   };
 
+  const uploadFile = file => {
+    const uploadRef = storage.ref(`gallery/${file.name}`)
+    const uploadTask = uploadRef.put(file);
+    uploadTask.on('state_changed', 
+    //progress
+    (snapshot) => {
+      let rate = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log(Number.parseInt(rate));
+    },
+    // error
+    (err) => {
+      alert(err);
+    },
+    // complete
+    (success) => {
+      alert("success");
+      uploadRef.getDownloadURL().then(url => {
+        console.log(url);
+      })
+    }
+    );
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -623,7 +646,8 @@ const AuthStates = props => {
         sortedHaws: [sortedHaws, setSortedHaws],
         displayedHaws: [displayedHaws, setDisplayedHaws],
         searchOrder: searchOrder,
-        scroll: [scroll, setScroll]
+        scroll: [scroll, setScroll],
+        uploadFile: uploadFile
       }}
     >
       {props.children}
