@@ -42,7 +42,7 @@ const Gallery = props => {
                   </span>
                 </div>
                 <section className="gallery-section">
-                {gallery.length === 0 ? <Spinner /> : (
+                {gallery.length === 0 ? <React.Fragment /> : (
                     gallery.map((img, index) => {
                     return(
                         <div className="image-container" key={index}>
