@@ -26,8 +26,6 @@ const FocusedMaterial = props => {
         context.deleteItem(mat);
         props.resetFocus();
       }
-    } else {
-      return null;
     }
   };
 

@@ -45,6 +45,7 @@ nav {
   width: max-content;
   height: calc(100vh - 100px);
   pointer-events: all;
+  z-index: 600;
 }
 
 .dashboard-logo-container {

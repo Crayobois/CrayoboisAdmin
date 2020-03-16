@@ -216,10 +216,10 @@ const Dashboard = props => {
                 </button>
               </div>
             </div>
+            {toggled ? (<span className="overlay" onClick={() => {toggle()}}></span>) : <React.Fragment />}
+
           </div>
           <div className="dashboard-right">
-          
-            {toggled ? (<div className="overlay"></div>) : <React.Fragment />}
             {activeLink === "orders" ? <Orders /> : <React.Fragment />}
             {activeLink === "materials" ? <Materials /> : <React.Fragment />}
             {activeLink === "hardwares" ? <Hardwares /> : <React.Fragment />}

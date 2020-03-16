@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AuthContext from "./AuthContext";
 import * as firebase from "firebase";
+import { v4 as uuidv4 } from 'uuid';
 
 const AuthStates = props => {
   const [initializedFirebase, setInitializedFirebase] = useState(null);
@@ -33,6 +34,9 @@ const AuthStates = props => {
   const [destroy, setDestroy] = useState(false);
   const [activeSet, setActiveSet] = useState(null);
   const [yearly, setYearly] = useState(false);
+
+  /* gallery */
+  const [gallery, setGallery] = useState([]);
 
   // firebase config
   const firebaseConfig = {
@@ -581,28 +585,75 @@ const AuthStates = props => {
     }
   };
 
-  const uploadFile = file => {
-    const uploadRef = storage.ref(`gallery/${file.name}`)
+  const uploadFile = (file, description) => {
+    const path = `gallery/${file.name}`;
+    const uploadRef = storage.ref(path);
     const uploadTask = uploadRef.put(file);
+    
     uploadTask.on('state_changed', 
     //progress
     (snapshot) => {
       let rate = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log(Number.parseInt(rate));
     },
     // error
     (err) => {
-      alert(err);
+      alert("Une erreur s'est produite.");
     },
     // complete
-    (success) => {
-      alert("success");
+    () => {
       uploadRef.getDownloadURL().then(url => {
-        console.log(url);
+        addImageToGallery(path, url, description);
       })
     }
     );
   };
+
+  const addImageToGallery = (ref, url, description) => {
+    const id = uuidv4();
+    let image = {
+      ref: ref,
+      url: url,
+      _id: id,
+      description: description
+    }
+    db.collection("gallery").doc(id).set(image).then(() => {
+      let newImages = [...gallery];
+      newImages.push(image);
+      setGallery(newImages);
+    }).catch((err) => {
+      alert("Une erreur s'est produite.");
+      console.log(err);
+    });
+  }
+
+  const getGallery = () => {
+    db.collection("gallery").get().then(snapshot => {
+      let docs = [];
+      snapshot.forEach(doc => {
+        docs.push(doc.data());
+      })
+      setGallery(docs);
+    });
+
+  }
+
+  const deleteImage = (path, id) => {
+    const deleteRef = storage.ref(path);
+    deleteRef.delete().then(() => {
+      db.collection("gallery").doc(id).delete().then(() => {
+        let newImages = [...gallery];
+        for (let i=0; i<newImages.length; i++) {
+          if (newImages[i]._id === id) {
+            newImages.splice(i, 1);
+            break;
+          }
+        }
+        setGallery(newImages);
+      });
+    }).catch(err => {
+      alert("Une erreur s'est produite.");
+    })
+  }
 
   return (
     <AuthContext.Provider
@@ -647,7 +698,10 @@ const AuthStates = props => {
         displayedHaws: [displayedHaws, setDisplayedHaws],
         searchOrder: searchOrder,
         scroll: [scroll, setScroll],
-        uploadFile: uploadFile
+        uploadFile: uploadFile,
+        gallery: gallery,
+        getGallery: getGallery,
+        deleteImage: deleteImage
       }}
     >
       {props.children}

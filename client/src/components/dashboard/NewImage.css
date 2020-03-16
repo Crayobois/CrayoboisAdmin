@@ -1,0 +1,51 @@
+input[type="file"] {
+    display: none;
+}
+
+.img-preview-header {
+    color: var(--black);
+    font-weight: 600;
+    font-size: 1.15rem;
+}
+
+.new-image-preview-top {
+    width: calc(100% - 50px);
+    height: max-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;    
+}
+
+.upload-img {
+    margin: 0 !important;
+}
+
+.new-image-content {
+    padding: 0 25px;  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 50px);
+}
+
+.preview-image {
+    margin-top: 25px;
+    margin-bottom: 0;
+}
+
+.preview-waiting {  
+    background-color: var(--gray);
+    height: 25vh;
+    width: 100%;
+}
+
+.gray {
+    color: var(--input_text);
+    font-size: 2rem !important;
+}
+
+.large-input{
+    width: calc(100% - 25px) !important;
+    margin-left: 0 !important;
+}
