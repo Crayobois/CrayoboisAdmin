@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  align-items: center;
   min-height: calc(100vh - 100px);
   background-color: #fff;
   border-radius: 8px;
@@ -124,8 +125,8 @@
 
 .overlay {
   position: fixed;
-  z-index: 1000;
-  background-color: rgba(41, 53, 61, 0.432);
+  z-index: 500;
+  background-color: rgba(41, 53, 61, 0.274);
   width: 200vw;
   height: 200vh;
   top: 0;
