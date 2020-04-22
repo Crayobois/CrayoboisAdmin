@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import User from "./components/signIn/User";
 import SignIn from "./components/signIn/SignIn";
@@ -8,20 +8,20 @@ const RouterComponent = () => {
     <React.Fragment>
       <Router>
         <Switch>
-        <Route
+          <Route
             path="/"
             exact
-            render={props => <User {...props} redirect="/login"/>}
+            render={(props) => <User {...props} redirect="/login" />}
           />
           <Route
             path="/login"
             exact
-            render={props => <SignIn {...props} redirect={null}/>}
+            render={(props) => <SignIn {...props} redirect={null} />}
           />
           <Route
             path="/admin/dashboard"
             exact
-            render={props => <User {...props} redirect={null}/>}
+            render={(props) => <User {...props} redirect={null} />}
           />
           <Route
             path="/"
